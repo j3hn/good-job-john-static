@@ -37,6 +37,9 @@ Prettier now parses every page. Vendor/minified assets are excluded via
   `library/images/icon.svg`, which were never captured in the original export. The
   working favicons under `uploads/2019/03/` are used instead; add the missing files or
   drop the stale `<link>` tags when convenient.
-- Each page still carries WordPress block-editor CSS (the large inline `<style>` block
-  and `includes/css/dist/block-library/style.min.css`). It's harmless but unused by this
-  site and can be pruned later.
+- The WordPress block-editor CSS has been pruned: the `:root` preset palette (colors,
+  gradients, shadows, spacing) and the unused `has-*-color`/`gradient`/`border` rules
+  were removed. Only the rules the pages actually use remain (block layout/columns,
+  spacers, buttons, quotes, separators, and `has-small-font-size`, whose one preset value
+  is now inlined). The `block-library/style.min.css` link is kept — some pages use its
+  block classes.
