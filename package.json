@@ -1,0 +1,14 @@
+{
+  "name": "good-job-john-static",
+  "version": "1.0.0",
+  "description": "Good job. — static site",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "check": "prettier --check .",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.5"
+  }
+}

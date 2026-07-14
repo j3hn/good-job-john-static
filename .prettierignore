@@ -1,0 +1,8 @@
+# Vendor / third-party assets — not ours to format
+**/*.min.js
+**/*.min.css
+includes/css/dist/
+theme/goodjob/library/css/gutenberg.css
+
+# Binary uploads
+uploads/
