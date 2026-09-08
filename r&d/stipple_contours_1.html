@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stipple Contours</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --line:#262626; --txt:#d8d8d8; --mut:#777; --accent:#e8e8e8; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--txt);
+        font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:12px;
+        display:flex; min-height:100vh; }
+  #stage{ flex:1; display:flex; align-items:center; justify-content:center; padding:16px; }
+  #canvas-container canvas{ display:block; box-shadow:0 0 40px rgba(0,0,0,.6); }
+  #panel{ width:280px; background:var(--panel); border-left:1px solid var(--line);
+          padding:18px 16px; overflow-y:auto; height:100vh; }
+  h1{ font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--mut);
+      margin:0 0 16px; font-weight:600; }
+  .grp{ margin-bottom:14px; }
+  .grp label{ display:flex; justify-content:space-between; color:var(--mut);
+              text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; font-size:10px; }
+  .grp label .v{ color:var(--accent); }
+  input[type=range]{ width:100%; -webkit-appearance:none; height:2px; background:var(--line);
+                     outline:none; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:12px; height:12px;
+     border-radius:50%; background:var(--accent); cursor:pointer; }
+  .row{ display:flex; gap:8px; }
+  .row > *{ flex:1; }
+  input[type=number]{ background:#000; border:1px solid var(--line); color:var(--txt);
+     padding:6px; font-family:inherit; font-size:11px; width:100%; }
+  button{ background:#1d1d1d; border:1px solid var(--line); color:var(--txt);
+     padding:8px 6px; font-family:inherit; font-size:10px; letter-spacing:.06em;
+     text-transform:uppercase; cursor:pointer; }
+  button:hover{ background:#2a2a2a; border-color:#3a3a3a; }
+  .sep{ border:0; border-top:1px solid var(--line); margin:16px 0; }
+  .toggle{ display:flex; align-items:center; gap:8px; cursor:pointer; color:var(--mut);
+     text-transform:uppercase; letter-spacing:.06em; font-size:10px; }
+  .toggle input{ accent-color:var(--accent); }
+</style>
+</head>
+<body>
+  <div id="stage"><div id="canvas-container"></div></div>
+  <div id="panel">
+    <h1>Stipple Contours</h1>
+
+    <div class="grp">
+      <label>Seed <span class="v" id="seed-v">1</span></label>
+      <div class="row" style="margin-bottom:6px">
+        <button onclick="step(-1)">‹ Prev</button>
+        <button onclick="step(1)">Next ›</button>
+        <button onclick="rnd()">Rnd</button>
+      </div>
+      <div class="row">
+        <input type="number" id="seed-in" value="1">
+        <button onclick="jump()">Go</button>
+      </div>
+    </div>
+
+    <hr class="sep">
+
+    <div class="grp"><label>Curves <span class="v" id="curves-v">4</span></label>
+      <input type="range" id="curves" min="1" max="12" step="1" value="4"></div>
+    <div class="grp"><label>Frequency <span class="v" id="freq-v">2.0</span></label>
+      <input type="range" id="freq" min="0.3" max="6" step="0.1" value="2"></div>
+    <div class="grp"><label>Amplitude <span class="v" id="amp-v">90</span></label>
+      <input type="range" id="amp" min="0" max="220" step="2" value="90"></div>
+    <div class="grp"><label>Phase Drift <span class="v" id="drift-v">0.6</span></label>
+      <input type="range" id="drift" min="0" max="3.14" step="0.05" value="0.6"></div>
+
+    <hr class="sep">
+
+    <div class="grp"><label>Falloff σ <span class="v" id="sigma-v">34</span></label>
+      <input type="range" id="sigma" min="4" max="160" step="1" value="34"></div>
+    <div class="grp"><label>Density <span class="v" id="dens-v">36000</span></label>
+      <input type="range" id="dens" min="3000" max="120000" step="1000" value="36000"></div>
+    <div class="grp"><label>Dot Size <span class="v" id="dot-v">1.4</span></label>
+      <input type="range" id="dot" min="0.5" max="4" step="0.1" value="1.4"></div>
+    <div class="grp"><label>Edge Sharpness <span class="v" id="gam-v">1.4</span></label>
+      <input type="range" id="gam" min="0.3" max="4" step="0.1" value="1.4"></div>
+
+    <hr class="sep">
+
+    <div class="grp"><label class="toggle"><input type="checkbox" id="oneside" checked> One-sided band</label></div>
+    <div class="grp"><label class="toggle"><input type="checkbox" id="stroke" checked> Draw contour line</label></div>
+    <div class="grp"><label class="toggle"><input type="checkbox" id="instr" checked> Instrument readout</label></div>
+
+    <hr class="sep">
+    <div class="row" style="margin-bottom:6px">
+      <button onclick="reset()">Reset</button>
+      <button onclick="save()">PNG</button>
+    </div>
+  </div>
+
+<script>
+const W = 900, H = 900;
+let P = {};
+function readUI(){
+  P.seed   = parseInt(document.getElementById('seed-in').value)||1;
+  P.curves = +curves.value;
+  P.freq   = +freq.value;
+  P.amp    = +amp.value;
+  P.drift  = +drift.value;
+  P.sigma  = +sigma.value;
+  P.dens   = +dens.value;
+  P.dot    = +dot.value;
+  P.gam    = +gam.value;
+  P.oneside= oneside.checked;
+  P.stroke = strokeC.checked;   // note: id 'stroke' grabbed below
+  P.instr  = instr.checked;
+}
+// id helpers
+const curves=el('curves'),freq=el('freq'),amp=el('amp'),drift=el('drift'),
+      sigma=el('sigma'),dens=el('dens'),dot=el('dot'),gam=el('gam'),
+      oneside=el('oneside'),strokeC=el('stroke'),instr=el('instr');
+function el(id){return document.getElementById(id);}
+
+// each curve: x(y) = baseX + amp * sin(freq * t + phase),  t = y/H normalised *TAU
+let lines=[];
+function buildLines(){
+  randomSeed(P.seed); noiseSeed(P.seed);
+  lines=[];
+  const margin = 120, span = W - margin*1.2;
+  for(let i=0;i<P.curves;i++){
+    const baseX = margin + span*(i+0.5)/P.curves + random(-30,30);
+    lines.push({
+      baseX,
+      amp: P.amp*(0.7+random()*0.6),
+      freq: P.freq*(0.85+random()*0.3),
+      phase: random(TWO_PI),
+      // each curve drifts its phase down its length for organic non-parallel feel
+      drift: random(-P.drift,P.drift),
+      side: P.oneside ? (random()<0.5?-1:1) : 0
+    });
+  }
+}
+function curveX(L,y){
+  const t = (y/H)*TWO_PI;
+  return L.baseX + L.amp*Math.sin(L.freq*t + L.phase + L.drift*t);
+}
+function curveSlope(L,y){ // dx/dy, for perpendicular-distance correction
+  const t=(y/H)*TWO_PI, k=(TWO_PI/H);
+  return L.amp*Math.cos(L.freq*t+L.phase+L.drift*t)*(L.freq+L.drift)*k;
+}
+
+function regen(){ readUI(); buildLines(); redraw(); }
+
+function setup(){
+  const c=createCanvas(W,H); c.parent('canvas-container');
+  pixelDensity(1); noLoop(); regen();
+}
+
+function draw(){
+  readUI(); randomSeed(P.seed);
+  background(8);
+
+  // --- stipple field ---
+  noStroke(); fill(232);
+  for(let n=0;n<P.dens;n++){
+    const px=random(W), py=random(H);
+    // nearest curve by horizontal gap
+    let best=1e9, bestSigned=0, bestSide=0;
+    for(const L of lines){
+      const cx=curveX(L,py);
+      const dxh=px-cx;
+      const m=curveSlope(L,py);
+      const perp=Math.abs(dxh)/Math.sqrt(1+m*m); // perpendicular distance
+      if(perp<best){ best=perp; bestSigned=dxh; bestSide=L.side; }
+    }
+    // one-sided rejection
+    if(bestSide!==0){
+      const onChosen = (bestSigned*bestSide)>0;
+      if(!onChosen) continue;
+    }
+    let prob=Math.exp(-best/P.sigma);
+    prob=Math.pow(prob,P.gam);
+    if(random()<prob){
+      const s=P.dot*(0.6+random()*0.8);
+      circle(px,py,s);
+    }
+  }
+
+  // --- contour strokes ---
+  if(P.stroke){
+    stroke(235); strokeWeight(1); noFill();
+    for(const L of lines){
+      beginShape();
+      for(let y=-4;y<=H+4;y+=3) vertex(curveX(L,y),y);
+      endShape();
+    }
+  }
+
+  if(P.instr) drawInstrument();
+}
+
+function drawInstrument(){
+  push();
+  stroke(150); strokeWeight(1); fill(150);
+  textFont('monospace'); textSize(9);
+  const ax=46;
+  line(ax,40,ax,H-40);
+  // ticks
+  for(let y=60;y<H-40;y+=18){
+    const major=((y-60)%72===0);
+    line(ax, y, ax+(major?9:4), y);
+  }
+  // labels (rotated)
+  noStroke();
+  push(); translate(ax-14, H*0.42); rotate(-HALF_PI);
+  text('RADICALLY SCALED PARAMETERS',0,0); pop();
+  push(); translate(ax-14, H*0.66); rotate(-HALF_PI);
+  text('CENTER',0,0); pop();
+  // a couple of value callouts near curves
+  randomSeed(P.seed+777);
+  for(let i=0;i<min(3,lines.length);i++){
+    const L=lines[i], y=H*(0.25+0.22*i), x=curveX(L,y);
+    stroke(170); line(x-26,y,x-14,y); noStroke();
+    text((random(0.1,0.9)).toFixed(4)+'A', x+6, y+3);
+  }
+  pop();
+}
+
+/* ---- UI plumbing ---- */
+const sliders=[['curves','curves-v',v=>v],['freq','freq-v',v=>(+v).toFixed(1)],
+  ['amp','amp-v',v=>v],['drift','drift-v',v=>(+v).toFixed(2)],
+  ['sigma','sigma-v',v=>v],['dens','dens-v',v=>v],['dot','dot-v',v=>(+v).toFixed(1)],
+  ['gam','gam-v',v=>(+v).toFixed(1)]];
+sliders.forEach(([id,vid,fmt])=>{
+  const e=el(id); e.addEventListener('input',()=>{ el(vid).textContent=fmt(e.value); regen(); });
+});
+[oneside,strokeC,instr].forEach(c=>c.addEventListener('change',regen));
+
+function syncSeed(){ el('seed-v').textContent=P.seed||el('seed-in').value; }
+function step(d){ el('seed-in').value=(parseInt(el('seed-in').value)||1)+d; syncSeed(); regen(); el('seed-v').textContent=el('seed-in').value; }
+function rnd(){ el('seed-in').value=Math.floor(Math.random()*99999); el('seed-v').textContent=el('seed-in').value; regen(); }
+function jump(){ el('seed-v').textContent=el('seed-in').value; regen(); }
+function save(){ saveCanvas('stipple-contours-'+(el('seed-in').value),'png'); }
+function reset(){
+  const d={curves:4,freq:2,amp:90,drift:0.6,sigma:34,dens:36000,dot:1.4,gam:1.4};
+  for(const k in d){ const e=el(k); if(e){ e.value=d[k]; e.dispatchEvent(new Event('input')); } }
+  oneside.checked=true; strokeC.checked=true; instr.checked=true; regen();
+}
+</script>
+</body>
+</html>

@@ -1,509 +1,585 @@
 <!doctype html>
-<html class="no-js" itemscope itemtype="https://schema.org/Website" lang="en">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Designer & Agentic Developer — John Basham</title>
     <meta
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      name="viewport"
+      name="description"
+      content="John Basham is a Product Designer and Agentic Developer. A journal of local-first products, design and development."
     />
-    <link href="/theme/goodjob/favicon.png" rel="icon" />
-    <link
-      href="/theme/goodjob/library/images/apple-touch-icon.png"
-      rel="apple-touch-icon"
-    />
-    <link
-      color="#0088cc"
-      href="/theme/goodjob/library/images/icon.svg"
-      rel="mask-icon"
-    />
-    <title>Good job.</title>
-    <meta content="max-image-preview:large" name="robots" />
-    <link
-      href="/includes/css/dist/block-library/style.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      .wp-block-audio :where(figcaption) {
-        color: #555;
-        font-size: 13px;
-        text-align: center;
-      }
-      .is-dark-theme .wp-block-audio :where(figcaption) {
-        color: #fffa6;
-      }
-      .wp-block-audio {
-        margin: 0 0 1em;
-      }
-      .wp-block-code {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-family: Menlo, Consolas, monaco, monospace;
-        padding: 0.8em 1em;
-      }
-      .wp-block-embed :where(figcaption) {
-        color: #555;
-        font-size: 13px;
-        text-align: center;
-      }
-      .is-dark-theme .wp-block-embed :where(figcaption) {
-        color: #fffa6;
-      }
-      .wp-block-embed {
-        margin: 0 0 1em;
-      }
-      .blocks-gallery-caption {
-        color: #555;
-        font-size: 13px;
-        text-align: center;
-      }
-      .is-dark-theme .blocks-gallery-caption {
-        color: #fffa6;
-      }
-      :root :where(.wp-block-image figcaption) {
-        color: #555;
-        font-size: 13px;
-        text-align: center;
-      }
-      .is-dark-theme :root :where(.wp-block-image figcaption) {
-        color: #fffa6;
-      }
-      .wp-block-image {
-        margin: 0 0 1em;
-      }
-      .wp-block-pullquote {
-        border-bottom: 4px solid;
-        border-top: 4px solid;
-        color: currentColor;
-        margin-bottom: 1.75em;
-      }
-      .wp-block-pullquote cite,
-      .wp-block-pullquote footer,
-      .wp-block-pullquote__citation {
-        color: currentColor;
-        font-size: 0.8125em;
-        font-style: normal;
-        text-transform: uppercase;
-      }
-      .wp-block-quote {
-        border-left: 0.25em solid;
-        margin: 0 0 1.75em;
-        padding-left: 1em;
-      }
-      .wp-block-quote cite,
-      .wp-block-quote footer {
-        color: currentColor;
-        font-size: 0.8125em;
-        font-style: normal;
-        position: relative;
-      }
-      .wp-block-quote.has-text-align-right {
-        border-left: none;
-        border-right: 0.25em solid;
-        padding-left: 0;
-        padding-right: 1em;
-      }
-      .wp-block-quote.has-text-align-center {
-        border: 0;
-        padding-left: 0;
-      }
-      .wp-block-quote.is-large,
-      .wp-block-quote.is-style-large,
-      .wp-block-quote.is-style-plain {
-        border: 0;
-      }
-      .wp-block-search .wp-block-search__label {
-        font-weight: 700;
-      }
-      .wp-block-search__button {
-        border: 1px solid #ccc;
-        padding: 0.375em 0.625em;
-      }
-      :where(.wp-block-group.has-background) {
-        padding: 1.25em 2.375em;
-      }
-      .wp-block-separator.has-css-opacity {
-        opacity: 0.4;
-      }
-      .wp-block-separator {
-        border: 0;
-        border-bottom: 2px solid;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .wp-block-separator.has-alpha-channel-opacity {
-        opacity: 1;
-      }
-      .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
-        width: 100px;
-      }
-      .wp-block-separator.has-background:not(.is-style-dots) {
-        border-bottom: none;
-        height: 1px;
-      }
-      .wp-block-separator.has-background:not(.is-style-wide):not(
-          .is-style-dots
-        ) {
-        height: 2px;
-      }
-      .wp-block-table {
-        margin: 0 0 1em;
-      }
-      .wp-block-table td,
-      .wp-block-table th {
-        word-break: normal;
-      }
-      .wp-block-table :where(figcaption) {
-        color: #555;
-        font-size: 13px;
-        text-align: center;
-      }
-      .is-dark-theme .wp-block-table :where(figcaption) {
-        color: #fffa6;
-      }
-      .wp-block-video :where(figcaption) {
-        color: #555;
-        font-size: 13px;
-        text-align: center;
-      }
-      .is-dark-theme .wp-block-video :where(figcaption) {
-        color: #fffa6;
-      }
-      .wp-block-video {
-        margin: 0 0 1em;
-      }
-      :root :where(.wp-block-template-part.has-background) {
-        margin-bottom: 0;
-        margin-top: 0;
-        padding: 1.25em 2.375em;
-      }
-    </style>
-    <style>
-      /*! This file is auto-generated */
-      .wp-block-button__link {
-        color: #fff;
-        background-color: #32373c;
-        border-radius: 9999px;
-        box-shadow: none;
-        text-decoration: none;
-        padding: calc(0.667em+2px) calc(1.333em+2px);
-        font-size: 1.125em;
-      }
-      .wp-block-file__button {
-        background: #32373c;
-        color: #fff;
-        text-decoration: none;
-      }
-    </style>
-    <style>
-      :where(.is-layout-flex) {
-        gap: 0.5em;
-      }
-      :where(.is-layout-grid) {
-        gap: 0.5em;
-      }
-      body .is-layout-flex {
-        display: flex;
-      }
-      .is-layout-flex {
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .is-layout-flex > :is(*, div) {
-        margin: 0;
-      }
-      body .is-layout-grid {
-        display: grid;
-      }
-      .is-layout-grid > :is(*, div) {
-        margin: 0;
-      }
-      :where(.wp-block-columns.is-layout-flex) {
-        gap: 2em;
-      }
-      :where(.wp-block-columns.is-layout-grid) {
-        gap: 2em;
-      }
-      :where(.wp-block-post-template.is-layout-flex) {
-        gap: 1.25em;
-      }
-      :where(.wp-block-post-template.is-layout-grid) {
-        gap: 1.25em;
-      }
-      .has-small-font-size {
-        font-size: 13px !important;
-      }
-      .has-medium-font-size {
-        font-size: 20px !important;
-      }
-      .has-large-font-size {
-        font-size: 36px !important;
-      }
-      .has-x-large-font-size {
-        font-size: 42px !important;
-      }
-      :where(.wp-block-post-template.is-layout-flex) {
-        gap: 1.25em;
-      }
-      :where(.wp-block-post-template.is-layout-grid) {
-        gap: 1.25em;
-      }
-      :where(.wp-block-columns.is-layout-flex) {
-        gap: 2em;
-      }
-      :where(.wp-block-columns.is-layout-grid) {
-        gap: 2em;
-      }
-      :root :where(.wp-block-pullquote) {
-        font-size: 1.5em;
-        line-height: 1.6;
-      }
-    </style>
-    <link href="/theme/goodjob/library/css/style.css" rel="stylesheet" />
-    <script src="/includes/js/jquery/jquery.min.js"></script>
-    <link href="/" rel="canonical" />
-    <link href="/" rel="shortlink" />
-    <link
-      href="/uploads/2019/03/cropped-logo-heart-32x32.png"
-      rel="icon"
-      sizes="32x32"
-    />
-    <link
-      href="/uploads/2019/03/cropped-logo-heart-192x192.png"
-      rel="icon"
-      sizes="192x192"
-    />
-    <link
-      href="/uploads/2019/03/cropped-logo-heart-180x180.png"
-      rel="apple-touch-icon"
+    <meta name="theme-color" content="#f7f7f2" />
+    <meta
+      property="og:title"
+      content="Product Designer & Agentic Developer — John Basham"
     />
     <meta
-      content="/uploads/2019/03/cropped-logo-heart-270x270.png"
-      name="msapplication-TileImage"
+      property="og:description"
+      content="John Basham is a Product Designer and Agentic Developer. A journal of local-first products, design and development."
     />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://goodjobjohn.com/" />
+    <link rel="icon" href="/uploads/2019/03/cropped-logo-heart-32x32.png" />
+    <link rel="stylesheet" href="/assets/journal.css?v=3" />
+    <script src="/assets/journal.js" defer></script>
   </head>
-  <body
-    class="__trashed home page page-__trashed page-home-php page-id-14 page-template page-template-page-home page-template-page-home-php wp-custom-logo"
-    itemscope
-    itemtype="https://schema.org/WebPage"
-  >
-    <header
-      class="header"
-      id="header"
-      itemscope
-      itemtype="https://schema.org/WPHeader"
-      role="banner"
-    >
-      <div
-        class="preload"
-        id="bloginfo"
-        itemscope
-        itemtype="https://schema.org/Organization"
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="identity" href="/" aria-label="John Basham, home"
+        ><img
+          class="site-logo"
+          src="/assets/logo.svg"
+          alt="Good job."
+          width="190"
+          height="65"
+        /><span>Product Designer &amp; Agentic Developer</span></a
       >
-        <div id="logo" itemprop="logo">
-          <a href="/" itemprop="url" rel="nofollow" title="Good job."></a
-          ><a aria-current="page" class="custom-logo-link" href="/" rel="home"
-            ><img
-              alt="Good job."
-              class="custom-logo"
-              decoding="async"
-              height="90"
-              src="/uploads/2021/10/cropped-logo-heart-90px.png"
-              width="90"
-          /></a>
-        </div>
-        <div class="site-title" id="site-title" itemprop="name">
-          <a href="/" itemprop="url" rel="nofollow" title="Good job.">
-            Good job.
-          </a>
-        </div>
-      </div>
-      <nav
-        aria-label="Primary Menu "
-        class="nav-container"
-        itemscope
-        itemtype="https://schema.org/SiteNavigationElement"
-        role="navigation"
-      >
-        <h2 class="screen-reader-text">Primary Menu</h2>
-        <ul class="nav" id="menu-menu-1">
-          <li
-            class="current-menu-item menu-item menu-item-52 menu-item-home menu-item-object-custom menu-item-type-custom"
-            id="menu-item-52"
-          >
-            <a href="/#about">About</a>
-          </li>
-          <li
-            class="menu-item menu-item-405 menu-item-object-page menu-item-type-post_type"
-            id="menu-item-405"
-          >
-            <a href="/work/">Work</a>
-          </li>
-          <li
-            class="menu-item menu-item-461 menu-item-object-page menu-item-type-post_type"
-            id="menu-item-461"
-          >
-            <a href="/cv/">CV</a>
-          </li>
-          <li
-            class="menu-item menu-item-368 menu-item-object-page menu-item-type-post_type"
-            id="menu-item-368"
-          >
-            <a href="/rate-card/">Rates</a>
-          </li>
-          <li
-            class="menu-item menu-item-366 menu-item-object-page menu-item-type-post_type"
-            id="menu-item-366"
-          >
-            <a href="/contact/">Contact</a>
-          </li>
-        </ul>
+      <nav aria-label="Main navigation">
+        <a href="/#journal">Journal</a><a href="/#experience">Experience</a
+        ><a href="/#about">About</a
+        ><a href="/contact/">Let’s talk <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
-    <main
-      class="main wrap"
-      id="main"
-      itemprop="mainContentOfPage"
-      itemscope
-      itemtype="https://schema.org/Blog"
-      role="main"
-    >
-      <article
-        class="hentry page post-14 status-publish type-page"
-        id="post-14"
-        itemscope
-        itemtype="https://schema.org/BlogPosting"
-        role="article"
-      >
-        <header class="article-header preload">
-          <div class="sticky">
-            <h1 class="page-title" itemprop="headline">
-              <em>Hey,</em> I’m John.
-            </h1>
-            <p>
-              I’m a <strong>designer</strong> and
-              <strong>developer</strong> living on the Mid North Coast,
-              Australia.
-            </p>
-            <div class="social" style="display:none;">
-              <a
-                href="https://instagram.com/_goodjobjohn/"
-                rel="noopener"
-                target="_blank"
-                ><img
-                  alt=""
-                  class="alignnone size-full wp-image-36"
-                  height="22"
-                  role="img"
-                  src="/theme/goodjob/library/images/instagram.svg"
-                  width="22"
-                />
-              </a>
-              <a
-                href="https://twitter.com/_goodjobjohn"
-                rel="noopener"
-                target="_blank"
-                ><img
-                  alt=""
-                  class="alignnone size-full wp-image-35"
-                  height="19"
-                  role="img"
-                  src="/theme/goodjob/library/images/twitter.svg"
-                  width="24"
-                />
-              </a>
+    <main id="main">
+      <section class="intro">
+        <span class="eyebrow">Independent by nature. Curious by default.</span>
+        <h1>Thoughtful design.<br />Things that <em>work.</em></h1>
+        <div class="intro-bottom">
+          <p>
+            I’m John. I design products and build them with code and agents.<br />A
+            journal of what I’m making, exploring and learning.
+          </p>
+          <span class="currently"
+            ><i></i> Currently building at Flowforest</span
+          >
+        </div>
+      </section>
+      <section id="journal" aria-label="Work journal">
+        <div class="feed-bar">
+          <span class="eyebrow">01 / The working journal</span>
+          <div class="filters" role="group" aria-label="Filter journal">
+            <button data-filter="all" aria-pressed="true">All</button
+            ><button data-filter="products" aria-pressed="false">
+              Products</button
+            ><button data-filter="experiments" aria-pressed="false">
+              Experiments
+            </button>
+            <button data-filter="notes" aria-pressed="false">Notes</button
+            ><button data-filter="selected" aria-pressed="false">
+              Selected work
+            </button>
+          </div>
+          <span id="filter-status" class="sr-only" aria-live="polite"></span>
+        </div>
+        <article class="feed-entry" data-category="products">
+          <div class="entry-meta">
+            <span>Product / Development</span><span>2026 · Building</span>
+          </div>
+          <a
+            class="art-link"
+            href="/journal/runway/"
+            aria-label="Read the Runway build note"
+            ><div
+              class="product-art runway-art"
+              role="img"
+              aria-label="Runway interface concept: a file sidebar, Markdown note and connected notes"
+            >
+              <span class="art-wordmark">↗ runway</span>
+              <div class="desktop-window">
+                <div class="window-bar">
+                  <i></i><i></i><i></i><span>My workspace</span
+                  ><span>Local first ↗</span>
+                </div>
+                <div class="window-body">
+                  <aside>
+                    <strong>⌘ &nbsp; Runway</strong>
+                    <p>⌕ &nbsp; Search anything</p>
+                    <small>WORKSPACE</small>
+                    <p>▤ &nbsp; All notes</p>
+                    <p>◷ &nbsp; Daily notes</p>
+                    <p>⌑ &nbsp; Projects</p>
+                    <p class="chosen">↳ &nbsp; A little more headspace</p>
+                    <p>↳ &nbsp; Ideas worth keeping</p>
+                    <small class="sync">● &nbsp; Saved on this device</small>
+                  </aside>
+                  <div class="note">
+                    <small>Notes / A little more headspace</small>
+                    <h3>A little more<br />headspace.</h3>
+                    <p>
+                      A place for ideas to land.<br />Room for them to grow.
+                    </p>
+                    <hr />
+                    <h4>Keep the important things close.</h4>
+                    <p>Your notes. Your files. Your workspace.</p>
+                    <div class="note-link">
+                      ↗ &nbsp; Ideas worth keeping <span>↗</span>
+                    </div>
+                    <div class="note-link">
+                      ↗ &nbsp; A work in progress <span>↗</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="art-caption"
+                >Interface study · Work in progress</span
+              >
+            </div></a
+          >
+          <div class="entry-copy">
+            <div>
+              <h2>
+                <a href="/journal/runway/">Runway <span>↗</span></a>
+              </h2>
+              <span class="tags">Svelte · Markdown · SQLite</span>
+            </div>
+            <div>
+              <h3>A home for your notes. Built around your files.</h3>
+              <p>
+                Exploring storage, sync and an editor that keeps Markdown on
+                disk, with SQLite making it useful. Part of my independent
+                practice, Flowforest.
+              </p>
+              <a class="text-link" href="/journal/runway/"
+                >Read the build note <span>↗</span></a
+              >
             </div>
           </div>
-        </header>
-        <section class="entry-content" itemprop="articleBody">
-          <div class="content-title">
-            <span class="anchor" id="about"></span>
-            <h3>I'm <em>your</em> Digital Storyteller</h3>
-            <p>I’m <strong>creative</strong> + <strong>technical</strong>.</p>
-            <p>
-              I build web for <strong>creators </strong>+<strong>
-                innovators</strong
-              >.
-            </p>
-            <p>
-              When we work together, I take the time to get to know you and your
-              business.
-            </p>
-            <p>
-              I’m not here to add to the noise, I’m here to create a
-              <strong>narrative</strong> for your brand that
-              <strong>connects</strong>, builds <strong>trust</strong> and
-              nurtures <strong>loyalty</strong>.
-            </p>
-            <p>
-              Independent web consultant and developer. Previously Lead
-              Front-End Designer/Developer at
-              <a href="https://wearecoast.com.au/">Coast</a>, a Coffs Harbour
-              creative agency.
-            </p>
+        </article>
+        <article class="feed-entry" data-category="products">
+          <div class="entry-meta">
+            <span>Product / Development</span><span>2026 · Building</span>
           </div>
-          <div
-            aria-hidden="true"
-            class="wp-block-spacer"
-            style="height: 200px"
-          ></div>
-          <div class="animated-logos" style="display: none">
-            <h3>Motion <em>inspires</em> emotion</h3>
-            <p>
-              I’m offering a promo rate of $250 for custom animated logos. Give
-              me 5 seconds - and I’ll bring your brand to life.
-              <a href="/brand-motion/">Click here</a> to find out more about
-              adding the finishing flowing touch to your narrative.
-            </p>
-          </div>
-          <div
-            aria-hidden="true"
-            class="wp-block-spacer"
-            style="height: 200px"
-          ></div>
-          <div class="contact" id="contact">
-            <span class="anchor" id="talktome"></span>
-            <h3>
-              Let's tell <em>your</em> story.
-              <a href="mailto:john@basham.au">Shoot me a message</a>
-            </h3>
-          </div>
-        </section>
-        <footer class="article-footer preload">
-          <div class="background-image" data-responsive-background-image="">
-            <div class="image-container">
-              <img
-                alt=""
-                class="bg-swap wp-post-image"
-                decoding="async"
-                fetchpriority="high"
-                height="600"
-                sizes="(max-width: 2000px) 100vw, 2000px"
-                src="/uploads/2019/05/goodjob-bg.jpg"
-                srcset="
-                  /uploads/2019/05/goodjob-bg.jpg          2000w,
-                  /uploads/2019/05/goodjob-bg-300x90.jpg    300w,
-                  /uploads/2019/05/goodjob-bg-768x230.jpg   768w,
-                  /uploads/2019/05/goodjob-bg-1024x307.jpg 1024w
-                "
-                width="2000"
-              />
+          <a
+            class="art-link"
+            href="/journal/flair/"
+            aria-label="Read the Flair build note"
+            ><div
+              class="product-art flair-art"
+              role="img"
+              aria-label="Flair interface concept: a phone recording a voice note with a waveform"
+            >
+              <div class="flair-message">
+                <span>flair<span class="spark">✳</span></span>
+                <h3>Catch a thought.<br />Keep your flow.</h3>
+                <p>Voice → Markdown<br />Right on your device.</p>
+              </div>
+              <div class="phone">
+                <div class="phone-top">9:41 <span>● ▰</span></div>
+                <div class="phone-heading">flair <span>✳</span></div>
+                <small>A little room to think</small>
+                <div class="wave">
+                  <i style="--h: 10px"></i><i style="--h: 18px"></i
+                  ><i style="--h: 32px"></i><i style="--h: 20px"></i
+                  ><i style="--h: 42px"></i><i style="--h: 67px"></i
+                  ><i style="--h: 38px"></i><i style="--h: 85px"></i
+                  ><i style="--h: 56px"></i><i style="--h: 34px"></i
+                  ><i style="--h: 69px"></i><i style="--h: 94px"></i
+                  ><i style="--h: 60px"></i><i style="--h: 36px"></i
+                  ><i style="--h: 76px"></i><i style="--h: 49px"></i
+                  ><i style="--h: 22px"></i><i style="--h: 45px"></i
+                  ><i style="--h: 25px"></i><i style="--h: 12px"></i>
+                </div>
+                <div class="record-time">00:42</div>
+                <p>Let it all out.</p>
+                <div class="record-bottom">
+                  <span>×</span><b>Ⅱ</b><span>✓</span>
+                </div>
+                <small>Saved as Markdown. Kept local.</small>
+              </div>
+              <span class="art-caption"
+                >Interface study · Android · Work in progress</span
+              >
+            </div></a
+          >
+          <div class="entry-copy">
+            <div>
+              <h2>
+                <a href="/journal/flair/">Flair <span>↗</span></a>
+              </h2>
+              <span class="tags">Android · Kotlin · On-device AI</span>
+            </div>
+            <div>
+              <h3>From a passing thought to a note worth keeping.</h3>
+              <p>
+                An Android app for capturing voice notes as Markdown. On-device
+                transcription, simple capture and files you can take anywhere.
+              </p>
+              <a class="text-link" href="/journal/flair/"
+                >Read the build note <span>↗</span></a
+              >
             </div>
           </div>
-        </footer>
-      </article>
+        </article>
+        <article class="feed-entry" data-category="products">
+          <div class="entry-meta">
+            <span>Product / Development</span><span>2026 · Building</span>
+          </div>
+          <a
+            class="art-link"
+            href="/journal/slate/"
+            aria-label="Read the Slate build note"
+            ><div
+              class="product-art slate-art"
+              role="img"
+              aria-label="Slate interface concept: a dotted digital journal with handwritten notes and a pencil"
+            >
+              <div class="tablet">
+                <div class="tablet-toolbar">
+                  <span>▦ &nbsp; slate</span
+                  ><span>‹ &nbsp; Tuesday, 8 September &nbsp; ›</span
+                  ><span>＋ &nbsp; ⋯</span>
+                </div>
+                <div class="paper">
+                  <div class="handwriting">
+                    Make space<br />for a good idea.<svg
+                      viewBox="0 0 320 30"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 18 Q140 -2 310 15 M30 26 Q180 7 280 23" />
+                    </svg>
+                  </div>
+                  <div class="paper-note">
+                    a little less screen time.<br />a little more thinking time.
+                  </div>
+                  <div class="ink-tools">
+                    <b>✎</b><span>／</span><span>◯</span><i></i><i></i><i></i>
+                  </div>
+                </div>
+              </div>
+              <div class="pencil"></div>
+              <span class="art-caption"
+                >Interface study · iPad · Work in progress</span
+              >
+            </div></a
+          >
+          <div class="entry-copy">
+            <div>
+              <h2>
+                <a href="/journal/slate/">Slate <span>↗</span></a>
+              </h2>
+              <span class="tags">iPad · Swift · Metal</span>
+            </div>
+            <div>
+              <h3>A quieter place to think with your hands.</h3>
+              <p>
+                A Pencil-first journal for iPad. Exploring the feel of digital
+                ink, a custom brush engine and the simple rhythm of one page per
+                day.
+              </p>
+              <a class="text-link" href="/journal/slate/"
+                >Read the build note <span>↗</span></a
+              >
+            </div>
+          </div>
+        </article>
+        <article
+          class="feed-entry experiments-entry"
+          data-category="experiments"
+        >
+          <div class="entry-meta">
+            <span>Research &amp; development</span
+            ><span>Ongoing explorations</span>
+          </div>
+          <div class="experiments-heading">
+            <div>
+              <h2>A little room to experiment.</h2>
+              <p>
+                Small tools, visual studies and ideas followed out of
+                curiosity.<br />A look inside my R&amp;D folder.
+              </p>
+            </div>
+            <a class="text-link" href="/r%26d/">Explore all experiments ↗</a>
+          </div>
+          <div class="experiment-grid">
+            <a class="experiment-card" href="/r%26d/art/flow-forest.html"
+              ><div class="experiment-art experiment-forest" aria-hidden="true">
+                <span>↟</span>
+              </div>
+              <div class="experiment-copy">
+                <span class="eyebrow">Generative art</span>
+                <h3>Flow Forest <span>↗</span></h3>
+                <p>
+                  An evolving canopy of particle trails. Explore how local
+                  rules, layered noise and colour build an organic whole.
+                </p>
+                <span class="text-link">Open experiment ↗</span>
+              </div></a
+            ><a class="experiment-card" href="/r%26d/stipple_contours_1.html"
+              ><div
+                class="experiment-art experiment-contours"
+                aria-hidden="true"
+              >
+                <span>◎</span>
+              </div>
+              <div class="experiment-copy">
+                <span class="eyebrow">Generative art</span>
+                <h3>Stipple Contours <span>↗</span></h3>
+                <p>
+                  A study in dots, contours and seeded variation. Adjust the
+                  parameters and explore the composition.
+                </p>
+                <span class="text-link">Open experiment ↗</span>
+              </div></a
+            ><a class="experiment-card" href="/r%26d/hours-in-a-week/"
+              ><div class="experiment-art experiment-hours" aria-hidden="true">
+                <span>168</span>
+              </div>
+              <div class="experiment-copy">
+                <span class="eyebrow">Interactive tool</span>
+                <h3>Hours in a Week <span>↗</span></h3>
+                <p>
+                  Make time tangible: colour a weekly grid to explore where the
+                  hours go. Your choices stay in this browser.
+                </p>
+                <span class="text-link">Open experiment ↗</span>
+              </div></a
+            ><a class="experiment-card" href="/r%26d/pagespeed-automation.html"
+              ><div class="experiment-art experiment-speed" aria-hidden="true">
+                <span>↗</span>
+              </div>
+              <div class="experiment-copy">
+                <span class="eyebrow">Workflow experiment</span>
+                <h3>PageSpeed Automation <span>↗</span></h3>
+                <p>
+                  Compare website audit results through the PageSpeed Insights
+                  API. Requires your own Google API key.
+                </p>
+                <span class="text-link">Open experiment ↗</span>
+              </div></a
+            ><a
+              class="experiment-card"
+              href="/r%26d/dropbox-saveurl-interface.html"
+              ><div
+                class="experiment-art experiment-dropbox"
+                aria-hidden="true"
+              >
+                <span>↓</span>
+              </div>
+              <div class="experiment-copy">
+                <span class="eyebrow">API experiment</span>
+                <h3>Dropbox Save URL <span>↗</span></h3>
+                <p>
+                  An interface for saving a remote file into Dropbox and
+                  checking its progress. Requires your own Dropbox access token.
+                </p>
+                <span class="text-link">Open experiment ↗</span>
+              </div></a
+            >
+          </div>
+        </article>
+        <article class="feed-entry text-entry" data-category="notes">
+          <div class="entry-meta">
+            <span>Field notes</span><span>September 2026</span>
+          </div>
+          <a href="/journal/design-and-code/"
+            ><span class="note-number">01 / On practice</span>
+            <h2>The space between<br />design and code.</h2>
+            <p>
+              What I’m bringing from 15+ years of making things<br />into a
+              practice of building with agents.
+            </p>
+            <span class="text-link">Read the note ↗</span></a
+          >
+        </article>
+        <article class="feed-entry" data-category="selected">
+          <div class="entry-meta">
+            <span>Selected work / Archive</span
+            ><span>Independent practice</span>
+          </div>
+          <a href="/jenna-meade/"
+            ><img
+              class="archive-image"
+              src="/uploads/2018/12/case-study-jenna-meade-1650.jpg"
+              alt="Jenna Meade editorial website design"
+              loading="lazy"
+              width="1650"
+              height="1020"
+          /></a>
+          <div class="entry-copy">
+            <div>
+              <h2><a href="/jenna-meade/">Jenna Meade ↗</a></h2>
+              <span class="tags">Web design · Development</span>
+            </div>
+            <div>
+              <h3>A clear voice, on the web.</h3>
+              <p>
+                Website design and development for journalist and writer Jenna
+                Meade. An earlier chapter of my independent practice.
+              </p>
+              <a class="text-link" href="/work/">Explore the work archive ↗</a>
+            </div>
+          </div>
+        </article>
+      </section>
+      <section class="experience" id="experience">
+        <div class="section-heading">
+          <span class="eyebrow">02 / Experience</span>
+          <h2>A broad practice.<br />A connected skill set.</h2>
+          <p>
+            From pixels to production lines, each chapter adds a different way
+            of seeing a problem.
+          </p>
+        </div>
+        <div class="map-panel">
+          <div class="map-heading">
+            <span>Experience, mapped</span
+            ><span class="muted">Select a chapter to explore</span>
+          </div>
+          <div class="map-scroll">
+            <div class="skill-map">
+              <div class="map-axis">
+                <span>Discipline</span
+                ><button data-era="early" aria-pressed="false">2010–15</button
+                ><button data-era="making" aria-pressed="false">2017–21</button
+                ><button data-era="coast" aria-pressed="false">2021–26</button
+                ><button data-era="now" aria-pressed="true">Now ↗</button>
+              </div>
+              <div class="map-row">
+                <span>Product & UX</span>
+                <div class="map-cell" data-column="early">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="making">
+                  <span class="no-dot" aria-label="Not highlighted"></span>
+                </div>
+                <div class="map-cell" data-column="coast">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="now">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+              </div>
+              <div class="map-row">
+                <span>Visual & brand</span>
+                <div class="map-cell" data-column="early">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="making">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="coast">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="now">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+              </div>
+              <div class="map-row">
+                <span>Code & systems</span>
+                <div class="map-cell" data-column="early">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="making">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="coast">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="now">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+              </div>
+              <div class="map-row">
+                <span>Physical making</span>
+                <div class="map-cell" data-column="early">
+                  <span class="no-dot" aria-label="Not highlighted"></span>
+                </div>
+                <div class="map-cell" data-column="making">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="coast">
+                  <span class="no-dot" aria-label="Not highlighted"></span>
+                </div>
+                <div class="map-cell" data-column="now">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+              </div>
+              <div class="map-row">
+                <span>Strategy & leadership</span>
+                <div class="map-cell" data-column="early">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="making">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="coast">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+                <div class="map-cell" data-column="now">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+              </div>
+              <div class="map-row">
+                <span>Agentic development</span>
+                <div class="map-cell" data-column="early">
+                  <span class="no-dot" aria-label="Not highlighted"></span>
+                </div>
+                <div class="map-cell" data-column="making">
+                  <span class="no-dot" aria-label="Not highlighted"></span>
+                </div>
+                <div class="map-cell" data-column="coast">
+                  <span class="no-dot" aria-label="Not highlighted"></span>
+                </div>
+                <div class="map-cell" data-column="now">
+                  <span class="dot" aria-label="Experience evidenced"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="map-legend">
+            <span><i></i> Areas explored in this chapter</span
+            ><span>A map of practice, not a proficiency score.</span>
+          </div>
+          <div class="era-detail" aria-live="polite">
+            <span id="era-date">2026 — Present</span>
+            <div>
+              <h3 id="era-title">Flowforest / Independent product practice</h3>
+              <p id="era-copy">
+                Bringing product thinking, interface design and agentic
+                development together through Runway, Flair and Slate. An ongoing
+                interest in physical making continues through 3D printing.
+              </p>
+              <a href="/cv/">View full experience ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="about">
+        <span class="eyebrow">03 / A little about me</span>
+        <div>
+          <h2>A designer who builds.<br />A builder who asks why.</h2>
+          <p>
+            I’m John, a Product Designer and Agentic Developer based in the
+            Nambucca Valley, Australia. I bring 15+ years across graphic design,
+            UI/UX, web development and creative leadership to the things I make.
+          </p>
+          <p>
+            I co-founded a creative agency, worked independently across time
+            zones and led front-end design and development at We Are Coast.
+            Along the way, I’ve run CNC machines and industrial printers.
+            Working with real materials has a way of sharpening how you solve
+            problems.
+          </p>
+          <p>
+            These days, I’m building local-first knowledge tools through
+            Flowforest, using agents to help turn product ideas into working
+            software. Away from the desk: surfing, trails, bikes and making
+            things.
+          </p>
+          <a class="text-link" href="/cv/">More about my experience ↗</a>
+        </div>
+      </section>
     </main>
-    <footer
-      class="footer"
-      id="footer"
-      itemscope
-      itemtype="https://schema.org/WPFooter"
-      role="contentinfo"
-    >
-      <div class="wrap" id="inner-footer">
-        <p class="copyright source-org">© 2025 Good job.</p>
+    <footer>
+      <a class="footer-title" href="mailto:john@basham.au"
+        >Have something in mind?<br />Let’s make it real. <span>↗</span></a
+      >
+      <div class="footer-bottom">
+        <a href="/">Good job, John.</a><span>Nambucca Valley, Australia</span
+        ><a href="mailto:john@basham.au">john@basham.au ↗</a
+        ><span>© 2026 John Basham</span>
       </div>
     </footer>
-    <script src="/theme/goodjob/library/js/scripts.js"></script>
   </body>
 </html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropbox Save URL Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #0061FF;
+            margin-bottom: 20px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0061FF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056E0;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #e7f7ee;
+            border: 1px solid #28a745;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #dc3545;
+        }
+        .log-container {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dropbox Save URL Interface</h1>
+    <div class="container">
+        <div>
+            <label for="accessToken">Access Token:</label>
+            <input type="password" id="accessToken" placeholder="Enter your Dropbox access token" />
+        </div>
+        
+        <div>
+            <label for="fileUrl">File URL to Save:</label>
+            <input type="text" id="fileUrl" placeholder="https://example.com/file.pdf" />
+        </div>
+        
+        <div>
+            <label for="savePath">Save Path (in Dropbox):</label>
+            <input type="text" id="savePath" placeholder="/Documents/file.pdf" />
+        </div>
+        
+        <button id="saveUrlButton">Save URL to Dropbox</button>
+    </div>
+    
+    <div id="result"></div>
+    
+    <div class="log-container">
+        <h3>Activity Log</h3>
+        <div id="activityLog"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const saveUrlButton = document.getElementById('saveUrlButton');
+            const accessTokenInput = document.getElementById('accessToken');
+            const fileUrlInput = document.getElementById('fileUrl');
+            const savePathInput = document.getElementById('savePath');
+            const resultDiv = document.getElementById('result');
+            const activityLogDiv = document.getElementById('activityLog');
+            
+            // Check for saved access token in localStorage
+            const savedToken = localStorage.getItem('dropboxAccessToken');
+            if (savedToken) {
+                accessTokenInput.value = savedToken;
+                logActivity('Loaded saved access token from browser storage');
+            }
+            
+            saveUrlButton.addEventListener('click', async function() {
+                const accessToken = accessTokenInput.value.trim();
+                const fileUrl = fileUrlInput.value.trim();
+                const savePath = savePathInput.value.trim();
+                
+                if (!accessToken) {
+                    showResult('Please enter your Dropbox access token', 'error');
+                    return;
+                }
+                
+                if (!fileUrl) {
+                    showResult('Please enter a file URL to save', 'error');
+                    return;
+                }
+                
+                if (!savePath) {
+                    showResult('Please enter a save path in Dropbox', 'error');
+                    return;
+                }
+                
+                // Save token for future use
+                localStorage.setItem('dropboxAccessToken', accessToken);
+                logActivity('Saved access token to browser storage');
+                
+                try {
+                    logActivity(`Initiating save_url request for ${fileUrl} to ${savePath}`);
+                    showResult('Processing request...', '');
+                    
+                    // Use Dropbox API v2 save_url endpoint
+                    const response = await fetch('https://api.dropboxapi.com/2/files/save_url', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            path: savePath,
+                            url: fileUrl
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error_summary || 'Unknown error occurred');
+                    }
+                    
+                    if (data['.tag'] === 'async_job_id') {
+                        // For async job, we need to poll for status
+                        logActivity(`Job started with ID: ${data.async_job_id}`);
+                        pollJobStatus(accessToken, data.async_job_id);
+                    } else {
+                        // For immediate completion
+                        showResult('File saved successfully to Dropbox!', 'success');
+                        logActivity('File saved successfully');
+                    }
+                } catch (error) {
+                    showResult(`Error: ${error.message}`, 'error');
+                    logActivity(`Error: ${error.message}`);
+                }
+            });
+            
+            async function pollJobStatus(accessToken, jobId) {
+                try {
+                    logActivity('Checking job status...');
+                    
+                    const response = await fetch('https://api.dropboxapi.com/2/files/save_url/check_job_status', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            async_job_id: jobId
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error_summary || 'Error checking job status');
+                    }
+                    
+                    if (data['.tag'] === 'in_progress') {
+                        // Still processing, poll again after a delay
+                        logActivity('Download still in progress, checking again in 2 seconds...');
+                        setTimeout(() => pollJobStatus(accessToken, jobId), 2000);
+                    } else if (data['.tag'] === 'complete') {
+                        // Job completed successfully
+                        showResult('File saved successfully to Dropbox!', 'success');
+                        logActivity('File saved successfully');
+                    } else if (data['.tag'] === 'failed') {
+                        // Job failed
+                        throw new Error(data.failed['.tag'] || 'Job failed');
+                    }
+                } catch (error) {
+                    showResult(`Error: ${error.message}`, 'error');
+                    logActivity(`Error: ${error.message}`);
+                }
+            }
+            
+            function showResult(message, type) {
+                resultDiv.textContent = message;
+                resultDiv.className = type;
+                resultDiv.style.display = 'block';
+            }
+            
+            function logActivity(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.textContent = `[${timestamp}] ${message}`;
+                activityLogDiv.appendChild(logEntry);
+                activityLogDiv.scrollTop = activityLogDiv.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

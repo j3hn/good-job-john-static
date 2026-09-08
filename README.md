@@ -9,7 +9,9 @@ rewritten asset paths.
 ## Structure
 
 ```
-index.html            Home
+index.html            Product journal homepage
+assets/               Journal CSS and JavaScript
+journal/              Product build notes and writing
 404.html              Not-found page
 <page>/index.html     Content pages (work, cv, contact, rate-card, brand-motion, …)
 theme/goodjob/        Site theme: css/, js/, images/
@@ -43,3 +45,10 @@ Prettier now parses every page. Vendor/minified assets are excluded via
   spacers, buttons, quotes, separators, and `has-small-font-size`, whose one preset value
   is now inlined). The `block-library/style.min.css` link is kept — some pages use its
   block classes.
+
+## Product journal concept
+
+The current redesign is documented in [DESIGN-NOTES.md](DESIGN-NOTES.md), including
+content sources, illustration status, editing guidance and suggested next inputs.
+The homepage, journal, CV and contact pages share the new theme; archived case
+studies retain their original design.

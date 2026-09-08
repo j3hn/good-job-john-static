@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageSpeed Score Automation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        input[type="url"] {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 300px;
+        }
+
+        input[type="url"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .api-key-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="password"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            min-width: 250px;
+        }
+
+        .api-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .api-info a {
+            color: #1976d2;
+            text-decoration: none;
+        }
+
+        .api-info a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #2a2a2a;
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+
+        .comparison-table th {
+            background: #1a1a1a;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+            background: #333;
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            background: #333;
+            font-weight: 600;
+        }
+
+        .score {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .score.good { color: #4caf50; }
+        .score.average { color: #ff9800; }
+        .score.poor { color: #f44336; }
+
+        .improvement {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .improvement.positive { color: #4caf50; }
+        .improvement.negative { color: #f44336; }
+        .improvement.neutral { color: #999; }
+
+        .export-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .copy-button {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        }
+
+        .email-template {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+
+            input[type="url"] {
+                min-width: unset;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PageSpeed Score Automation</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <input type="url" id="urlInput" placeholder="Enter website URL (e.g., https://example.com)" required>
+                <button onclick="runTest()" id="testButton">Run Test</button>
+            </div>
+            
+            <div class="api-key-group">
+                <input type="password" id="apiKey" placeholder="Google PageSpeed Insights API Key">
+                <button onclick="toggleApiKey()" type="button">Show/Hide</button>
+            </div>
+            
+            <div class="api-info">
+                <strong>API Key Required:</strong> Get your free API key from 
+                <a href="https://developers.google.com/speed/docs/insights/v5/get-started" target="_blank">Google PageSpeed Insights API</a>
+                <br><small>The API key is stored locally in your browser and not sent anywhere except Google's API.</small>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Running PageSpeed tests... This may take 30-60 seconds.
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <h2>PageSpeed Comparison Results</h2>
+            <table class="comparison-table" id="comparisonTable">
+                <thead>
+                    <tr>
+                        <th>Pagespeed Score</th>
+                        <th>Performance</th>
+                        <th>Accessibility</th>
+                        <th>Best Practices</th>
+                        <th>SEO</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+
+            <div class="export-section">
+                <h3>Export Results</h3>
+                <div class="export-buttons">
+                    <button onclick="copyTableForEmail()" class="copy-button">Copy Email Table</button>
+                    <button onclick="copyAsanaFormat()">Copy Asana Format</button>
+                    <button onclick="resetResults()">Reset & Run New Test</button>
+                </div>
+                <div class="email-template" id="emailTemplate" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+        let currentUrl = '';
+
+        function toggleApiKey() {
+            const apiKeyInput = document.getElementById('apiKey');
+            apiKeyInput.type = apiKeyInput.type === 'password' ? 'text' : 'password';
+        }
+
+        function getScoreClass(score) {
+            if (score >= 90) return 'good';
+            if (score >= 50) return 'average';
+            return 'poor';
+        }
+
+        function calculateImprovement(before, after) {
+            const diff = after - before;
+            if (diff > 0) return { class: 'positive', text: `(+${diff})` };
+            if (diff < 0) return { class: 'negative', text: `(${diff})` };
+            return { class: 'neutral', text: '(no change)' };
+        }
+
+        async function runTest() {
+            const urlInput = document.getElementById('urlInput');
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const testButton = document.getElementById('testButton');
+            const loading = document.getElementById('loading');
+
+            if (!urlInput.value.trim()) {
+                alert('Please enter a URL to test');
+                return;
+            }
+
+            if (!apiKey) {
+                alert('Please enter your Google PageSpeed Insights API key');
+                return;
+            }
+
+            // Validate URL format
+            try {
+                new URL(urlInput.value);
+            } catch {
+                alert('Please enter a valid URL (including https://)');
+                return;
+            }
+
+            currentUrl = urlInput.value;
+            testButton.disabled = true;
+            loading.style.display = 'block';
+
+            try {
+                // Test both mobile and desktop
+                const [mobileData, desktopData] = await Promise.all([
+                    fetchPageSpeedData(currentUrl, 'mobile', apiKey),
+                    fetchPageSpeedData(currentUrl, 'desktop', apiKey)
+                ]);
+
+                const testResult = {
+                    mobile: mobileData,
+                    desktop: desktopData,
+                    timestamp: new Date()
+                };
+
+                testResults.push(testResult);
+                updateResultsTable();
+                
+                document.getElementById('resultsSection').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error running PageSpeed test: ' + error.message);
+            } finally {
+                testButton.disabled = false;
+                loading.style.display = 'none';
+            }
+        }
+
+        async function fetchPageSpeedData(url, strategy, apiKey) {
+            const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&category=performance&category=accessibility&category=best-practices&category=seo&key=${apiKey}`;
+            
+            const response = await fetch(apiUrl);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error?.message || `API request failed: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const lighthouse = data.lighthouseResult;
+            
+            return {
+                performance: Math.round(lighthouse.categories.performance.score * 100),
+                accessibility: Math.round(lighthouse.categories.accessibility.score * 100),
+                bestPractices: Math.round(lighthouse.categories['best-practices'].score * 100),
+                seo: Math.round(lighthouse.categories.seo.score * 100)
+            };
+        }
+
+        function updateResultsTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            if (testResults.length === 1) {
+                // First test only - show current scores
+                const result = testResults[0];
+                
+                // Mobile row
+                const mobileRow = document.createElement('tr');
+                mobileRow.innerHTML = `
+                    <td>Mobile</td>
+                    <td><span class="score ${getScoreClass(result.mobile.performance)}">${result.mobile.performance}</span></td>
+                    <td><span class="score ${getScoreClass(result.mobile.accessibility)}">${result.mobile.accessibility}</span></td>
+                    <td><span class="score ${getScoreClass(result.mobile.bestPractices)}">${result.mobile.bestPractices}</span></td>
+                    <td><span class="score ${getScoreClass(result.mobile.seo)}">${result.mobile.seo}</span></td>
+                `;
+                tableBody.appendChild(mobileRow);
+
+                // Desktop row
+                const desktopRow = document.createElement('tr');
+                desktopRow.innerHTML = `
+                    <td>Desktop</td>
+                    <td><span class="score ${getScoreClass(result.desktop.performance)}">${result.desktop.performance}</span></td>
+                    <td><span class="score ${getScoreClass(result.desktop.accessibility)}">${result.desktop.accessibility}</span></td>
+                    <td><span class="score ${getScoreClass(result.desktop.bestPractices)}">${result.desktop.bestPractices}</span></td>
+                    <td><span class="score ${getScoreClass(result.desktop.seo)}">${result.desktop.seo}</span></td>
+                `;
+                tableBody.appendChild(desktopRow);
+
+            } else if (testResults.length >= 2) {
+                // Show before/after comparison
+                const before = testResults[0];
+                const after = testResults[testResults.length - 1];
+
+                // Mobile Before
+                const mobileBeforeRow = document.createElement('tr');
+                mobileBeforeRow.innerHTML = `
+                    <td>Mobile Before</td>
+                    <td><span class="score ${getScoreClass(before.mobile.performance)}">${before.mobile.performance}</span></td>
+                    <td><span class="score ${getScoreClass(before.mobile.accessibility)}">${before.mobile.accessibility}</span></td>
+                    <td><span class="score ${getScoreClass(before.mobile.bestPractices)}">${before.mobile.bestPractices}</span></td>
+                    <td><span class="score ${getScoreClass(before.mobile.seo)}">${before.mobile.seo}</span></td>
+                `;
+                tableBody.appendChild(mobileBeforeRow);
+
+                // Mobile After
+                const mobileAfterRow = document.createElement('tr');
+                const mobilePerf = calculateImprovement(before.mobile.performance, after.mobile.performance);
+                const mobileAcc = calculateImprovement(before.mobile.accessibility, after.mobile.accessibility);
+                const mobileBp = calculateImprovement(before.mobile.bestPractices, after.mobile.bestPractices);
+                const mobileSeo = calculateImprovement(before.mobile.seo, after.mobile.seo);
+
+                mobileAfterRow.innerHTML = `
+                    <td>Mobile After</td>
+                    <td>
+                        <span class="score ${getScoreClass(after.mobile.performance)}">${after.mobile.performance}</span>
+                        <div class="improvement ${mobilePerf.class}">${mobilePerf.text}</div>
+                    </td>
+                    <td>
+                        <span class="score ${getScoreClass(after.mobile.accessibility)}">${after.mobile.accessibility}</span>
+                        <div class="improvement ${mobileAcc.class}">${mobileAcc.text}</div>
+                    </td>
+                    <td>
+                        <span class="score ${getScoreClass(after.mobile.bestPractices)}">${after.mobile.bestPractices}</span>
+                        <div class="improvement ${mobileBp.class}">${mobileBp.text}</div>
+                    </td>
+                    <td>
+                        <span class="score ${getScoreClass(after.mobile.seo)}">${after.mobile.seo}</span>
+                        <div class="improvement ${mobileSeo.class}">${mobileSeo.text}</div>
+                    </td>
+                `;
+                tableBody.appendChild(mobileAfterRow);
+
+                // Desktop Before
+                const desktopBeforeRow = document.createElement('tr');
+                desktopBeforeRow.innerHTML = `
+                    <td>Desktop Before</td>
+                    <td><span class="score ${getScoreClass(before.desktop.performance)}">${before.desktop.performance}</span></td>
+                    <td><span class="score ${getScoreClass(before.desktop.accessibility)}">${before.desktop.accessibility}</span></td>
+                    <td><span class="score ${getScoreClass(before.desktop.bestPractices)}">${before.desktop.bestPractices}</span></td>
+                    <td><span class="score ${getScoreClass(before.desktop.seo)}">${before.desktop.seo}</span></td>
+                `;
+                tableBody.appendChild(desktopBeforeRow);
+
+                // Desktop After
+                const desktopAfterRow = document.createElement('tr');
+                const desktopPerf = calculateImprovement(before.desktop.performance, after.desktop.performance);
+                const desktopAcc = calculateImprovement(before.desktop.accessibility, after.desktop.accessibility);
+                const desktopBp = calculateImprovement(before.desktop.bestPractices, after.desktop.bestPractices);
+                const desktopSeo = calculateImprovement(before.desktop.seo, after.desktop.seo);
+
+                desktopAfterRow.innerHTML = `
+                    <td>Desktop After</td>
+                    <td>
+                        <span class="score ${getScoreClass(after.desktop.performance)}">${after.desktop.performance}</span>
+                        <div class="improvement ${desktopPerf.class}">${desktopPerf.text}</div>
+                    </td>
+                    <td>
+                        <span class="score ${getScoreClass(after.desktop.accessibility)}">${after.desktop.accessibility}</span>
+                        <div class="improvement ${desktopAcc.class}">${desktopAcc.text}</div>
+                    </td>
+                    <td>
+                        <span class="score ${getScoreClass(after.desktop.bestPractices)}">${after.desktop.bestPractices}</span>
+                        <div class="improvement ${desktopBp.class}">${desktopBp.text}</div>
+                    </td>
+                    <td>
+                        <span class="score ${getScoreClass(after.desktop.seo)}">${after.desktop.seo}</span>
+                        <div class="improvement ${desktopSeo.class}">${desktopSeo.text}</div>
+                    </td>
+                `;
+                tableBody.appendChild(desktopAfterRow);
+            }
+        }
+
+        function copyTableForEmail() {
+            if (testResults.length < 2) {
+                alert('Please run a second test to generate before/after comparison');
+                return;
+            }
+
+            const before = testResults[0];
+            const after = testResults[testResults.length - 1];
+
+            const emailTable = `**Pagespeed Score**
+Performance | Accessibility | Best Practices | SEO
+**Mobile Before**
+${before.mobile.performance} | ${before.mobile.accessibility} | ${before.mobile.bestPractices} | ${before.mobile.seo}
+**Mobile After**
+${after.mobile.performance} | ${after.mobile.accessibility} | ${after.mobile.bestPractices} | ${after.mobile.seo}
+**Desktop Before**
+${before.desktop.performance} | ${before.desktop.accessibility} | ${before.desktop.bestPractices} | ${before.desktop.seo}
+**Desktop After**
+${after.desktop.performance} | ${after.desktop.accessibility} | ${after.desktop.bestPractices} | ${after.desktop.seo}`;
+
+            navigator.clipboard.writeText(emailTable).then(() => {
+                alert('Email table format copied to clipboard!');
+                
+                // Show preview
+                const emailTemplate = document.getElementById('emailTemplate');
+                emailTemplate.textContent = emailTable;
+                emailTemplate.style.display = 'block';
+            }).catch(() => {
+                alert('Failed to copy to clipboard. Please try manually selecting the text below:');
+                const emailTemplate = document.getElementById('emailTemplate');
+                emailTemplate.textContent = emailTable;
+                emailTemplate.style.display = 'block';
+            });
+        }
+
+        function copyAsanaFormat() {
+            if (testResults.length < 2) {
+                alert('Please run a second test to generate before/after comparison');
+                return;
+            }
+
+            const before = testResults[0];
+            const after = testResults[testResults.length - 1];
+
+            const asanaFormat = `PageSpeed Results for ${currentUrl}
+
+Mobile Before: Performance ${before.mobile.performance}, Accessibility ${before.mobile.accessibility}, Best Practices ${before.mobile.bestPractices}, SEO ${before.mobile.seo}
+Mobile After: Performance ${after.mobile.performance}, Accessibility ${after.mobile.accessibility}, Best Practices ${after.mobile.bestPractices}, SEO ${after.mobile.seo}
+
+Desktop Before: Performance ${before.desktop.performance}, Accessibility ${before.desktop.accessibility}, Best Practices ${before.desktop.bestPractices}, SEO ${before.desktop.seo}
+Desktop After: Performance ${after.desktop.performance}, Accessibility ${after.desktop.accessibility}, Best Practices ${after.desktop.bestPractices}, SEO ${after.desktop.seo}
+
+Tested on: ${new Date().toLocaleDateString()}`;
+
+            navigator.clipboard.writeText(asanaFormat).then(() => {
+                alert('Asana format copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        function resetResults() {
+            testResults = [];
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('emailTemplate').style.display = 'none';
+            document.getElementById('urlInput').value = '';
+        }
+
+        // Save API key to localStorage for convenience
+        document.getElementById('apiKey').addEventListener('change', function() {
+            localStorage.setItem('pagespeed_api_key', this.value);
+        });
+
+        // Load saved API key
+        window.addEventListener('load', function() {
+            const savedApiKey = localStorage.getItem('pagespeed_api_key');
+            if (savedApiKey) {
+                document.getElementById('apiKey').value = savedApiKey;
+            }
+        });
+    </script>
+</body>
+</html>
