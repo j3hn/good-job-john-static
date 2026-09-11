@@ -44,47 +44,54 @@
   gap: 8px;
   margin-left: 10px;
 }
-.hero {
+.home-page {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: 5px;
-  min-height: 590px;
-  margin: 8px -38px 38px;
-  padding: 70px 48px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #d3d6b3;
-  color: #24352c;
 }
-.hero-background,
-.hero-grain {
+.home-page .site-header,
+.home-page main {
+  position: relative;
+  z-index: 1;
+}
+.home-backdrop {
   position: absolute;
-  inset: 0;
-  z-index: -2;
+  inset: 0 0 auto;
+  z-index: 0;
+  width: 100%;
+  height: 100svh;
+  min-height: 696px;
+  overflow: hidden;
   pointer-events: none;
-}
-.hero-background {
   background:
     radial-gradient(ellipse at 75% 90%, #e9bb89, transparent 65%),
     radial-gradient(ellipse at 15% 30%, #e7ead0, transparent 55%),
     linear-gradient(120deg, #d7dcb3, #b5c3a1 55%, #d6c09c);
 }
-.hero-background canvas {
+.home-backdrop canvas {
   display: block;
   width: 100%;
   height: 100%;
   opacity: 0;
   transition: opacity 0.6s;
 }
-.hero[data-shader-ready] canvas {
+.home-backdrop[data-shader-ready] canvas {
   opacity: 1;
 }
-.hero-grain {
-  z-index: -1;
+.home-grain {
+  position: absolute;
+  inset: 0;
   opacity: 0.11;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' opacity='.6' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.hero {
+  position: relative;
+  /* Fill the first viewport beneath the persistent site header. */
+  min-height: max(590px, calc(100svh - 106px));
+  margin: 8px -38px 38px;
+  padding: 70px 48px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #24352c;
 }
 .hero-eyebrow {
   display: flex;
@@ -286,7 +293,7 @@
 }
 @media (min-width: 1400px) {
   .hero {
-    min-height: 650px;
+    min-height: max(650px, calc(100svh - 106px));
     padding-top: 80px;
   }
 }
@@ -297,7 +304,7 @@
   .hero {
     margin-left: -10px;
     margin-right: -10px;
-    min-height: 570px;
+    min-height: max(570px, calc(100svh - 106px));
     padding: 55px 30px 20px;
   }
   .hero h1 {
@@ -336,8 +343,11 @@
   }
   .hero {
     margin: 0 -8px 27px;
-    min-height: 590px;
+    min-height: max(590px, calc(100svh - 116px));
     padding: 36px 22px 18px;
+  }
+  .home-backdrop {
+    min-height: 760px;
   }
   .hero-eyebrow {
     font-size: 8px;
@@ -391,7 +401,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-background canvas,
+  .home-backdrop canvas,
   .hero-cta {
     transition: none;
   }

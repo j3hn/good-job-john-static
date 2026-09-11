@@ -31,6 +31,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href="/uploads/2019/03/cropped-logo-heart-32x32.png" />
   </head>
   <body class:list={[{ "home-page": home }]}>
+    {home && (
+      <div class="home-backdrop" aria-hidden="true" data-shader-backdrop>
+        <canvas data-shader></canvas>
+        <div class="home-grain"></div>
+      </div>
+    )}
     <a class="skip" href="#main">
       Skip to content
     </a>
