@@ -1,0 +1,29 @@
+---
+import Arrow from "./Arrow.astro";
+---
+
+<header class="site-header">
+  <a class="identity" href="/" aria-label="John Basham, home">
+    <img
+      class="site-logo"
+      src="/assets/LOGO.jpg"
+      alt="Good job"
+      width="512"
+      height="235"
+      fetchpriority="high"
+    />
+  </a>
+  <span class="header-role">
+    John Basham
+    <br />
+    Product Designer &amp; Agentic Developer
+  </span>
+  <nav aria-label="Main navigation">
+    <a href="/#journal">Journal</a>
+    <a href="/#experience">Experience</a>
+    <a href="/#about">About</a>
+    <a class="contact-nav" href="/contact/">
+      Let’s talk <Arrow />
+    </a>
+  </nav>
+</header>

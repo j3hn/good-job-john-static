@@ -1,0 +1,51 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import FlairArt from "@components/art/flair.astro";
+---
+
+<ArticleLayout
+  title="Flare"
+  description="A private Android app that turns live English speech into offline Markdown notes."
+  subtitle="Private, offline Markdown notes from your voice."
+  eyebrow="2026 · Building / Flowforest"
+>
+  <FlairArt slot="art" />
+
+  <section>
+    <h2>Live transcription, kept on your phone</h2>
+    <p>
+      Flare is an Android voice-to-Markdown app built by Flowforest. It
+      transcribes English speech live and entirely on-device with Moonshine
+      Small Streaming. The model is bundled, so the app works offline with no
+      account, download at runtime or internet permission.
+    </p>
+  </section>
+  <section>
+    <h2>A note that fits your existing system</h2>
+    <p>
+      Choose an optional tag, record, pause or resume, then save or discard.
+      Flare writes plain Markdown with tags and configurable YAML front matter.
+      Notes live in app storage and can be mirrored to a chosen folder through
+      Android’s folder picker, ready for an Obsidian vault or another sync tool.
+      Flare itself does not provide sync or import edits from elsewhere.
+    </p>
+  </section>
+  <section>
+    <h2>Capture without creating another data trail</h2>
+    <p>
+      Audio stays in memory for transcription and is not saved as a recording.
+      Flare has no account, ads, analytics or crash-reporting service. Saved
+      notes can be read, shared and deleted in the app; deleting an app note
+      does not delete an exported copy. The build uses Kotlin, Jetpack Compose,
+      coroutines, Flow, Hilt and Android’s Storage Access Framework.
+    </p>
+  </section>
+  <aside class="project-status">
+    In development · The visual is a portfolio interface study, not a production
+    capture. The project repository does not currently contain shareable app
+    screenshots; this page will be updated when real captures are available.
+  </aside>
+  <a class="text-link" href="/journal/slate/">
+    Next build note ↗
+  </a>
+</ArticleLayout>

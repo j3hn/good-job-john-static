@@ -1,0 +1,54 @@
+---
+import Arrow from "./Arrow.astro";
+---
+
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero-background" aria-hidden="true">
+    <canvas data-shader></canvas>
+  </div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">
+      <span></span> Independent design. Hands-on development.
+    </p>
+    <h1 id="hero-title">
+      Human ideas.
+      <br />
+      <em>Made real.</em>
+    </h1>
+    <div class="hero-summary">
+      <p>
+        I’m John, a Product Designer &amp; Agentic Developer.
+        <br class="desktop-break" /> I turn complex problems into useful,
+        thoughtful products.
+      </p>
+      <a class="hero-cta" href="#journal">
+        Explore my work <Arrow />
+      </a>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <span>
+      Designing &amp; building at{" "}
+      <a href="#journal">
+        Flowforest <Arrow />
+      </a>
+    </span>
+    <span class="hero-location">Nambucca Valley, Australia</span>
+    <button
+      class="motion-toggle"
+      type="button"
+      data-motion-toggle
+      aria-pressed="false"
+      hidden
+    >
+      <span data-motion-label>Pause motion</span>
+      <span data-motion-symbol aria-hidden="true">
+        Ⅱ
+      </span>
+    </button>
+  </div>
+</section>
+<script>
+  import "../scripts/hero-shader";
+</script>

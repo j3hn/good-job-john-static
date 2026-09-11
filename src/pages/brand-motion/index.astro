@@ -1,0 +1,208 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Brand Motion – Good job."
+  description="Design and development work by John Basham."
+  home={false}
+>
+  <div class="archive-page">
+    <article
+      class="hentry page post-191 status-publish type-page"
+      id="post-191"
+      itemscope
+      itemtype="https://schema.org/BlogPosting"
+      role="article"
+    >
+      <header class="article-header">
+        <div class="sticky">
+          <h1 class="page-title" itemprop="headline">
+            Brand Motion
+          </h1>
+          <div class="index">
+            <a href="/brand-motion/#a-point-of-difference">
+              A point of difference
+            </a>
+            <a href="/brand-motion/#use-case"> Use case </a>
+            <a href="/brand-motion/#promotion"> Promotion </a>
+          </div>
+        </div>
+      </header>
+      <section class="entry-content" itemprop="articleBody">
+        <div class="featured-video">
+          <video autoplay loop muted width="500">
+            <source
+              src="/uploads/2019/06/motion-promotion.mp4"
+              type="video/mp4"
+            />
+            <p>Sorry, your browser doesn't support embedded videos.</p>
+          </video>
+        </div>
+        <h2 class="wp-block-heading" id="a-point-of-difference">
+          My point of difference.
+        </h2>
+        <p>
+          Give me 5 seconds – and I’ll bring your brand to life. Motion is
+          powerful, often overlooked, and adds new depth of emotion to you and
+          your brand.
+        </p>
+        <p>
+          Most animated logos are made using preset motion templates that reveal
+          the logo in a fancy way. While the effects can be impressive, they are
+          ultimately generic and don’t add to your brand’s story. 
+        </p>
+        <blockquote class="is-layout-flow is-style-default wp-block-quote wp-block-quote-is-layout-flow">
+          <p>
+            Animation provides a universal language to imbue emotion, augment
+            feeling, and explain hard concepts.
+          </p>
+          <cite>Ryan McLeod</cite>
+        </blockquote>
+        <p>
+          That’s where I step in. I add a layer of contextual and memorable
+          motion that connects to your brand and its ethos. While your existing
+          flat logo makes a first impression, your animated logo works one step
+          harder to unveil clues and context about your offering.
+        </p>
+        <p>
+          It’s storytelling that’s obvious, felt, and nearly invisible all at
+          once. The finishing flowing touch to your narrative.
+        </p>
+        <figure class="wp-block-video">
+          <video
+            autoplay
+            loop
+            muted
+            poster="/uploads/2019/03/logo-heart.png"
+            src="/uploads/2019/06/Comp-1_1.mp4"
+          ></video>
+        </figure>
+        <h2 class="wp-block-heading" id="use-case">
+          Use Case
+        </h2>
+        <p>
+          <strong>Social Media</strong> – Feeds are a perfect medium to stand
+          out. Animation is far more memorable leaving a lasting impression.
+        </p>
+        <p>
+          <strong>Email Signature</strong> – There’s no more memorable way to
+          sign off your email than with an animated logo. It shows you’ve cared
+          enough to think about the small details.
+        </p>
+        <p>
+          <strong>Promotional Video</strong> – Spliced into the beginning or
+          end, it adds another level of customised professionalism to your video
+          content.
+        </p>
+        <p>
+          <strong>Website</strong> – Can easily be integrated into your website
+          with great effect.
+        </p>
+        <h2 class="wp-block-heading" id="promotion">
+          Promotion
+        </h2>
+        <p>
+          For a limited time I’m offering animated logos for only $250 (AUD).
+          After the promotion the price will start from $500.
+        </p>
+        <p>
+          I’ve set up a payment option below for those who want to lock in the
+          promotional price. Otherwise you can begin by enquiring through the
+          contact form below.
+        </p>
+        <hr class="wp-block-separator" />
+        <p>
+          <strong>Process</strong>
+        </p>
+        <ol class="wp-block-list">
+          <li>Purchase</li>
+          <li>Communicate</li>
+          <li>Create</li>
+        </ol>
+        <p>
+          Payment can be made through the link below. I’ll be notified
+          immediately.
+        </p>
+        <p>
+          I’ll contact you and we can exchange ideas for the animation. You will
+          need to provide me with your logo files at this point.
+        </p>
+        <p>
+          Once we agree on the idea I’ll bring it to life before sending you a
+          proof. From here any adjustments can be made before providing you with
+          the final animated logo files.
+        </p>
+        <hr class="wp-block-separator" />
+        <p>
+          <strong>Enquire</strong>
+        </p>
+        <a
+          href="mailto:john+logoani@basham.com.au"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          If you would like to know more click here.
+        </a>
+        <hr class="wp-block-separator" />
+        <p>
+          <strong>Purchase</strong>
+        </p>
+        <ul class="wp-block-list">
+          <li>Animated Logo</li>
+          <li>Up to 5 seconds</li>
+          <li>1024 x 1024 MP4 video file</li>
+          <li>150 x 150, 300 x 300, 600 x 600 animated GIF</li>
+        </ul>
+        <p></p>
+        <script src="https://js.stripe.com/v3"></script>
+        <button
+          id="checkout-button-sku_FHwlEyyxGtfXWl"
+          role="link"
+          style="
+              background-color: #6772e5;
+              color: #fff;
+              padding: 8px 12px;
+              border: 0;
+              border-radius: 4px;
+              font-size: 1em;
+            "
+        >
+          Checkout
+        </button>
+        <div id="error-message"></div>
+        <script is:inline>
+          var stripe = Stripe("pk_live_UWnJulsyqp4b4Bedqa08PzLU00ntzZsWyX");
+
+          var checkoutButton = document.getElementById(
+            "checkout-button-sku_FHwlEyyxGtfXWl",
+          );
+          checkoutButton.addEventListener("click", function () {
+            // When the customer clicks on the button, redirect
+            // them to Checkout.
+            stripe
+              .redirectToCheckout({
+                items: [{ sku: "sku_FHwlEyyxGtfXWl", quantity: 1 }],
+
+                // Do not rely on the redirect to the successUrl for fulfilling
+                // purchases, customers may not always reach the success_url after
+                // a successful payment.
+                // Instead use one of the strategies described in
+                // https://stripe.com/docs/payments/checkout/fulfillment
+                successUrl: "https://goodjobjohn.com/success",
+                cancelUrl: "https://goodjobjohn.com/canceled",
+              })
+              .then(function (result) {
+                if (result.error) {
+                  // If `redirectToCheckout` fails due to a browser or network
+                  // error, display the localized error message to your customer.
+                  var displayError = document.getElementById("error-message");
+                  displayError.textContent = result.error.message;
+                }
+              });
+          });
+        </script>
+      </section>
+    </article>
+  </div>
+</SiteLayout>

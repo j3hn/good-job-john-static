@@ -1,14 +1,23 @@
 {
   "name": "good-job-john-static",
   "version": "1.0.0",
-  "description": "Good job. — static site",
+  "description": "Good job, John. — Astro portfolio and product journal",
   "private": true,
   "scripts": {
-    "format": "prettier --write .",
-    "check": "prettier --check .",
-    "serve": "python3 -m http.server 8000"
+    "dev": "astro dev",
+    "serve": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 8000",
+    "format": "prettier --write src astro.config.mjs tsconfig.json package.json scripts",
+    "check": "astro check && astro build && node scripts/verify-build.mjs"
   },
   "devDependencies": {
-    "prettier": "^3.9.5"
+    "@astrojs/check": "^0.9.10",
+    "prettier": "^3.9.5",
+    "prettier-plugin-astro": "^1.0.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "astro": "^7.3.2"
   }
 }
