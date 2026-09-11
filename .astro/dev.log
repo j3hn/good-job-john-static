@@ -1,0 +1,79 @@
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Generated 0ms","label":"types","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
+{"message":" astro  v7.3.2 ready in 689 ms\n┃ Local    http://127.0.0.1:8000/","label":"SKIP_FORMAT","level":"info"}
+{"message":"watching for file changes...","label":null,"level":"info"}
+{"message":"[200] / 10ms","label":null,"level":"info"}
+{"message":"[200] / 5ms","label":null,"level":"info"}
+{"message":"Configuration file removed. Restarting...","label":null,"level":"info"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"Missing pages directory: src/pages","label":null,"level":"warn"}
+{"message":"changed tsconfig file detected: /Users/john/dev/good-job-john-static/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.","label":"vite","level":"info"}
+{"message":"public/r&d/art/flow-forest.html","label":"watch","level":"info"}
+{"message":"public/r&d/dropbox-saveurl-interface.html","label":"watch","level":"info"}
+{"message":"public/r&d/pagespeed-automation.html","label":"watch","level":"info"}
+{"message":"public/r&d/stipple_contours_1.html","label":"watch","level":"info"}
+{"message":"src/components/Hero.astro","label":"watch","level":"info"}
+{"message":"src/layouts/SiteLayout.astro","label":"watch","level":"info"}
+{"message":"src/scripts/hero-shader.ts","label":"watch","level":"info"}
+{"message":"src/scripts/journal.js","label":"watch","level":"info"}
+{"message":"/src/styles/journal.css","label":"watch","level":"info"}
+{"message":"/src/styles/site.css","label":"watch","level":"info"}
+{"message":"404.html","label":"watch","level":"info"}
+{"message":"brand-motion/index.html","label":"watch","level":"info"}
+{"message":"contact/index.html","label":"watch","level":"info"}
+{"message":"cv/index.html","label":"watch","level":"info"}
+{"message":"emma-power/index.html","label":"watch","level":"info"}
+{"message":"index.html","label":"watch","level":"info"}
+{"message":"jenna-meade/index.html","label":"watch","level":"info"}
+{"message":"journal/design-and-code/index.html","label":"watch","level":"info"}
+{"message":"journal/flair/index.html","label":"watch","level":"info"}
+{"message":"journal/runway/index.html","label":"watch","level":"info"}
+{"message":"journal/slate/index.html","label":"watch","level":"info"}
+{"message":"r&d/art/flow-forest.html","label":"watch","level":"info"}
+{"message":"r&d/dropbox-saveurl-interface.html","label":"watch","level":"info"}
+{"message":"r&d/index.html","label":"watch","level":"info"}
+{"message":"r&d/pagespeed-automation.html","label":"watch","level":"info"}
+{"message":"r&d/stipple_contours_1.html","label":"watch","level":"info"}
+{"message":"soul-charters/index.html","label":"watch","level":"info"}
+{"message":"sunny-copy/index.html","label":"watch","level":"info"}
+{"message":"rate-card/index.html","label":"watch","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"program reload","label":"vite","level":"info"}
+{"message":"work/index.html","label":"watch","level":"info"}
+{"message":"work/index.html","label":"watch","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
+{"message":"server restarted.","label":"vite","level":"info"}

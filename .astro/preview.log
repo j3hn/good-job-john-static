@@ -1,0 +1,5 @@
+{"message":"Error: listen EPERM: operation not permitted 127.0.0.1:8001\n    at Server.setupListenHandle [as _listen2] (node:net:2306:21)\n    at listenInCluster (node:net:2437:12)\n    at node:net:2666:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)","label":null,"level":"error"}
+listen EPERM: operation not permitted 127.0.0.1:8001
+  Stack trace:
+    at Server.setupListenHandle [as _listen2] (node:net:2306:21)
+    at node:net:2666:7
