@@ -1,11 +1,18 @@
 :root {
-  --paper: #f7f7f2;
-  --ink: #252722;
-  --muted: #696c62;
-  --line: #dddfd5;
-  --green: #526643;
-  --accent: #e5ebd9;
-  font-family: Arial, Helvetica, sans-serif;
+  --paper: #e1dccd;
+  --ink: #1c1b19;
+  --muted: #69635d;
+  --line: #c9c0ad;
+  --green: #fc7800;
+  --accent: #fdb900;
+  --sun: #fdb900;
+  --amber: #fc9b00;
+  --tangerine: #fc7800;
+  --vermilion: #fb5500;
+  --display: "Thelma", "Cooper Black", Georgia, serif;
+  --body: Inter, Arial, Helvetica, sans-serif;
+  --mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-family: var(--body);
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
@@ -31,11 +38,11 @@ button {
 }
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--vermilion);
   outline-offset: 6px;
 }
 a:hover {
-  color: var(--green);
+  color: var(--vermilion);
 }
 button:hover {
   background: var(--accent);
@@ -64,7 +71,7 @@ h2 {
   letter-spacing: -0.035em;
 }
 em {
-  font-family: Georgia, serif;
+  font-family: var(--display);
   font-weight: 400;
   color: var(--green);
 }
@@ -116,7 +123,7 @@ nav a:last-child {
 .map-axis,
 .map-heading,
 .note-number {
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.025em;
 }

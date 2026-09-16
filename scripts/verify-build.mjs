@@ -19,6 +19,7 @@ const routes = [
   "/journal/slate/",
   "/journal/design-and-code/",
   "/r&d/",
+  "/style-guide/",
   "/404.html",
 ];
 const experiments = [
@@ -45,7 +46,7 @@ for (const route of routes) {
     1,
     `${route}: shared header`,
   );
-  assert.ok(html.includes("/assets/LOGO.jpg"), `${route}: new logo`);
+  assert.ok(html.includes("/assets/goodjob-logo.png"), `${route}: site logo`);
   assert.equal(
     (html.match(/<main\b/g) || []).length,
     1,

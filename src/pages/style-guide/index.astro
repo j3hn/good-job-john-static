@@ -1,0 +1,102 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+
+const colors = [
+  ["Light", "#E1DCCD", "Primary page surface"],
+  ["Dark", "#1C1B19", "Type, rules and buttons"],
+  ["Sun", "#FDB900", "Hero wordmark and high-attention moments"],
+  ["Amber", "#FC9B00", "Secondary accent and hover state"],
+  ["Tangerine", "#FC7800", "Active progress and highlights"],
+  ["Vermilion", "#FB5500", "Strong emphasis and end state"],
+];
+---
+
+<SiteLayout
+  title="Style guide"
+  description="The visual system for Good job, John."
+  home={false}
+>
+  <article class="style-guide">
+    <header class="style-guide__intro">
+      <span class="eyebrow">Good job, John / Visual system</span>
+      <h1>Style guide.</h1>
+      <p>
+        A warm, candid system for a designer and developer who makes useful,
+        thoughtful products. Keep the canvas quiet; let the work and the orange
+        moments do the talking.
+      </p>
+    </header>
+
+    <section aria-labelledby="color-title">
+      <div class="style-guide__section-heading">
+        <span class="eyebrow">01 / Colour</span>
+        <h2 id="color-title">A sun-warmed palette.</h2>
+      </div>
+      <div class="color-grid">
+        {colors.map(([name, hex, use]) => (
+          <article class="color-card">
+            <div class="color-card__swatch" style={`background: ${hex}`}></div>
+            <h3>{name}</h3>
+            <code>{hex}</code>
+            <p>{use}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="type-title">
+      <div class="style-guide__section-heading">
+        <span class="eyebrow">02 / Typography</span>
+        <h2 id="type-title">Expressive, then precise.</h2>
+      </div>
+      <div class="type-specimens">
+        <div class="type-specimen type-specimen--display">
+          <span class="eyebrow">Display / Thelma</span>
+          <p>Thoughtful products, made real.</p>
+          <small>Use for hero statements and page-level headlines.</small>
+        </div>
+        <div class="type-specimen type-specimen--body">
+          <span class="eyebrow">Body / Inter</span>
+          <p>
+            I turn complex problems into useful, thoughtful products. Clear
+            language and generous line-height keep the substance easy to read.
+          </p>
+          <small>Use for navigation, long-form reading and interface copy.</small>
+        </div>
+        <div class="type-specimen type-specimen--utility">
+          <span class="eyebrow">Utility / Ubuntu Mono</span>
+          <p>INDEPENDENT BY NATURE. CURIOUS BY DEFAULT.</p>
+          <small>Use for labels, navigation, metadata and actions.</small>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="components-title">
+      <div class="style-guide__section-heading">
+        <span class="eyebrow">03 / Components</span>
+        <h2 id="components-title">Direct, lightly framed.</h2>
+      </div>
+      <div class="component-board">
+        <a class="guide-button" href="/contact/">
+          Let’s talk <span aria-hidden="true">↗</span>
+        </a>
+        <a class="guide-text-link" href="/#journal">Explore my work ↗</a>
+        <div class="guide-status"><i></i> Independent by nature</div>
+        <div class="guide-rule" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="style-guide__principles" aria-labelledby="principles-title">
+      <span class="eyebrow">04 / Principles</span>
+      <h2 id="principles-title">Make it feel considered, not precious.</h2>
+      <ol>
+        <li>Lead with a clear thought, not a flourish.</li>
+        <li>Use orange deliberately, where attention or warmth is useful.</li>
+        <li>Let generous space give the work room to land.</li>
+        <li>Use mono type as a practical signal, never as decoration.</li>
+      </ol>
+    </section>
+  </article>
+</SiteLayout>
