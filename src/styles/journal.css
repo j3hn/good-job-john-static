@@ -366,7 +366,8 @@ nav a:last-child {
   background: #eee7df;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  padding: 30px 7%;
 }
 .flair-logo {
   display: block;
@@ -388,73 +389,37 @@ nav a:last-child {
   font-size: 12px;
   color: #7d6b5c;
 }
-.phone {
-  height: 440px;
-  width: 216px;
-  border: 6px solid #34332f;
-  border-radius: 35px;
-  background: #fbf8f3;
-  box-shadow: 20px 25px 35px #80694f25;
+.flare-screens {
+  position: relative;
+  width: min(50%, 450px);
+  height: 470px;
+}
+.flare-screen {
+  position: absolute;
+  display: block;
+  width: auto;
+  height: 405px;
+  border-radius: 21px;
+  box-shadow: 0 19px 35px #80694f2b;
+}
+.flare-screen--landing {
+  z-index: 2;
+  height: 450px;
+  left: 50%;
+  top: 7px;
+  transform: translateX(-50%);
+}
+.flare-screen--record {
+  z-index: 1;
+  left: 0;
+  bottom: 2px;
+  transform: rotate(-7deg);
+}
+.flare-screen--recording {
+  z-index: 1;
+  right: 0;
+  bottom: 2px;
   transform: rotate(7deg);
-  text-align: center;
-  padding: 13px 17px;
-  color: #50463d;
-}
-.phone-top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 8px;
-}
-.phone-heading {
-  margin: 32px 0 6px;
-  text-align: left;
-  min-height: 24px;
-}
-.phone-heading .flair-logo--phone {
-  width: 76px;
-}
-.phone > small {
-  font-size: 8px;
-  color: #817469;
-}
-.wave {
-  height: 110px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3px;
-  margin-top: 21px;
-}
-.wave i {
-  height: var(--h);
-  width: 3px;
-  background: #b57e5f;
-  border-radius: 6px;
-}
-.record-time {
-  font-size: 25px;
-  font-weight: 300;
-}
-.phone p {
-  font-size: 9px;
-  margin-top: 8px;
-}
-.record-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 20px 0 25px;
-  font-size: 16px;
-}
-.record-bottom b {
-  display: grid;
-  place-items: center;
-  background: #b57e5f;
-  color: white;
-  width: 43px;
-  height: 43px;
-  border-radius: 50%;
-  font-size: 13px;
 }
 .slate-art {
   background: #e4e6eb;
@@ -799,6 +764,28 @@ footer > * {
   padding: 20px;
   margin: 35px 0;
   color: var(--muted);
+}
+.flare-gallery {
+  margin: 55px 0;
+}
+.flare-gallery-heading {
+  margin-bottom: 25px;
+}
+.flare-gallery-heading p {
+  margin: 0;
+}
+.flare-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.flare-gallery-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  background: #f2f1ef;
+  box-shadow: 0 10px 20px #302d280d;
 }
 .article-prose .lead {
   font-size: 23px;
@@ -1545,5 +1532,42 @@ footer > * {
 @media (max-width: 600px) {
   .site-logo {
     width: 160px;
+  }
+}
+@media (max-width: 900px) {
+  .flare-screens {
+    height: 400px;
+  }
+  .flare-screen {
+    height: 340px;
+  }
+  .flare-screen--landing {
+    height: 378px;
+  }
+}
+@media (max-width: 600px) {
+  .flair-art {
+    padding: 22px 6%;
+  }
+  .flair-message h3 {
+    font-size: 24px;
+    margin: 24px 0 12px;
+  }
+  .flair-logo {
+    width: 100px;
+  }
+  .flare-screens {
+    width: 52%;
+    height: 296px;
+  }
+  .flare-screen {
+    height: 246px;
+    border-radius: 13px;
+  }
+  .flare-screen--landing {
+    height: 274px;
+  }
+  .flare-gallery-grid {
+    gap: 10px;
   }
 }

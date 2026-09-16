@@ -93,7 +93,7 @@
   justify-content: space-between;
   color: #24352c;
 }
-.hero-eyebrow {
+.hero-eyebrow,nav {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -131,7 +131,7 @@
   align-items: end;
 }
 .hero-summary p {
-  font-size: 15px;
+  font-size: 21px;
   line-height: 1.6;
   max-width: 520px;
   margin: 0;
