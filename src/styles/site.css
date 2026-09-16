@@ -88,7 +88,8 @@
   color: var(--sun);
 }
 .hero-content {
-  margin-left: clamp(210px, 20vw, 385px);
+  margin: 0;
+  padding: 0;
 }
 .hero-summary {
   display: flex;
@@ -473,9 +474,6 @@
     margin-right: -10px;
     min-height: max(570px, calc(100svh - 106px));
     padding: 55px 30px 20px;
-  }
-  .hero-content {
-    margin-left: 0;
   }
   .hero-portrait {
     width: 340px;
