@@ -24,7 +24,7 @@
   line-height: 0;
 }
 .site-header .site-logo {
-  width: 154px;
+  width: 120px;
   height: auto;
   mix-blend-mode: multiply;
 }
@@ -65,6 +65,7 @@
     10px ui-monospace,
     SFMono-Regular,
     monospace;
+  text-transform: uppercase;
   letter-spacing: 0.04em;
   margin: 0 0 30px;
   color: var(--ink);
@@ -80,7 +81,7 @@
   z-index: 1;
   max-width: none;
   font-family: var(--display);
-  font-size: clamp(74px, 10.4vw, 164px);
+  font-size: clamp(74px, 10.4vw, 114px);
   font-weight: 400;
   line-height: 0.88;
   letter-spacing: 0;
@@ -103,7 +104,7 @@
   line-height: 1.6;
   position: relative;
   z-index: 1;
-  max-width: 500px;
+  max-width: 540px;
   margin: 0;
 }
 .hero-cta {
