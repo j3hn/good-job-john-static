@@ -47,14 +47,15 @@
 .hero {
   position: relative;
   isolation: isolate;
-  /* overflow: hidden; */
+  overflow: hidden;
   min-height: max(640px, calc(100svh - 106px));
-  margin: 8px -38px 38px;
+  margin: 8px calc(50% - 50vw + 8px) 38px;
   padding: clamp(58px, 9vh, 118px) clamp(48px, 8vw, 128px) 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background: var(--paper);
+  border-radius: 4px;
   color: var(--ink);
 }
 .hero-eyebrow,nav {
@@ -474,8 +475,7 @@
     display: none;
   }
   .hero {
-    margin-left: -10px;
-    margin-right: -10px;
+    margin: 8px calc(50% - 50vw + 8px) 38px;
     min-height: max(570px, calc(100svh - 106px));
     padding: 55px 30px 20px;
   }
@@ -519,7 +519,7 @@
     margin-left: 0;
   }
   .hero {
-    margin: 0 -8px 27px;
+    margin: 8px calc(50% - 50vw + 8px) 27px;
     min-height: max(590px, calc(100svh - 116px));
     padding: 36px 22px 18px;
   }
