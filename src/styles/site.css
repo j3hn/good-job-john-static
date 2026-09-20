@@ -252,7 +252,7 @@
   line-height: 0.9;
 }
 .style-guide__intro h1 {
-  color: var(--accent);
+  color: var(--yellow);
   font-size: clamp(76px, 11vw, 154px);
   margin: 25px 0 32px;
 }
@@ -375,7 +375,7 @@
 }
 .guide-button:hover {
   color: var(--ink);
-  background: var(--amber);
+  background: var(--paper);
 }
 .guide-text-link {
   width: fit-content;
@@ -402,9 +402,9 @@
   height: 16px;
 }
 .guide-rule span:nth-child(1) { background: var(--yellow); }
-.guide-rule span:nth-child(2) { background: var(--tangerine); }
-.guide-rule span:nth-child(3) { background: var(--amber); }
-.guide-rule span:nth-child(4) { background: var(--yellow); }
+.guide-rule span:nth-child(2) { background: var(--paper); }
+.guide-rule span:nth-child(3) { background: var(--muted); }
+.guide-rule span:nth-child(4) { background: var(--canvas); }
 .style-guide__principles {
   padding: clamp(35px, 6vw, 80px);
   background: var(--yellow);

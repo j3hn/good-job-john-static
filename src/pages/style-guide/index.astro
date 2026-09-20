@@ -2,12 +2,12 @@
 import SiteLayout from "@layouts/SiteLayout.astro";
 
 const colors = [
-  ["Light", "#E1DCCD", "Primary page surface"],
-  ["Dark", "#1C1B19", "Type, rules and buttons"],
-  ["Sun", "#FDB900", "Hero wordmark and high-attention moments"],
-  ["Amber", "#FC9B00", "Secondary accent and hover state"],
-  ["Tangerine", "#FC7800", "Active progress and highlights"],
-  ["Vermilion", "#FB5500", "Strong emphasis and end state"],
+  ["Canvas", "#FFF", "The site's continuous white background"],
+  ["Paper", "#E1DCCD", "Primary section surface"],
+  ["Ink", "#1C1B19", "Type, rules and strong contrast"],
+  ["Muted", "#7D6B5C", "Secondary text and quiet detail"],
+  ["Line", "#EEE", "Dividers, borders and fine structure"],
+  ["Yellow", "#FDB900", "The single high-attention accent"],
 ];
 ---
 
@@ -22,15 +22,15 @@ const colors = [
       <h1>Style guide.</h1>
       <p>
         A warm, candid system for a designer and developer who makes useful,
-        thoughtful products. Keep the canvas quiet; let the work and the orange
-        moments do the talking.
+        thoughtful products. Keep the canvas quiet; let the work and a single
+        yellow accent do the talking.
       </p>
     </header>
 
     <section aria-labelledby="color-title">
       <div class="style-guide__section-heading">
         <span class="eyebrow">01 / Colour</span>
-        <h2 id="color-title">A sun-warmed palette.</h2>
+        <h2 id="color-title">A focused palette.</h2>
       </div>
       <div class="color-grid">
         {colors.map(([name, hex, use]) => (
