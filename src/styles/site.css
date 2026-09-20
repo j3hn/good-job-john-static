@@ -47,7 +47,7 @@
 .hero {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  /* overflow: hidden; */
   min-height: max(640px, calc(100svh - 106px));
   margin: 8px -38px 38px;
   padding: clamp(58px, 9vh, 118px) clamp(48px, 8vw, 128px) 24px;
@@ -67,7 +67,7 @@
     monospace;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 30px;
+  margin: 0 0 50px;
   color: var(--ink);
 }
 .hero-eyebrow > span {
@@ -129,7 +129,7 @@
 .hero-portrait {
   position: absolute;
   z-index: 0;
-  left: clamp(-18px, 1vw, 30px);
+  left: clamp(-222px, -13vw, 30px);
   bottom: -3px;
   width: clamp(300px, 31vw, 488px);
   height: auto;
