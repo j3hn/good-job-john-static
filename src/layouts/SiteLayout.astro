@@ -28,6 +28,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="canonical" href={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="/uploads/2019/03/cropped-logo-heart-32x32.png" />
   </head>
   <body class:list={[{ "home-page": home }]}>

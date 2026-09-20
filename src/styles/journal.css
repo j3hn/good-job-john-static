@@ -13,6 +13,7 @@
   --body: Inter, Arial, Helvetica, sans-serif;
   --mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
   font-family: var(--body);
+  font-optical-sizing: auto;
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
