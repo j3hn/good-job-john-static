@@ -2,14 +2,11 @@
   --canvas: #fff;
   --paper: #e1dccd;
   --ink: #1c1b19;
-  --muted: #69635d;
-  --line: #c9c0ad;
-  --green: #fc7800;
-  --accent: #fdb900;
-  --sun: #fdb900;
+  --muted: #7D6B5C;
+  --line: #EEE;  
+  --yellow: #fdb900;
   --amber: #fc9b00;
   --tangerine: #fc7800;
-  --vermilion: #fb5500;
   --display: "Thelma", "Cooper Black", Georgia, serif;
   --body: Inter, Arial, Helvetica, sans-serif;
   --mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
@@ -42,11 +39,11 @@ button {
 }
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--vermilion);
+  outline: 2px solid var(--yellow);
   outline-offset: 6px;
 }
 a:hover {
-  color: var(--vermilion);
+  color: var(--yellow);
 }
 button:hover {
   background: var(--accent);
@@ -77,7 +74,7 @@ h2 {
 em {
   font-family: var(--display);
   font-weight: 400;
-  color: var(--green);
+  color: var(--yellow);
 }
 .site-header,
 main,
@@ -147,7 +144,7 @@ footer {
   vertical-align: -0.1em;
 }
 .footer-arrow {
-  color: var(--green);
+  color: var(--yellow);
   margin-left: 0.15em;
 }
 .intro {
@@ -571,7 +568,7 @@ footer {
   color: var(--muted);
 }
 .note-number {
-  color: var(--green);
+  color: var(--yellow);
 }
 .archive-image {
   display: block;
@@ -631,7 +628,7 @@ footer {
   padding: 10px 4px;
 }
 .map-axis button[aria-pressed="true"] {
-  background: var(--green);
+  background: var(--yellow);
   color: white;
 }
 .map-row {
@@ -737,7 +734,7 @@ footer > * {
 .arrow--hero {
   width: 0.98em;
   height: 0.98em;
-  color: var(--green);
+  color: var(--yellow);
   vertical-align: -0.02em;
 }
 .footer-bottom {
@@ -859,7 +856,7 @@ footer > * {
 .contact-email {
   font-size: clamp(22px, 3vw, 36px);
   display: inline-block;
-  border-bottom: 1px solid var(--green);
+  border-bottom: 1px solid var(--yellow);
   margin: 15px 0 40px;
   letter-spacing: -1px;
 }
@@ -892,7 +889,7 @@ footer > * {
     padding-right: 30px;
   }
   .site-header {
-    align-items: flex-start;
+    /* align-items: flex-start; */
   }
   .header-role {
     display: none;
@@ -1009,14 +1006,12 @@ footer > * {
   .identity span {
     max-width: none;
   }
-  .site-header .site-logo {
-    width: 135px;
-  }
+  
   .site-header nav {
     margin-top: 8px;
     justify-content: space-between;
     gap: 10px;
-    font-size: 12px;
+    /* font-size: 12px; */
   }
   .site-header nav .contact-nav {
     margin-left: 0;
