@@ -1,0 +1,48 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+---
+
+<ArticleLayout
+  title="Gosling Group"
+  description="A website for Gosling Group, connecting commercial and residential customers with electrical expertise."
+  eyebrow="Selected work / Website"
+  subtitle="Built on trust. Designed for connection."
+  tags="Web design · Responsive design"
+>
+  <figure slot="art" class="gosling-cover">
+    <img src="/assets/gosling/gosling-cover.webp" width="1920" height="1200" alt="Gosling Group desktop website presented against a deep navy background" fetchpriority="high" />
+  </figure>
+  <section>
+    <h2>Expertise, made accessible.</h2>
+    <p class="lead">A clear digital home for a business connecting homes, businesses and communities through electrical services.</p>
+    <p>The website brings commercial and residential services into one experience. Distinct red and yellow accents help visitors find their path, while project stories and real team imagery put Gosling’s work at the centre.</p>
+    <a class="text-link" href="https://goslinggroup.com.au/" target="_blank" rel="noopener noreferrer">Visit Gosling Group ↗</a>
+  </section>
+  <section class="film-section">
+    <h2>A closer look.</h2>
+    <video controls playsinline preload="none" poster="/assets/gosling/gosling-monitor-poster.webp" aria-label="Gosling website showcase film: a monitor on a sunlit desk, with angled close-ups of the homepage and project details">
+      <source src="/assets/gosling/gosling-monitor-film.mp4" type="video/mp4" />
+      <a href="/assets/gosling/gosling-monitor-film.mp4">Download the Gosling showcase film</a>
+    </video>
+    <p class="caption">A closer look at the website, from the full screen to the details.</p>
+  </section>
+  <section>
+    <h2>One identity. Every screen.</h2>
+    <p>A strong hierarchy carries from desktop to mobile, keeping the two service pathways prominent and contact within easy reach.</p>
+    <figure><img src="/assets/gosling/gosling-responsive.webp" width="1920" height="1200" loading="lazy" alt="Gosling desktop and mobile homepage layouts shown side by side" /></figure>
+  </section>
+  <section>
+    <h2>The work does the talking.</h2>
+    <p>Project photography and a bold, recognisable visual system give the company’s practical expertise room to speak.</p>
+    <figure><img src="/assets/gosling/gosling-projects.webp" width="1920" height="1200" loading="lazy" alt="Gosling’s Yamba Ngaru Village project feature and project photography" /></figure>
+  </section>
+  <a class="text-link" href="/work/">Explore more selected work ↗</a>
+</ArticleLayout>
+
+<style>
+  .gosling-cover { margin: 0; }
+  img, video { display: block; width: 100%; height: auto; }
+  figure { margin: 2rem 0 0; }
+  video { aspect-ratio: 16 / 9; background: #081d29; }
+  .caption { font-size: .875rem; opacity: .7; margin-top: .75rem; }
+</style>

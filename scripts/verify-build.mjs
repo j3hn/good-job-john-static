@@ -14,6 +14,7 @@ const routes = [
   "/jenna-meade/",
   "/sunny-copy/",
   "/soul-charters/",
+  "/gosling/",
   "/journal/runway/",
   "/journal/flair/",
   "/journal/slate/",
