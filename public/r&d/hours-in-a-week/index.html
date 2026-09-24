@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hours in a Week</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* ---------- colour index / legend ---------- */
+    #colour-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .colour-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: #16213e;
+      transition: border-color 0.15s, transform 0.1s;
+      user-select: none;
+    }
+
+    .colour-option:hover {
+      transform: translateY(-1px);
+    }
+
+    .colour-option.active {
+      border-color: #fff;
+    }
+
+    .colour-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .colour-label {
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .colour-option .edit-btn {
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0 2px;
+      margin-left: 2px;
+      line-height: 1;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .colour-option:hover .edit-btn {
+      opacity: 1;
+    }
+
+    /* ---------- eraser ---------- */
+    .colour-option.eraser .colour-swatch {
+      background: repeating-conic-gradient(#444 0% 25%, #222 0% 50%) 50% / 8px 8px;
+      border: 1px dashed #666;
+    }
+
+    /* ---------- custom colour editor ---------- */
+    #custom-colours {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    #custom-colours button {
+      background: #0f3460;
+      color: #e0e0e0;
+      border: 1px dashed #53587a;
+      border-radius: 6px;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: background 0.15s;
+    }
+
+    #custom-colours button:hover {
+      background: #1a4a7a;
+    }
+
+    /* ---------- modal ---------- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #16213e;
+      padding: 24px;
+      border-radius: 12px;
+      width: 320px;
+      max-width: 90vw;
+    }
+
+    .modal h2 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    .modal label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .modal input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #53587a;
+      background: #0f3460;
+      color: #e0e0e0;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .modal input[type="color"] {
+      width: 100%;
+      height: 40px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      background: none;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .modal-actions button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .btn-cancel {
+      background: #53587a;
+      color: #e0e0e0;
+    }
+
+    .btn-confirm {
+      background: #e94560;
+      color: #fff;
+    }
+
+    /* ---------- grid ---------- */
+    .grid-wrapper {
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 56px repeat(48, 1fr) auto;
+      gap: 2px;
+      min-width: 740px;
+    }
+
+    .corner {
+      /* top-left empty cell */
+    }
+
+    .hour-header {
+      font-size: 0.65rem;
+      text-align: center;
+      padding: 4px 0;
+      color: #aaa;
+    }
+
+    .hour-header.half {
+      font-size: 0.55rem;
+      color: #555;
+    }
+
+    .row-total-header {
+      font-size: 0.65rem;
+      color: #aaa;
+      padding: 0 0 4px 10px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .row-total {
+      padding: 2px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      justify-content: center;
+    }
+
+    .row-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      color: #ccc;
+    }
+
+    .row-stat .colour-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .day-label {
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      color: #ccc;
+      font-weight: 500;
+    }
+
+    .cell {
+      width: 100%;
+      aspect-ratio: 1;
+      min-width: 14px;
+      background: #0f3460;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: outline 0.1s, transform 0.1s;
+    }
+
+    .cell:hover {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      transform: scale(1.12);
+      z-index: 2;
+    }
+
+    /* ---------- stats ---------- */
+    #stats {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      font-size: 0.82rem;
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #16213e;
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+
+    .stat .colour-swatch {
+      width: 14px;
+      height: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hours in a Week</h1>
+
+  <!-- colour palette / index -->
+  <div id="colour-index"></div>
+  <div id="custom-colours">
+    <button id="add-colour-btn">+ Add Colour</button>
+  </div>
+
+  <!-- grid -->
+  <div class="grid-wrapper">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- live stats -->
+  <div id="stats"></div>
+
+  <!-- add-colour modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h2>Add New Colour</h2>
+      <label for="input-label">Label</label>
+      <input type="text" id="input-label" placeholder="e.g. Exercise" maxlength="30">
+      <label for="input-colour">Colour</label>
+      <input type="color" id="input-colour" value="#e94560">
+      <div class="modal-actions">
+        <button class="btn-cancel" id="modal-cancel">Cancel</button>
+        <button class="btn-confirm" id="modal-confirm">Add</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ========================================================
+   Data
+   ======================================================== */
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const HOURS = 24;
+const SLOTS = HOURS * 2;
+
+// Default colour categories
+const defaultCategories = [
+  { id: 'sleep',     label: 'Sleep',       colour: '#6c5ce7' },
+  { id: 'work',      label: 'Work',        colour: '#00b894' },
+  { id: 'exercise',  label: 'Exercise',    colour: '#e17055' },
+  { id: 'leisure',   label: 'Leisure',     colour: '#fdcb6e' },
+  { id: 'commute',   label: 'Commute',     colour: '#0984e3' },
+  { id: 'chores',    label: 'Chores',      colour: '#e84393' },
+  { id: 'meals',     label: 'Meals',       colour: '#55efc4' },
+  { id: 'learning',  label: 'Learning',    colour: '#a29bfe' },
+];
+
+let categories = [];   // populated from storage or defaults
+let selectedId = null;  // currently chosen brush (null = eraser)
+let editingId = null;   // category being edited in the modal (null = adding new)
+
+// grid state: cellKey -> categoryId   (cellKey = "day-hour")
+let cellState = {};
+
+/* ========================================================
+   Persistence (localStorage)
+   ======================================================== */
+function save() {
+  localStorage.setItem('hiaw-categories', JSON.stringify(categories));
+  localStorage.setItem('hiaw-cells', JSON.stringify(cellState));
+}
+
+function load() {
+  try {
+    const cats = JSON.parse(localStorage.getItem('hiaw-categories'));
+    const cells = JSON.parse(localStorage.getItem('hiaw-cells'));
+    if (cats && cats.length) categories = cats;
+    else categories = structuredClone(defaultCategories);
+    if (cells) cellState = cells;
+  } catch {
+    categories = structuredClone(defaultCategories);
+    cellState = {};
+  }
+}
+
+/* ========================================================
+   Render colour index
+   ======================================================== */
+function renderIndex() {
+  const container = document.getElementById('colour-index');
+  container.innerHTML = '';
+
+  // eraser first
+  const eraser = document.createElement('div');
+  eraser.className = 'colour-option eraser' + (selectedId === null ? ' active' : '');
+  eraser.innerHTML = '<div class="colour-swatch"></div><span class="colour-label">Eraser</span>';
+  eraser.addEventListener('click', () => { selectedId = null; renderIndex(); });
+  container.appendChild(eraser);
+
+  categories.forEach(cat => {
+    const el = document.createElement('div');
+    el.className = 'colour-option' + (selectedId === cat.id ? ' active' : '');
+    el.innerHTML =
+      `<div class="colour-swatch" style="background:${cat.colour}"></div>` +
+      `<span class="colour-label">${cat.label}</span>`;
+    el.addEventListener('click', () => { selectedId = cat.id; renderIndex(); });
+
+    const editBtn = document.createElement('button');
+    editBtn.className = 'edit-btn';
+    editBtn.textContent = '✎';
+    editBtn.title = 'Edit colour';
+    editBtn.addEventListener('click', (e) => { e.stopPropagation(); openEditModal(cat.id); });
+    el.appendChild(editBtn);
+
+    container.appendChild(el);
+  });
+}
+
+/* ========================================================
+   Build / render grid
+   ======================================================== */
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  // corner
+  const corner = document.createElement('div');
+  corner.className = 'corner';
+  grid.appendChild(corner);
+
+  // slot headers (hour on the hour, :30 for half-hours)
+  for (let s = 0; s < SLOTS; s++) {
+    const hdr = document.createElement('div');
+    if (s % 2 === 0) {
+      hdr.className = 'hour-header';
+      hdr.textContent = String(s / 2).padStart(2, '0');
+    } else {
+      hdr.className = 'hour-header half';
+      hdr.textContent = '30';
+    }
+    grid.appendChild(hdr);
+  }
+
+  // total column header
+  const totalHdr = document.createElement('div');
+  totalHdr.className = 'row-total-header';
+  totalHdr.textContent = 'Total';
+  grid.appendChild(totalHdr);
+
+  // rows
+  DAYS.forEach((day, di) => {
+    // day label
+    const lbl = document.createElement('div');
+    lbl.className = 'day-label';
+    lbl.textContent = day.slice(0, 3);
+    grid.appendChild(lbl);
+
+    // cells
+    for (let s = 0; s < SLOTS; s++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.day = di;
+      cell.dataset.slot = s;
+      const key = di + '-' + s;
+
+      // apply stored colour
+      applyCellColour(cell, key);
+
+      // pointer events for click + drag painting
+      cell.addEventListener('pointerdown', onPointerDown);
+      cell.addEventListener('pointerenter', onPointerEnter);
+      cell.addEventListener('pointerup', onPointerUp);
+
+      grid.appendChild(cell);
+    }
+
+    // row total
+    const rowTotal = document.createElement('div');
+    rowTotal.className = 'row-total';
+    rowTotal.dataset.day = di;
+    grid.appendChild(rowTotal);
+  });
+}
+
+function applyCellColour(cell, key) {
+  const catId = cellState[key];
+  if (catId) {
+    const cat = categories.find(c => c.id === catId);
+    cell.style.background = cat ? cat.colour : '';
+  } else {
+    cell.style.background = '';
+  }
+}
+
+/* ========================================================
+   Painting (click + drag)
+   ======================================================== */
+let painting = false;
+
+function paint(cell) {
+  const key = cell.dataset.day + '-' + cell.dataset.slot;
+  if (selectedId === null) {
+    delete cellState[key];
+  } else {
+    cellState[key] = selectedId;
+  }
+  applyCellColour(cell, key);
+  save();
+  renderStats();
+  renderRowTotals();
+}
+
+function onPointerDown(e) {
+  e.preventDefault();
+  painting = true;
+  this.releasePointerCapture(e.pointerId); // release so enter events fire on siblings
+  paint(this);
+}
+
+function onPointerEnter(e) {
+  if (painting) paint(this);
+}
+
+function onPointerUp() {
+  painting = false;
+}
+
+document.addEventListener('pointerup', () => { painting = false; });
+
+/* ========================================================
+   Stats
+   ======================================================== */
+function formatTime(slots) {
+  const h = Math.floor(slots / 2);
+  const m = (slots % 2) * 30;
+  return m ? `${h}h 30m` : `${h}h`;
+}
+
+function renderStats() {
+  const counts = {};
+  categories.forEach(c => { counts[c.id] = 0; });
+  Object.values(cellState).forEach(id => {
+    if (counts[id] !== undefined) counts[id]++;
+  });
+
+  const container = document.getElementById('stats');
+  container.innerHTML = '';
+  categories.forEach(cat => {
+    if (counts[cat.id] === 0) return;
+    const el = document.createElement('div');
+    el.className = 'stat';
+    el.innerHTML =
+      `<div class="colour-swatch" style="background:${cat.colour}"></div>` +
+      `<span>${cat.label}: <strong>${formatTime(counts[cat.id])}</strong></span>`;
+    container.appendChild(el);
+  });
+}
+
+function renderRowTotals() {
+  DAYS.forEach((day, di) => {
+    const el = document.querySelector(`.row-total[data-day="${di}"]`);
+    if (!el) return;
+
+    const counts = {};
+    categories.forEach(c => { counts[c.id] = 0; });
+    for (let s = 0; s < SLOTS; s++) {
+      const id = cellState[di + '-' + s];
+      if (id && counts[id] !== undefined) counts[id]++;
+    }
+
+    el.innerHTML = '';
+    categories.forEach(cat => {
+      if (!counts[cat.id]) return;
+      const stat = document.createElement('div');
+      stat.className = 'row-stat';
+      stat.innerHTML =
+        `<div class="colour-dot" style="background:${cat.colour}"></div>` +
+        `<span>${formatTime(counts[cat.id])}</span>`;
+      el.appendChild(stat);
+    });
+  });
+}
+
+/* ========================================================
+   Add / edit colour modal
+   ======================================================== */
+function openAddModal() {
+  editingId = null;
+  document.querySelector('#modal-overlay h2').textContent = 'Add New Colour';
+  document.getElementById('modal-confirm').textContent = 'Add';
+  document.getElementById('input-label').value = '';
+  document.getElementById('input-colour').value = '#e94560';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('input-label').focus();
+}
+
+function openEditModal(catId) {
+  const cat = categories.find(c => c.id === catId);
+  if (!cat) return;
+  editingId = catId;
+  document.querySelector('#modal-overlay h2').textContent = 'Edit Colour';
+  document.getElementById('modal-confirm').textContent = 'Save';
+  document.getElementById('input-label').value = cat.label;
+  document.getElementById('input-colour').value = cat.colour;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('input-label').focus();
+}
+
+document.getElementById('add-colour-btn').addEventListener('click', openAddModal);
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+document.getElementById('modal-confirm').addEventListener('click', () => {
+  const label = document.getElementById('input-label').value.trim();
+  const colour = document.getElementById('input-colour').value;
+  if (!label) return;
+
+  if (editingId) {
+    const cat = categories.find(c => c.id === editingId);
+    if (cat) { cat.label = label; cat.colour = colour; }
+    save();
+    buildGrid();
+    renderIndex();
+    renderRowTotals();
+    renderStats();
+  } else {
+    const id = label.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
+    categories.push({ id, label, colour });
+    selectedId = id;
+    save();
+    renderIndex();
+  }
+  closeModal();
+});
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+/* ========================================================
+   Init
+   ======================================================== */
+load();
+renderIndex();
+buildGrid();
+renderRowTotals();
+renderStats();
+</script>
+</body>
+</html>

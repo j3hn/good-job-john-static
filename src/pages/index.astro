@@ -7,6 +7,53 @@ import ExperimentGrid from "@components/ExperimentGrid.astro";
 import Hero from "@components/Hero.astro";
 import ExperienceMap from "@components/ExperienceMap.astro";
 import About from "@components/About.astro";
+
+const archiveWork = [
+  {
+    title: "Emma Power",
+    href: "/emma-power/",
+    image: "/uploads/2018/11/case-study-emma-power.jpg",
+    alt: "Emma Power website design",
+    width: 1650,
+    height: 1020,
+    tags: "Brand · Web design · Development",
+    heading: "A clear stage for a writer, teacher and speaker.",
+    copy: "A minimal website built around Emma’s words, with calm typography and subtle movement keeping the experience simple and easy to navigate.",
+  },
+  {
+    title: "Sunny Copy",
+    href: "/sunny-copy/",
+    image: "/uploads/2019/05/case-study-sunny-copy-cmps.jpg",
+    alt: "Sunny Copy website design",
+    width: 1650,
+    height: 1020,
+    tags: "Brand · Web design · Development",
+    heading: "A simple website where the words do the work.",
+    copy: "Brand and website design for a creative copywriter, using a restrained visual system, small interactions and strong performance to keep the writing central.",
+  },
+  {
+    title: "Jenna Meade",
+    href: "/jenna-meade/",
+    image: "/uploads/2018/12/case-study-jenna-meade-1650.jpg",
+    alt: "Jenna Meade editorial website design",
+    width: 1650,
+    height: 1020,
+    tags: "Web design · Development",
+    heading: "A clear voice, on the web.",
+    copy: "Website design and development for journalist and writer Jenna Meade. An earlier chapter of my independent practice.",
+  },
+  {
+    title: "Soul Charters",
+    href: "/soul-charters/",
+    image: "/uploads/2019/06/soul-charters-home.png",
+    alt: "Soul Charters website design",
+    width: 1790,
+    height: 1220,
+    tags: "Brand · Web design · Development",
+    heading: "A dreamlike digital home for retreats at sea.",
+    copy: "A brand and website redesign pairing immersive imagery with a spacious reading experience to introduce yacht retreats and help facilitators imagine what is possible.",
+  },
+];
 ---
 
 <SiteLayout
@@ -182,55 +229,74 @@ import About from "@components/About.astro";
         <span>Selected work / Website</span>
         <span>Gosling Group</span>
       </div>
-      <a href="/gosling/" aria-label="Explore the Gosling Group website project">
-        <img class="archive-image" src="/assets/gosling/gosling-cover.webp" alt="Gosling Group website showcase" loading="lazy" width="1920" height="1200" />
-      </a>
-      <div class="entry-copy">
-        <div>
-          <h2><a href="/gosling/">Gosling Group ↗</a></h2>
-          <span class="tags">Web design · Responsive design</span>
-        </div>
-        <div>
-          <h3>Built on trust. Designed for connection.</h3>
-          <p>A digital home for electrical expertise, bringing commercial and residential services into one clear experience.</p>
-          <a class="text-link" href="/gosling/">Explore the project and film ↗</a>
-        </div>
-      </div>
-    </article>
-    <article class="feed-entry" data-category="selected">
-      <div class="entry-meta">
-        <span>Selected work / Archive</span>
-        <span>Independent practice</span>
-      </div>
-      <a href="/jenna-meade/">
+      <a
+        href="/gosling/"
+        aria-label="Explore the Gosling Group website project"
+      >
         <img
           class="archive-image"
-          src="/uploads/2018/12/case-study-jenna-meade-1650.jpg"
-          alt="Jenna Meade editorial website design"
+          src="/assets/gosling/gosling-cover.webp"
+          alt="Gosling Group website showcase"
           loading="lazy"
-          width="1650"
-          height="1020"
+          width="1920"
+          height="1200"
         />
       </a>
       <div class="entry-copy">
         <div>
           <h2>
-            <a href="/jenna-meade/">Jenna Meade ↗</a>
+            <a href="/gosling/">Gosling Group ↗</a>
           </h2>
-          <span class="tags">Web design · Development</span>
+          <span class="tags">Web design · Responsive design</span>
         </div>
         <div>
-          <h3>A clear voice, on the web.</h3>
+          <h3>Built on trust. Designed for connection.</h3>
           <p>
-            Website design and development for journalist and writer Jenna
-            Meade. An earlier chapter of my independent practice.
+            A digital home for electrical expertise, bringing commercial and
+            residential services into one clear experience.
           </p>
-          <a class="text-link" href="/work/">
-            Explore the work archive ↗
+          <a class="text-link" href="/gosling/">
+            Explore the project and film ↗
           </a>
         </div>
       </div>
     </article>
+    {archiveWork.map((project) => (
+      <article class="feed-entry" data-category="selected">
+        <div class="entry-meta">
+          <span>Selected work / Archive</span>
+          <span>Independent practice</span>
+        </div>
+        <a
+          href={project.href}
+          aria-label={`Explore the ${project.title} project`}
+        >
+          <img
+            class="archive-image"
+            src={project.image}
+            alt={project.alt}
+            loading="lazy"
+            width={project.width}
+            height={project.height}
+          />
+        </a>
+        <div class="entry-copy">
+          <div>
+            <h2>
+              <a href={project.href}>{project.title} ↗</a>
+            </h2>
+            <span class="tags">{project.tags}</span>
+          </div>
+          <div>
+            <h3>{project.heading}</h3>
+            <p>{project.copy}</p>
+            <a class="text-link" href={project.href}>
+              Explore the project ↗
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
   </section>
   <ExperienceMap />
   <About />
