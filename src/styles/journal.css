@@ -1,13 +1,4 @@
 :root {
-  --canvas: #fff;
-  --paper: #e1dccd;
-  --ink: #1c1b19;
-  --muted: #7d6b5c;
-  --line: #eee;
-  --yellow: #fdb900;
-  --display: "Thelma", "Cooper Black", Georgia, serif;
-  --body: Inter, Arial, Helvetica, sans-serif;
-  --mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
   font-family: var(--body);
   font-optical-sizing: auto;
   color: var(--ink);
@@ -37,7 +28,7 @@ button {
 }
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--yellow);
+  outline: var(--focus-ring);
   outline-offset: 6px;
 }
 a:hover {
@@ -77,10 +68,10 @@ em {
 .site-header,
 main,
 footer {
-  max-width: 1280px;
+  max-width: var(--layout-width);
   margin: auto;
-  padding-left: 64px;
-  padding-right: 64px;
+  padding-left: var(--layout-gutter);
+  padding-right: var(--layout-gutter);
 }
 .site-header {
   display: flex;
