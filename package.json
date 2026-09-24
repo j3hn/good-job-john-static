@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Good job, John. — Astro portfolio and product journal",
   "private": true,
+  "packageManager": "pnpm@12.3.4",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "serve": "astro dev",
