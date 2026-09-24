@@ -1,54 +1,58 @@
-# good-job-john-static
+# Good job, John.
 
-Personal site for **Good job.** — a plain static site (HTML/CSS/JS, no build step, no
-WordPress). It began as a WordPress export and has been de-WordPressed: minified
-markup expanded and formatted, IE conditional comments and Simply Static artifacts
-removed, and the duplicate `wp-content/` / `wp-includes/` trees dropped in favour of the
-rewritten asset paths.
+John Basham’s portfolio and product journal, built with **Astro**. It generates a
+static site with shared components and a lightweight WebGL homepage background.
 
-## Structure
+## Development
 
-```
-index.html            Product journal homepage
-assets/               Journal CSS and JavaScript
-journal/              Product build notes and writing
-404.html              Not-found page
-<page>/index.html     Content pages (work, cv, contact, rate-card, brand-motion, …)
-theme/goodjob/        Site theme: css/, js/, images/
-includes/             Third-party CSS/JS (jQuery, block-library) — do not hand-edit
-uploads/              Images and video
-```
-
-## Working on it
-
-No install is required to view the site. To edit with formatting on tap:
+Use Node.js 22.12+ and pnpm (the lockfile is included).
 
 ```sh
-npm install          # installs Prettier locally (optional; npx works too)
-npm run serve        # http://localhost:8000
-npm run format       # format all HTML with Prettier
-npm run check        # verify formatting without writing
+pnpm install
+pnpm dev           # http://localhost:8000, updates as you edit
+pnpm check         # Astro diagnostics, production build, route and asset checks
+pnpm format        # format source files
+pnpm build         # produce dist/
+pnpm preview       # preview dist/ at http://localhost:8000
 ```
 
-Prettier now parses every page. Vendor/minified assets are excluded via
-`.prettierignore`.
+Stop the development server before running preview on the same port. The former
+Python server is no longer needed: Astro resolves components and builds assets.
 
-## Notes
+## Where to edit
 
-- A few pages reference `theme/goodjob/favicon.png`, `apple-touch-icon.png`, and
-  `library/images/icon.svg`, which were never captured in the original export. The
-  working favicons under `uploads/2019/03/` are used instead; add the missing files or
-  drop the stale `<link>` tags when convenient.
-- The WordPress block-editor CSS has been pruned: the `:root` preset palette (colors,
-  gradients, shadows, spacing) and the unused `has-*-color`/`gradient`/`border` rules
-  were removed. Only the rules the pages actually use remain (block layout/columns,
-  spacers, buttons, quotes, separators, and `has-small-font-size`, whose one preset value
-  is now inlined). The `block-library/style.min.css` link is kept — some pages use its
-  block classes.
+| Change | File or folder |
+| --- | --- |
+| Header, navigation, logo | `src/components/Header.astro` |
+| Footer | `src/components/Footer.astro` |
+| Page metadata and shared styles | `src/layouts/SiteLayout.astro` |
+| Journal article structure | `src/layouts/ArticleLayout.astro` |
+| Hero wording and structure | `src/components/Hero.astro` |
+| Animated background | `src/scripts/hero-shader.ts` |
+| Homepage feed | `src/pages/index.astro` |
+| Product artwork shared across pages | `src/components/art/` |
+| Experiment cards | `src/components/ExperimentGrid.astro` |
+| Experience and About sections | `src/components/ExperienceMap.astro`, `About.astro` |
+| Pages and journal entries | `src/pages/` |
+| Shared CSS and interactions | `src/styles/`, `src/scripts/` |
+| Logo, images and video | `public/assets/`, `public/uploads/` |
+| Standalone interactive experiments | `public/r&d/` |
 
-## Product journal concept
+Assets in `public/` retain their existing URLs: `public/assets/LOGO.jpg` is served
+at `/assets/LOGO.jpg`. The Flare article retains `/journal/flair/` to preserve links.
+All portfolio pages use the same header and footer. The standalone R&D tools keep
+their own interfaces. Legacy theme files remain in `public/` for compatibility.
 
-The current redesign is documented in [DESIGN-NOTES.md](DESIGN-NOTES.md), including
-content sources, illustration status, editing guidance and suggested next inputs.
-The homepage, journal, CV and contact pages share the new theme; archived case
-studies retain their original design.
+The shader requires no external library. Reduced-motion preferences pause it by
+default, the visitor can pause/play, and offscreen/hidden pages stop animating.
+Browsers without WebGL display a CSS gradient. The rest of the site is rendered
+as HTML; only the journal filters, experience selection and shader need JavaScript.
+
+## Publishing
+
+Run `pnpm check`, then publish **`dist/`** to the existing static host. A connected
+build service should use `pnpm build` and `dist` as its output directory. The source
+repository root is no longer a directly deployable website. No hosting account or
+production deployment was changed by this migration.
+
+See [DESIGN-NOTES.md](DESIGN-NOTES.md) for content sources and design decisions.

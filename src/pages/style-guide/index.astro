@@ -1,0 +1,64 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+import Arrow from "@components/Arrow.astro";
+import tokens from "../../styles/tokens.css?raw";
+const declarations = [...tokens.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => ({ name, value }));
+const colors = declarations.filter(t => t.name.startsWith('--color-'));
+const scales = declarations.filter(t => /^--(text|space|layout|radius|motion)-/.test(t.name));
+---
+<SiteLayout title="Style guide" description="The living visual system for Good job, John." home={false}>
+  <article class="style-guide">
+    <header class="style-guide__intro">
+      <span class="eyebrow">Good job, John / Living visual system</span>
+      <h1>Style guide.</h1>
+      <p>A warm, candid system for a designer and developer who makes useful things. The portfolio and Goodjob share a family resemblance, with independent palettes and purposes.</p>
+      <p>These specimens use production styles. Colour values and scales below are read from the token source, so the reference follows the site.</p>
+    </header>
+    <section>
+      <div class="style-guide__section-heading"><span class="eyebrow">01 / Identity</span><h2>Keep the family resemblance.</h2></div>
+      <div class="component-board"><img src="/assets/logo-text.png" alt="Goodjob wordmark" width="256" height="67" /></div>
+      <p>The wordmark is shared with Goodjob, the consulting practice. Preserve its proportions and leave clear space of at least its cap height. The portfolio keeps its portrait and warm palette; Goodjob uses the supplied hand icon and cobalt blue.</p>
+    </section>
+    <section aria-labelledby="color-title">
+      <div class="style-guide__section-heading"><span class="eyebrow">02 / Colour</span><h2 id="color-title">A focused palette.</h2></div>
+      <div class="color-grid">{colors.map(({name,value}) => <article class="color-card"><div class="color-card__swatch" style={`background:var(${name})`}></div><h3>{name.replace('--color-','')}</h3><code>{name}<br />{value}</code></article>)}</div>
+      <p>Canvas is the continuous white background; surface gives the hero and artwork a warmer ground. Ink carries content, muted supports it, and accent is the yellow attention colour. Use dark ink on yellow controls.</p>
+    </section>
+    <section aria-labelledby="type-title">
+      <div class="style-guide__section-heading"><span class="eyebrow">03 / Typography</span><h2 id="type-title">Expressive, then precise.</h2></div>
+      <div class="type-specimens">
+        <div class="type-specimen type-specimen--display"><span class="eyebrow">Display / Existing local stack</span><p>Thoughtful products, made real.</p><small>Thelma → Cooper Black → Georgia → serif. No Thelma font file is currently shipped or loaded: the browser uses the first available local font. This stack is preserved to avoid changing the portfolio’s appearance.</small></div>
+        <div class="type-specimen type-specimen--body"><span class="eyebrow">Body / Inter</span><p>I turn complex problems into useful, thoughtful products. Clear language and generous line-height keep the substance easy to read.</p><small>Inter is loaded from Google Fonts. Arial, Helvetica and the system sans-serif font are fallbacks.</small></div>
+        <div class="type-specimen type-specimen--utility"><span class="eyebrow">Utility / Local monospace stack</span><p>Independent by nature. Curious by default.</p><small>Ubuntu Mono → system monospace → SFMono-Regular → Consolas. Ubuntu Mono is not downloaded. Existing hero metadata uses its own system-monospace stack.</small></div>
+      </div>
+    </section>
+    <section aria-labelledby="components-title">
+      <div class="style-guide__section-heading"><span class="eyebrow">04 / Production components</span><h2 id="components-title">Direct, lightly framed.</h2></div>
+      <div class="component-board"><a class="text-link" href="/contact/">Let’s talk <Arrow /></a><a class="hero-cta" href="/#journal">Explore my work <Arrow /></a><div class="filters" role="group" aria-label="Example filter"><button type="button" aria-pressed="true" data-guide-toggle>Selected</button><button type="button" aria-pressed="false" data-guide-toggle>Unselected</button></div></div>
+      <p>These are the site’s actual link, hero-action, arrow and filter styles. Use Tab to inspect focus, or click a filter to inspect its selected state. The portfolio has no enquiry form or payment controls; those belong to Goodjob’s guide.</p>
+    </section>
+    <section>
+      <div class="style-guide__section-heading"><span class="eyebrow">05 / Layout and scales</span><h2>Change the system at its source.</h2></div>
+      <dl class="guide-token-list">{scales.map(({name,value})=><div><dt><code>{name}</code></dt><dd>{value}</dd></div>)}</dl>
+      <p>The existing responsive rules remain in place. Reuse the spacing scale when extending the site; do not mechanically round archival layouts to new values. Tokens control shared colours, fonts, the page container and hero scale.</p>
+    </section>
+    <section class="style-guide__principles">
+      <span class="eyebrow">06 / Voice, motion and maintenance</span><h2>Make it feel considered.</h2>
+      <ol><li>Lead with a clear thought and concrete work.</li><li>Use yellow deliberately, with enough contrast for the text it supports.</li><li>Respect reduced motion and preserve keyboard focus.</li><li>Change semantic tokens first, shared components second, and page-specific styles last.</li><li>Keep Goodjob’s palette independent. Shared token names do not mean both sites must look identical.</li></ol>
+    </section>
+  </article>
+</SiteLayout>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-guide-toggle]').forEach(button => button.addEventListener('click', () => button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'))));
+</script>
+<style>
+  .style-guide>section>p{font-size:16px;line-height:1.7;max-width:900px;margin-top:24px}
+  .color-card code{overflow-wrap:anywhere}
+  .guide-token-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  .guide-token-list>div{border-top:1px solid var(--line);padding-top:12px}
+  .guide-token-list dt{font-size:13px;overflow-wrap:anywhere}
+  .guide-token-list dd{margin:8px 0 0;font-size:14px;overflow-wrap:anywhere}
+  .type-specimen small{font-size:14px!important;line-height:1.6}
+  .component-board img{max-width:100%;height:auto}
+  @media(max-width:600px){.guide-token-list{grid-template-columns:1fr 1fr}}
+</style>

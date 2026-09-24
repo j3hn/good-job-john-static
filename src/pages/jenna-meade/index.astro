@@ -1,0 +1,141 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Jenna Meade – Good job."
+  description="Design and development work by John Basham."
+  home={false}
+>
+  <div class="archive-page">
+    <article
+      class="category-case-study format-standard has-post-thumbnail hentry post post-100 status-publish tag-brand tag-web type-post"
+      id="post-100"
+      itemprop="blogPost"
+      itemscope
+      itemtype="https://schema.org/BlogPosting"
+      role="article"
+    >
+      <header class="article-header entry-header">
+        <div class="post-tag">
+          <span>Brand</span>
+        </div>
+        <div class="post-tag">
+          <span>Web</span>
+        </div>
+        <div class="post-cat">
+          <span>Case Study</span>
+        </div>
+        <h1 class="entry-title single-title" itemprop="headline">
+          Jenna Meade
+        </h1>
+      </header>
+      <section class="entry-content" itemprop="articleBody">
+        <div class="featured-image">
+          <label for="expand-toggle" id="expand-image">
+            <img
+              alt="Screenshot of the homepage"
+              class="attachment-full size-full wp-post-image"
+              decoding="async"
+              fetchpriority="high"
+              height="1020"
+              sizes="(max-width: 1650px) 100vw, 1650px"
+              src="/uploads/2018/12/case-study-jenna-meade-1650.jpg"
+              srcset="
+                  /uploads/2018/12/case-study-jenna-meade-1650.jpg          1650w,
+                  /uploads/2018/12/case-study-jenna-meade-1650-300x185.jpg   300w,
+                  /uploads/2018/12/case-study-jenna-meade-1650-768x475.jpg   768w,
+                  /uploads/2018/12/case-study-jenna-meade-1650-1024x633.jpg 1024w
+                "
+              width="1650"
+            />
+          </label>
+        </div>
+        <p>
+          <small>
+            <strong>Website:</strong>
+            <a href="https://jennameade.com.au/">jennameade.com.au</a>
+          </small>
+          <br />
+          <small>
+            <strong>Services:</strong> design, develop, deploy, optimise,
+            seo-setup
+          </small>
+        </p>
+        <hr class="wp-block-separator" />
+        <p>
+          <strong>Design</strong>
+        </p>
+        <p>
+          Jen has been well established as a journalist for years now, yet never
+          had a home to collate all those years worth of writing.
+          <a href="https://jennameade.com.au/writing/">Until now!</a>
+        </p>
+        <p>
+          We sat down and went over everything, and I mean everything. Then we
+          stood back and took a minimalist approach, basically stripping back
+          everything to its most basic form and removing anything that was not
+          absolute in its necessity.
+        </p>
+        <p>
+          What we were left with was a simple flyer like home and contact page
+          in one. It gets straight to the point telling you what she does and
+          what she’s all about. Let’s you know she’s worked with some top notch
+          publishers and gives you quick access to contact her.
+        </p>
+        <p>
+          The rest of the site is aimed at providing a pleasurable reading
+          experience for her writing; both on mobile and desktop. The small
+          things add up here, character length of sentences, font choice, size
+          and color contrast for legibility. They all go unnoticed by the
+          untrained eye but affect the users experience on the website.
+        </p>
+        <p>
+          <strong>Develop &gt; Deploy &gt; Optimise</strong>
+        </p>
+        <p>
+          This build began about a month before wordpress 5.0 was released, they
+          always release a new theme alongside it. So to get an insight into
+          what devs from wordpress themselves are doing I grabbed the as-yet
+          unreleased
+          <a href="https://codex.wordpress.org/Twenty_Nineteen">
+            Twenty Nineteen
+          </a>
+           from
+          <a href="https://github.com/WordPress/twentynineteen">github</a>. 
+          Digging into its code it’s actually based off the
+          <a href="https://underscores.me/">_s</a> theme which is several years
+          old now. It goes to show good coding standards will stand the test of
+          time.
+        </p>
+        <p>
+          There were a few  minor issues being using a pre-release, namely
+          javascript things. I basically stripped out what I didn’t need and got
+          the site up to speed.
+        </p>
+        <figure class="alignnone size-full wp-block-image wp-image-108">
+          <img
+            alt="GTMetrix Score"
+            class="wp-image-277"
+            decoding="async"
+            height="133"
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            src="/uploads/2018/12/Screen-Shot-2018-12-18-at-1.21.05-pm-1024x133.png"
+            srcset="
+                /uploads/2018/12/Screen-Shot-2018-12-18-at-1.21.05-pm-1024x133.png 1024w,
+                /uploads/2018/12/Screen-Shot-2018-12-18-at-1.21.05-pm-300x39.png    300w,
+                /uploads/2018/12/Screen-Shot-2018-12-18-at-1.21.05-pm-768x100.png   768w,
+                /uploads/2018/12/Screen-Shot-2018-12-18-at-1.21.05-pm.png          2028w
+              "
+            width="1024"
+          />
+          <figcaption>
+            The homepage is running really smooth here with a good score.
+            Further improvements to the theme and how it handles images could
+            improve the score even more.
+          </figcaption>
+        </figure>
+      </section>
+    </article>
+  </div>
+</SiteLayout>

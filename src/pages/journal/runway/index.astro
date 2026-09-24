@@ -1,0 +1,47 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import RunwayArt from "@components/art/runway.astro";
+---
+
+<ArticleLayout
+  title="Runway"
+  description="Exploring storage, sync and an editor that keeps Markdown on disk, with SQLite making it useful. Part of my independent practice, Flowforest."
+  subtitle="A home for your notes. Built around your files."
+  eyebrow="2026 · Building / Flowforest"
+>
+  <RunwayArt slot="art" />
+
+  <section>
+    <h2>The starting point</h2>
+    <p>
+      A knowledge tool should give your ideas somewhere useful to live without
+      making the app itself the owner of them. Runway starts with Markdown files
+      on disk, then adds an editor, an index and sync around that foundation.
+    </p>
+  </section>
+  <section>
+    <h2>Files first, useful structure second</h2>
+    <p>
+      Markdown is the source of truth. SQLite is a derived index: it makes the
+      workspace searchable and connected while keeping the underlying notes
+      readable outside the app. The project uses Svelte for the interface and
+      Automerge for sync.
+    </p>
+  </section>
+  <section>
+    <h2>What I’m working through</h2>
+    <p>
+      The design challenge is making storage and sync feel understandable
+      without turning the editor into a technical control panel. The desktop and
+      browser implementations are under development; this is an ongoing build,
+      not a launch announcement.
+    </p>
+  </section>
+  <aside class="project-status">
+    In development · The visual is a portfolio interface study. Features
+    described reflect project documentation, rather than a released product.
+  </aside>
+  <a class="text-link" href="/journal/flair/">
+    Next build note ↗
+  </a>
+</ArticleLayout>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stipple Contours</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --line:#262626; --txt:#d8d8d8; --mut:#777; --accent:#e8e8e8; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--txt);
+        font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:12px;
+        display:flex; min-height:100vh; }
+  #stage{ flex:1; display:flex; align-items:center; justify-content:center; padding:16px; }
+  #canvas-container canvas{ display:block; box-shadow:0 0 40px rgba(0,0,0,.6); }
+  #panel{ width:280px; background:var(--panel); border-left:1px solid var(--line);
+          padding:18px 16px; overflow-y:auto; height:100vh; }
+  h1{ font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--mut);
+      margin:0 0 16px; font-weight:600; }
+  .grp{ margin-bottom:14px; }
+  .grp label{ display:flex; justify-content:space-between; color:var(--mut);
+              text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; font-size:10px; }
+  .grp label .v{ color:var(--accent); }
+  input[type=range]{ width:100%; -webkit-appearance:none; height:2px; background:var(--line);
+                     outline:none; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:12px; height:12px;
+     border-radius:50%; background:var(--accent); cursor:pointer; }
+  .row{ display:flex; gap:8px; }
+  .row > *{ flex:1; }
+  input[type=number]{ background:#000; border:1px solid var(--line); color:var(--txt);
+     padding:6px; font-family:inherit; font-size:11px; width:100%; }
+  input[type=color]{ width:100%; height:30px; padding:2px; background:#000;
+     border:1px solid var(--line); cursor:pointer; }
+  button{ background:#1d1d1d; border:1px solid var(--line); color:var(--txt);
+     padding:8px 6px; font-family:inherit; font-size:10px; letter-spacing:.06em;
+     text-transform:uppercase; cursor:pointer; }
+  button:hover{ background:#2a2a2a; border-color:#3a3a3a; }
+  button:disabled{ opacity:.45; cursor:wait; }
+  select{ background:#000; border:1px solid var(--line); color:var(--txt); padding:8px 6px;
+     font-family:inherit; font-size:10px; width:100%; }
+  .hint{ color:var(--mut); font-size:9px; line-height:1.45; margin:6px 0 0; }
+  .sep{ border:0; border-top:1px solid var(--line); margin:16px 0; }
+  .toggle{ display:flex; align-items:center; gap:8px; cursor:pointer; color:var(--mut);
+     text-transform:uppercase; letter-spacing:.06em; font-size:10px; }
+  .toggle input{ accent-color:var(--accent); }
+</style>
+</head>
+<body>
+  <div id="stage"><div id="canvas-container"></div></div>
+  <div id="panel">
+    <h1>Stipple Contours</h1>
+
+    <div class="grp">
+      <label>Seed <span class="v" id="seed-v">1</span></label>
+      <div class="row" style="margin-bottom:6px">
+        <button onclick="step(-1)">‹ Prev</button>
+        <button onclick="step(1)">Next ›</button>
+        <button onclick="rnd()">Rnd</button>
+      </div>
+      <div class="row">
+        <input type="number" id="seed-in" value="1">
+        <button onclick="jump()">Go</button>
+      </div>
+    </div>
+
+    <hr class="sep">
+
+    <div class="grp"><label>Curves <span class="v" id="curves-v">4</span></label>
+      <input type="range" id="curves" min="1" max="12" step="1" value="4"></div>
+    <div class="grp"><label>Frequency <span class="v" id="freq-v">2.0</span></label>
+      <input type="range" id="freq" min="0.3" max="6" step="0.1" value="2"></div>
+    <div class="grp"><label>Amplitude <span class="v" id="amp-v">90</span></label>
+      <input type="range" id="amp" min="0" max="220" step="2" value="90"></div>
+    <div class="grp"><label>Phase Drift <span class="v" id="drift-v">0.6</span></label>
+      <input type="range" id="drift" min="0" max="3.14" step="0.05" value="0.6"></div>
+    <div class="grp"><label>Orientation <span class="v" id="angle-v">0°</span></label>
+      <input type="range" id="angle" min="-90" max="90" step="1" value="0"></div>
+
+    <hr class="sep">
+
+    <div class="grp"><label>Falloff σ <span class="v" id="sigma-v">34</span></label>
+      <input type="range" id="sigma" min="4" max="160" step="1" value="34"></div>
+    <div class="grp"><label>Density <span class="v" id="dens-v">36000</span></label>
+      <input type="range" id="dens" min="3000" max="120000" step="1000" value="36000"></div>
+    <div class="grp"><label>Dot Size <span class="v" id="dot-v">1.4</span></label>
+      <input type="range" id="dot" min="0.5" max="4" step="0.1" value="1.4"></div>
+    <div class="grp"><label>Edge Sharpness <span class="v" id="gam-v">1.4</span></label>
+      <input type="range" id="gam" min="0.3" max="4" step="0.1" value="1.4"></div>
+
+    <hr class="sep">
+
+    <div class="row">
+      <div class="grp"><label>Background</label><input type="color" id="bg-color" value="#080808"></div>
+      <div class="grp"><label>Stipple</label><input type="color" id="dot-color" value="#e8e8e8"></div>
+      <div class="grp"><label>Contours</label><input type="color" id="line-color" value="#ebebeb"></div>
+    </div>
+
+    <hr class="sep">
+
+    <div class="grp"><label class="toggle"><input type="checkbox" id="oneside" checked> One-sided band</label></div>
+    <div class="grp"><label class="toggle"><input type="checkbox" id="stroke" checked> Draw contour line</label></div>
+    <div class="grp"><label class="toggle"><input type="checkbox" id="instr" checked> Instrument readout</label></div>
+
+    <hr class="sep">
+    <div class="grp">
+      <label>Export size <span class="v" id="export-v">3840 × 2160</span></label>
+      <select id="export-size">
+        <option value="1920x1080">HD hero — 1920 × 1080</option>
+        <option value="2560x1440">QHD hero — 2560 × 1440</option>
+        <option value="3840x2160" selected>4K hero — 3840 × 2160</option>
+        <option value="5120x2880">5K hero — 5120 × 2880</option>
+        <option value="3600x3600">Square print — 3600 × 3600</option>
+      </select>
+      <p class="hint">Exports render at full resolution; the preview stays fast.</p>
+    </div>
+    <div class="row" style="margin-bottom:6px">
+      <button onclick="reset()">Reset</button>
+      <button id="export-btn" onclick="saveHighRes()">Export PNG</button>
+    </div>
+  </div>
+
+<script>
+const W = 900, H = 900;
+let P = {};
+function readUI(){
+  P.seed   = parseInt(document.getElementById('seed-in').value)||1;
+  P.curves = +curves.value;
+  P.freq   = +freq.value;
+  P.amp    = +amp.value;
+  P.drift  = +drift.value;
+  P.angle  = +angle.value;
+  P.sigma  = +sigma.value;
+  P.dens   = +dens.value;
+  P.dot    = +dot.value;
+  P.gam    = +gam.value;
+  P.bg     = bgColor.value;
+  P.dotColor = dotColor.value;
+  P.lineColor = lineColor.value;
+  P.oneside= oneside.checked;
+  P.stroke = strokeC.checked;   // note: id 'stroke' grabbed below
+  P.instr  = instr.checked;
+}
+// id helpers
+const curves=el('curves'),freq=el('freq'),amp=el('amp'),drift=el('drift'),
+      angle=el('angle'),sigma=el('sigma'),dens=el('dens'),dot=el('dot'),gam=el('gam'),
+      bgColor=el('bg-color'),dotColor=el('dot-color'),lineColor=el('line-color'),
+      oneside=el('oneside'),strokeC=el('stroke'),instr=el('instr');
+function el(id){return document.getElementById(id);}
+
+// each curve: x(y) = baseX + amp * sin(freq * t + phase),  t = y/H normalised *TAU
+let lines=[];
+function buildLines(renderW=W, renderH=H, scaleOverride){
+  randomSeed(P.seed); noiseSeed(P.seed);
+  lines=[];
+  const unit = scaleOverride??Math.min(renderW/W,renderH/H);
+  const margin = 120*unit, span = renderW - margin*1.2;
+  for(let i=0;i<P.curves;i++){
+    const baseX = margin + span*(i+0.5)/P.curves + random(-30,30)*unit;
+    lines.push({
+      baseX,
+      amp: P.amp*unit*(0.7+random()*0.6),
+      freq: P.freq*(0.85+random()*0.3),
+      phase: random(TWO_PI),
+      // each curve drifts its phase down its length for organic non-parallel feel
+      drift: random(-P.drift,P.drift),
+      side: P.oneside ? (random()<0.5?-1:1) : 0
+    });
+  }
+}
+function curveX(L,y,renderH=H){
+  const t = (y/renderH)*TWO_PI;
+  return L.baseX + L.amp*Math.sin(L.freq*t + L.phase + L.drift*t);
+}
+function curveSlope(L,y,renderH=H){ // dx/dy, for perpendicular-distance correction
+  const t=(y/renderH)*TWO_PI, k=(TWO_PI/renderH);
+  return L.amp*Math.cos(L.freq*t+L.phase+L.drift*t)*(L.freq+L.drift)*k;
+}
+
+function regen(){ readUI(); buildLines(); redraw(); }
+
+function setup(){
+  const c=createCanvas(W,H); c.parent('canvas-container');
+  pixelDensity(1); noLoop(); regen();
+}
+
+function draw(){
+  readUI(); randomSeed(P.seed);
+  renderScene(window, W, H, 1);
+}
+
+function renderScene(g, renderW, renderH, detailScale){
+  randomSeed(P.seed);
+  const theta=P.angle*PI/180, cosA=Math.cos(theta), sinA=Math.sin(theta);
+  const fieldW=Math.abs(renderW*cosA)+Math.abs(renderH*sinA);
+  const fieldH=Math.abs(renderW*sinA)+Math.abs(renderH*cosA);
+  const toField=(x,y)=>({
+    x:(x-renderW/2)*cosA+(y-renderH/2)*sinA+fieldW/2,
+    y:-(x-renderW/2)*sinA+(y-renderH/2)*cosA+fieldH/2
+  });
+  const toCanvas=(x,y)=>({
+    x:(x-fieldW/2)*cosA-(y-fieldH/2)*sinA+renderW/2,
+    y:(x-fieldW/2)*sinA+(y-fieldH/2)*cosA+renderH/2
+  });
+  const unit=Math.min(renderW/W,renderH/H);
+  buildLines(fieldW,fieldH,unit);
+  g.background(P.bg);
+
+  // --- stipple field ---
+  g.noStroke(); g.fill(P.dotColor);
+  const sampleCount=Math.round(P.dens*(renderW*renderH)/(W*H)/(detailScale*detailScale));
+  for(let n=0;n<sampleCount;n++){
+    const px=random(renderW), py=random(renderH), fp=toField(px,py);
+    // nearest curve by horizontal gap
+    let best=1e9, bestSigned=0, bestSide=0;
+    for(const L of lines){
+      const cx=curveX(L,fp.y,fieldH);
+      const dxh=fp.x-cx;
+      const m=curveSlope(L,fp.y,fieldH);
+      const perp=Math.abs(dxh)/Math.sqrt(1+m*m); // perpendicular distance
+      if(perp<best){ best=perp; bestSigned=dxh; bestSide=L.side; }
+    }
+    // one-sided rejection
+    if(bestSide!==0){
+      const onChosen = (bestSigned*bestSide)>0;
+      if(!onChosen) continue;
+    }
+    let prob=Math.exp(-best/(P.sigma*unit));
+    prob=Math.pow(prob,P.gam);
+    if(random()<prob){
+      const s=P.dot*detailScale*(0.6+random()*0.8);
+      g.circle(px,py,s);
+    }
+  }
+
+  // --- contour strokes ---
+  if(P.stroke){
+    g.stroke(P.lineColor); g.strokeWeight(detailScale); g.noFill();
+    for(const L of lines){
+      g.beginShape();
+      for(let y=-4*unit;y<=fieldH+4*unit;y+=3*detailScale){
+        const cp=toCanvas(curveX(L,y,fieldH),y);
+        g.vertex(cp.x,cp.y);
+      }
+      g.endShape();
+    }
+  }
+
+  if(P.instr) drawInstrument(g,renderW,renderH,unit,P.dotColor,toCanvas,fieldH);
+}
+
+function drawInstrument(g,renderW=W,renderH=H,unit=1,instrumentColor='#969696',toCanvas=(x,y)=>({x,y}),fieldH=H){
+  g.push();
+  g.stroke(instrumentColor); g.strokeWeight(unit); g.fill(instrumentColor);
+  g.textFont('monospace'); g.textSize(9*unit);
+  const ax=46*unit;
+  g.line(ax,40*unit,ax,renderH-40*unit);
+  // ticks
+  for(let y=60*unit;y<renderH-40*unit;y+=18*unit){
+    const major=(Math.round((y-60*unit)/(18*unit))%4===0);
+    g.line(ax, y, ax+(major?9:4)*unit, y);
+  }
+  // labels (rotated)
+  g.noStroke();
+  g.push(); g.translate(ax-14*unit, renderH*0.42); g.rotate(-HALF_PI);
+  g.text('RADICALLY SCALED PARAMETERS',0,0); g.pop();
+  g.push(); g.translate(ax-14*unit, renderH*0.66); g.rotate(-HALF_PI);
+  g.text('CENTER',0,0); g.pop();
+  // a couple of value callouts near curves
+  randomSeed(P.seed+777);
+  for(let i=0;i<min(3,lines.length);i++){
+    const L=lines[i], fy=fieldH*(0.25+0.22*i), cp=toCanvas(curveX(L,fy,fieldH),fy);
+    g.stroke(instrumentColor); g.line(cp.x-26*unit,cp.y,cp.x-14*unit,cp.y); g.noStroke();
+    g.text((random(0.1,0.9)).toFixed(4)+'A', cp.x+6*unit, cp.y+3*unit);
+  }
+  g.pop();
+}
+
+/* ---- UI plumbing ---- */
+const sliders=[['curves','curves-v',v=>v],['freq','freq-v',v=>(+v).toFixed(1)],
+  ['amp','amp-v',v=>v],['drift','drift-v',v=>(+v).toFixed(2)],
+  ['angle','angle-v',v=>`${v}°`],
+  ['sigma','sigma-v',v=>v],['dens','dens-v',v=>v],['dot','dot-v',v=>(+v).toFixed(1)],
+  ['gam','gam-v',v=>(+v).toFixed(1)]];
+sliders.forEach(([id,vid,fmt])=>{
+  const e=el(id); e.addEventListener('input',()=>{ el(vid).textContent=fmt(e.value); regen(); });
+});
+[oneside,strokeC,instr].forEach(c=>c.addEventListener('change',regen));
+[bgColor,dotColor,lineColor].forEach(c=>c.addEventListener('input',regen));
+
+function syncSeed(){ el('seed-v').textContent=P.seed||el('seed-in').value; }
+function step(d){ el('seed-in').value=(parseInt(el('seed-in').value)||1)+d; syncSeed(); regen(); el('seed-v').textContent=el('seed-in').value; }
+function rnd(){ el('seed-in').value=Math.floor(Math.random()*99999); el('seed-v').textContent=el('seed-in').value; regen(); }
+function jump(){ el('seed-v').textContent=el('seed-in').value; regen(); }
+const exportSize=el('export-size'), exportBtn=el('export-btn');
+exportSize.addEventListener('change',()=>{
+  el('export-v').textContent=exportSize.value.replace('x',' × ');
+});
+function saveHighRes(){
+  const [exportW,exportH]=exportSize.value.split('x').map(Number);
+  exportBtn.disabled=true; exportBtn.textContent='Rendering…';
+  // Yield so the busy state paints before the high-resolution render starts.
+  setTimeout(()=>{
+    try{
+      readUI();
+      const g=createGraphics(exportW,exportH);
+      g.pixelDensity(1);
+      renderScene(g,exportW,exportH,exportH/H);
+      saveCanvas(g.canvas,`stipple-contours-${P.seed}-${exportW}x${exportH}`,'png');
+      g.remove();
+    } finally {
+      buildLines();
+      exportBtn.disabled=false; exportBtn.textContent='Export PNG';
+    }
+  },30);
+}
+function reset(){
+  const d={curves:4,freq:2,amp:90,drift:0.6,angle:0,sigma:34,dens:36000,dot:1.4,gam:1.4,
+    'bg-color':'#080808','dot-color':'#e8e8e8','line-color':'#ebebeb'};
+  for(const k in d){ const e=el(k); if(e){ e.value=d[k]; e.dispatchEvent(new Event('input')); } }
+  oneside.checked=true; strokeC.checked=true; instr.checked=true; regen();
+}
+</script>
+</body>
+</html>

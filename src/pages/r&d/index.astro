@@ -1,0 +1,34 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+import ExperimentGrid from "@components/ExperimentGrid.astro";
+---
+
+<SiteLayout
+  title="Experiments"
+  description="John Basham is a Product Designer and Agentic Developer. A journal of local-first products, design and development."
+  home={false}
+>
+  <section class="article-page">
+    <a class="text-link" href="/#journal">
+      ← Back to the journal
+    </a>
+    <div class="article-heading">
+      <span class="eyebrow">Research &amp; development</span>
+      <h1>
+        A little room
+        <br />
+        to <em>experiment.</em>
+      </h1>
+      <p>
+        Small tools, visual studies and ideas followed out of curiosity. Open an
+        experiment and have a look around.
+      </p>
+    </div>
+    <ExperimentGrid />
+    <p class="experiments-footnote">
+      These are working experiments. The art studies load p5.js from a CDN. The
+      API utilities require your own credentials and make requests to Google or
+      Dropbox when run.
+    </p>
+  </section>
+</SiteLayout>

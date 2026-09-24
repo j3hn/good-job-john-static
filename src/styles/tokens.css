@@ -1,0 +1,48 @@
+/* Shared semantic names with goodjob.dev. Portfolio values remain independent. */
+:root {
+  --color-canvas: #fff;
+  --color-surface: #e1dccd;
+  --color-ink: #1c1b19;
+  --color-muted: #7d6b5c;
+  --color-line: #eee;
+  --color-accent: #fdb900;
+  --color-on-accent: #1c1b19;
+  --font-display: "Thelma", "Cooper Black", Georgia, serif;
+  --font-body: Inter, Arial, Helvetica, sans-serif;
+  --font-mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --text-small: 0.875rem;
+  --text-body: 1rem;
+  --text-lead: 21px;
+  --text-display: clamp(74px, 10.4vw, 114px);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --layout-width: 1280px;
+  --layout-gutter: 64px;
+  --radius-control: 4px;
+  --radius-panel: 5px;
+  --border-width: 1px;
+  --focus-ring: 2px solid var(--color-accent);
+  --motion-fast: 0.2s;
+  --motion-slow: 0.6s;
+  --motion-ease: cubic-bezier(.22, 1, .36, 1);
+  /* Compatibility aliases keep all existing pages and artwork intact. */
+  --canvas: var(--color-canvas);
+  --paper: var(--color-surface);
+  --ink: var(--color-ink);
+  --muted: var(--color-muted);
+  --line: var(--color-line);
+  --yellow: var(--color-accent);
+  --display: var(--font-display);
+  --body: var(--font-body);
+  --mono: var(--font-mono);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 0s; --motion-slow: 0s; }
+}
