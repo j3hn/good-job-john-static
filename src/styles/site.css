@@ -18,7 +18,7 @@
 }
 .hero-eyebrow {
   display: flex;
-  gap: 10px;
+  gap: clamp(6px, 1vw, 10px);
   align-items: center;
   font:
     10px ui-monospace,
@@ -26,7 +26,7 @@
     monospace;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 50px;
+  margin: 0 0 clamp(32px, calc(27px + 1.8vw), 50px);
   color: var(--ink);
 }
 .hero-eyebrow > span {
@@ -39,25 +39,27 @@
   position: relative;
   z-index: 1;
   max-width: none;
-  font-family: var(--display);
-  font-size: var(--text-display);
-  font-weight: 400;
-  line-height: 0.88;
-  letter-spacing: 0;
-  margin: 0 0 50px;
-  color: var(--ink);
+  margin: 0 0 clamp(24px, calc(16px + 2.7vw), 50px);
+}
+.hero h1 img {
+  display: block;
+  width: 846px;
+  max-width: 100%;
+  height: auto;
 }
 .hero-content {
   margin: auto;
   padding: 0;
-  max-width: var(--layout-width);
+  width: 100%;
+  min-width: 0;
+  max-width: 846px;
 }
 .hero-summary {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 32px;
+  gap: clamp(22px, calc(18px + 1.1vw), 32px);
   color: var(--muted);
 }
 .hero-summary p {
@@ -440,13 +442,11 @@
     left: -38px;
     /* opacity: 0.9; */
   }
-  .hero h1 {
-    font-size: 86px;
+  .hero h1 img {
+    width: 640px;
   }
-  .hero-summary {
-    align-items: start;
-    flex-direction: column;
-    gap: 24px;
+  .hero-content {
+    max-width: 640px;
   }
   .hero-bottom {
     margin-top: 35px;
@@ -463,13 +463,6 @@
   .hero-eyebrow {
     font-size: 8px;
     letter-spacing: 0;
-    gap: 6px;
-    margin-bottom: 34px;
-  }
-  .hero h1 {
-    font-size: clamp(58px, 12.7vw, 78px);
-    margin-bottom: 26px;
-    line-height: 1.02;
   }
   .hero-summary p {
     font-size: 14px;
