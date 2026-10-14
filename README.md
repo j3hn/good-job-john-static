@@ -31,6 +31,8 @@ Python server is no longer needed: Astro resolves components and builds assets.
 | Animated background | `src/scripts/hero-shader.ts` |
 | Homepage feed | `src/pages/index.astro` |
 | Product artwork shared across pages | `src/components/art/` |
+| Reusable framed website videos | `src/components/VideoShowcase.astro` |
+| Festival recording and backdrop colour | `src/data/saltwater-freshwater.ts` |
 | Experiment cards | `src/components/ExperimentGrid.astro` |
 | Experience and About sections | `src/components/ExperienceMap.astro`, `About.astro` |
 | Pages and journal entries | `src/pages/` |
@@ -46,7 +48,39 @@ their own interfaces. Legacy theme files remain in `public/` for compatibility.
 The shader requires no external library. Reduced-motion preferences pause it by
 default, the visitor can pause/play, and offscreen/hidden pages stop animating.
 Browsers without WebGL display a CSS gradient. The rest of the site is rendered
-as HTML; only the journal filters, experience selection and shader need JavaScript.
+as HTML; the journal filters, experience selection, shader and managed video
+playback use JavaScript.
+
+## Website video showcases
+
+Use the same component for any website recording. It adds the background, inset,
+rounded mask and drop shadow in CSS, so there is no need to bake a template into
+each video. The video keeps its original proportions.
+
+```astro
+---
+import VideoShowcase from "@components/VideoShowcase.astro";
+---
+
+<VideoShowcase
+  src="/assets/project/website-scroll.mp4"
+  poster="/assets/project/website-poster.webp"
+  label="Project website scroll-through"
+  width={1580}
+  height={980}
+  background="#e9dfd0"
+/>
+```
+
+Use an H.264 MP4 with fast-start enabled and a still poster; set width and height
+to the recording’s actual dimensions. Change only `background` to match each
+project. The live specimen is in `/style-guide/`. The festival’s shared settings
+live in `src/data/saltwater-freshwater.ts`.
+
+Playback is muted, inline and looping. It starts only when the frame is visible,
+pauses offscreen or in a hidden tab, and honours reduced motion. Visitors can
+always pause or explicitly play. With JavaScript disabled, native video controls
+remain available. Keep the pause button outside project links.
 
 ## Publishing
 

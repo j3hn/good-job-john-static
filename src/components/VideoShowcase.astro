@@ -1,0 +1,213 @@
+---
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+  width: number;
+  height: number;
+  /** Any CSS colour. The frame, clipping and shadow are shared automatically. */
+  background?: string;
+}
+const {
+  src,
+  poster,
+  label,
+  width,
+  height,
+  background = "#e9dfd0",
+} = Astro.props;
+---
+
+<video-showcase style={`--showcase-background: ${background}`}>
+  <div class="showcase-stage">
+    <div class="showcase-screen">
+      <video
+        width={width}
+        height={height}
+        poster={poster}
+        aria-label={label}
+        muted
+        loop
+        playsinline
+        controls
+        preload="none"
+      >
+        <source src={src} type="video/mp4" />
+        <a href={src}>Watch the website recording</a>
+      </video>
+    </div>
+  </div>
+  <button
+    class="showcase-toggle"
+    type="button"
+    hidden
+    aria-label={`Play ${label}`}
+  >
+    Play video
+  </button>
+</video-showcase>
+
+<script>
+  class VideoShowcase extends HTMLElement {
+    private cleanup?: () => void;
+
+    connectedCallback() {
+      const video = this.querySelector("video");
+      const button = this.querySelector("button");
+      if (!video || !button || this.cleanup) return;
+
+      const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      // Null means follow the system preference; explicit Play/Pause is preserved.
+      let userWantsPlayback: boolean | null = null;
+      let visible = false;
+      let failed = false;
+      const wantsPlayback = () => userWantsPlayback ?? !motion.matches;
+
+      const updateButton = () => {
+        const playing = !video.paused;
+        button.textContent = playing ? "Pause video" : "Play video";
+        button.setAttribute(
+          "aria-label",
+          `${playing ? "Pause" : "Play"} ${video.getAttribute("aria-label")}`,
+        );
+      };
+      const syncPlayback = () => {
+        if (visible && !document.hidden && wantsPlayback() && !failed) {
+          void video.play().catch((error: unknown) => {
+            // Scrolling away can interrupt a pending play; that is not a refusal.
+            if (error instanceof DOMException && error.name === "AbortError")
+              return;
+            // Autoplay may be blocked. Leave the poster and a working Play button.
+            userWantsPlayback = false;
+            updateButton();
+          });
+        } else {
+          video.pause();
+        }
+      };
+      const toggle = () => {
+        userWantsPlayback = video.paused;
+        syncPlayback();
+      };
+      const onMotionChange = () => {
+        userWantsPlayback = null;
+        syncPlayback();
+      };
+      const onError = () => {
+        failed = true;
+        video.controls = true;
+        button.hidden = true;
+      };
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          visible = entry.isIntersecting;
+          syncPlayback();
+        },
+        { threshold: 0 },
+      );
+
+      video.muted = true;
+      video.controls = false;
+      button.hidden = false;
+      button.addEventListener("click", toggle);
+      video.addEventListener("play", updateButton);
+      video.addEventListener("pause", updateButton);
+      video.addEventListener("error", onError);
+      const source = video.querySelector("source");
+      source?.addEventListener("error", onError);
+      motion.addEventListener("change", onMotionChange);
+      document.addEventListener("visibilitychange", syncPlayback);
+      observer.observe(this);
+      updateButton();
+
+      this.cleanup = () => {
+        observer.disconnect();
+        video.pause();
+        button.removeEventListener("click", toggle);
+        video.removeEventListener("play", updateButton);
+        video.removeEventListener("pause", updateButton);
+        video.removeEventListener("error", onError);
+        source?.removeEventListener("error", onError);
+        motion.removeEventListener("change", onMotionChange);
+        document.removeEventListener("visibilitychange", syncPlayback);
+      };
+    }
+
+    disconnectedCallback() {
+      this.cleanup?.();
+      this.cleanup = undefined;
+    }
+  }
+
+  if (!customElements.get("video-showcase")) {
+    customElements.define("video-showcase", VideoShowcase);
+  }
+</script>
+
+<style>
+  video-showcase {
+    display: block;
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--showcase-background);
+    color: #24221f;
+  }
+
+  .showcase-stage {
+    padding: 10.4% 6.8%;
+  }
+
+  .showcase-screen {
+    overflow: hidden;
+    border-radius: clamp(10px, 3cqw, 32px);
+    background: #fff;
+    /* A broad, low shadow lifts the screen without baking effects into the video. */
+    box-shadow:
+      0 3.8cqw 4.4cqw -1.2cqw rgb(44 32 17 / 28%),
+      0 0.5cqw 1.2cqw -0.5cqw rgb(44 32 17 / 10%);
+    /* Keep rounded clipping reliable for composited video in Safari. */
+    transform: translateZ(0);
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .showcase-toggle {
+    position: absolute;
+    right: 2%;
+    bottom: 1.8%;
+    min-height: 36px;
+    border: 1px solid rgb(36 34 31 / 15%);
+    border-radius: 999px;
+    padding: 7px 13px;
+    background: #fff;
+    color: #24221f;
+    font: 11px var(--body, sans-serif);
+    cursor: pointer;
+  }
+
+  .showcase-toggle:hover {
+    background: #f6f2ec;
+  }
+
+  .showcase-toggle:focus-visible {
+    outline: 2px solid #24221f;
+    outline-offset: 3px;
+  }
+
+  .showcase-toggle[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .showcase-stage {
+      padding-bottom: max(10.4%, 52px);
+    }
+  }
+</style>

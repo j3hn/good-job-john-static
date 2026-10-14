@@ -1,6 +1,8 @@
 ---
 import SiteLayout from "@layouts/SiteLayout.astro";
 import Arrow from "@components/Arrow.astro";
+import VideoShowcase from "@components/VideoShowcase.astro";
+import { festivalShowcase } from "../../data/saltwater-freshwater";
 import tokens from "../../styles/tokens.css?raw";
 const declarations = [...tokens.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => ({ name, value }));
 const colors = declarations.filter(t => t.name.startsWith('--color-'));
@@ -36,6 +38,9 @@ const scales = declarations.filter(t => /^--(text|space|layout|radius|motion)-/.
       <div class="style-guide__section-heading"><span class="eyebrow">04 / Production components</span><h2 id="components-title">Direct, lightly framed.</h2></div>
       <div class="component-board"><a class="text-link" href="/contact/">Let’s talk <Arrow /></a><a class="hero-cta" href="/#journal">Explore my work <Arrow /></a><div class="filters" role="group" aria-label="Example filter"><button type="button" aria-pressed="true" data-guide-toggle>Selected</button><button type="button" aria-pressed="false" data-guide-toggle>Unselected</button></div></div>
       <p>These are the site’s actual link, hero-action, arrow and filter styles. Use Tab to inspect focus, or click a filter to inspect its selected state. The portfolio has no enquiry form or payment controls; those belong to Goodjob’s guide.</p>
+      <h3>Website video showcase</h3>
+      <VideoShowcase {...festivalShowcase} />
+      <p>The reusable <code>VideoShowcase</code> component supplies the backdrop, rounded video mask, responsive spacing and shadow. Set <code>background</code> to any CSS colour for each project. Videos play silently on a loop while visible, with a pause/play button. Reduced-motion visitors see the poster until they choose Play.</p>
     </section>
     <section>
       <div class="style-guide__section-heading"><span class="eyebrow">05 / Layout and scales</span><h2>Change the system at its source.</h2></div>

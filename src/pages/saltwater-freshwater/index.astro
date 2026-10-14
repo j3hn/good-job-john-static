@@ -1,0 +1,34 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import VideoShowcase from "@components/VideoShowcase.astro";
+import { festivalShowcase } from "../../data/saltwater-freshwater";
+---
+
+<ArticleLayout
+  title="Saltwater Freshwater Festival"
+  description="Website design and development for Saltwater Freshwater Festival. Watch a scroll-through of the website."
+  eyebrow="Selected work / Website"
+  subtitle="A digital home for culture and connection."
+  tags="Web design · Development"
+>
+  <VideoShowcase slot="art" {...festivalShowcase} />
+  <section>
+    <h2>Culture, front and centre.</h2>
+    <p class="lead">
+      A website for Saltwater Freshwater Festival, a celebration of Aboriginal
+      culture on the Mid North Coast of NSW.
+    </p>
+    <p>
+      Bold typography, warm colour and photography bring the festival to the
+      screen. The website connects the program, festival information, news and
+      ways to get involved in one place.
+    </p>
+    <p>
+      The recording above follows the homepage from its opening festival
+      announcement through the stories, people and details below.
+    </p>
+  </section>
+  <a class="text-link" href="/work/">
+    Explore more selected work ↗
+  </a>
+</ArticleLayout>

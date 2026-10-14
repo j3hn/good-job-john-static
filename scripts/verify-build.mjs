@@ -15,6 +15,7 @@ const routes = [
   "/sunny-copy/",
   "/soul-charters/",
   "/gosling/",
+  "/saltwater-freshwater/",
   "/journal/runway/",
   "/journal/flair/",
   "/journal/slate/",
@@ -91,6 +92,44 @@ for (const route of routes) {
         errors.push(`${route}: missing anchor ${raw}`);
     }
   }
+}
+// Keep the reusable showcase wired into all three public entry points.
+for (const route of ["/", "/saltwater-freshwater/", "/style-guide/"]) {
+  const html = fs.readFileSync(resolveFile(route), "utf8");
+  assert.equal(
+    (html.match(/<video-showcase\b/g) || []).length,
+    1,
+    `${route}: one reusable website showcase`,
+  );
+  const showcase = html.match(
+    /<video-showcase\b[\s\S]*?<\/video-showcase>/,
+  )?.[0];
+  assert.ok(showcase, `${route}: showcase markup`);
+  assert.ok(
+    showcase.includes("--showcase-background:"),
+    `${route}: customisable backdrop`,
+  );
+  assert.ok(
+    showcase.includes('width="1580" height="980"'),
+    `${route}: original video proportions`,
+  );
+  for (const attribute of [
+    "muted",
+    "loop",
+    "playsinline",
+    "controls",
+    'preload="none"',
+  ]) {
+    assert.ok(showcase.includes(attribute), `${route}: video ${attribute}`);
+  }
+  assert.ok(
+    showcase.includes("/assets/saltwater-freshwater/website-scroll.mp4"),
+    `${route}: recording source`,
+  );
+  assert.ok(
+    showcase.includes("/assets/saltwater-freshwater/website-poster.webp"),
+    `${route}: static poster`,
+  );
 }
 assert.equal(errors.length, 0, errors.join("\n"));
 console.log(
