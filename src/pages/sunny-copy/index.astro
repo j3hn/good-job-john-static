@@ -1,5 +1,7 @@
 ---
 import SiteLayout from "@layouts/SiteLayout.astro";
+import VideoShowcase from "@components/VideoShowcase.astro";
+import { sunnyCopyShowcase } from "../../data/sunny-copy";
 ---
 
 <SiteLayout
@@ -31,26 +33,7 @@ import SiteLayout from "@layouts/SiteLayout.astro";
         </h1>
       </header>
       <section class="entry-content" itemprop="articleBody">
-        <div class="featured-image">
-          <label for="expand-toggle" id="expand-image">
-            <img
-              alt=""
-              class="attachment-full size-full wp-post-image"
-              decoding="async"
-              fetchpriority="high"
-              height="1020"
-              sizes="(max-width: 1650px) 100vw, 1650px"
-              src="/uploads/2019/05/case-study-sunny-copy-cmps.jpg"
-              srcset="
-                  /uploads/2019/05/case-study-sunny-copy-cmps.jpg          1650w,
-                  /uploads/2019/05/case-study-sunny-copy-cmps-300x185.jpg   300w,
-                  /uploads/2019/05/case-study-sunny-copy-cmps-768x475.jpg   768w,
-                  /uploads/2019/05/case-study-sunny-copy-cmps-1024x633.jpg 1024w
-                "
-              width="1650"
-            />
-          </label>
-        </div>
+        <VideoShowcase {...sunnyCopyShowcase} />
         <p>
           <small>
             <strong>Website:</strong>
@@ -85,6 +68,26 @@ import SiteLayout from "@layouts/SiteLayout.astro";
           careful touch of colour help bring to life the words she so
           beautifully writes and all elements tie harmoniously together.
         </p>
+        <div class="featured-image">
+          <label for="expand-toggle" id="expand-image">
+            <img
+              alt="Sunny Copy website and brand design"
+              class="attachment-full size-full wp-post-image"
+              decoding="async"
+              loading="lazy"
+              height="1020"
+              sizes="(max-width: 1650px) 100vw, 1650px"
+              src="/uploads/2019/05/case-study-sunny-copy-cmps.jpg"
+              srcset="
+                  /uploads/2019/05/case-study-sunny-copy-cmps.jpg          1650w,
+                  /uploads/2019/05/case-study-sunny-copy-cmps-300x185.jpg   300w,
+                  /uploads/2019/05/case-study-sunny-copy-cmps-768x475.jpg   768w,
+                  /uploads/2019/05/case-study-sunny-copy-cmps-1024x633.jpg 1024w
+                "
+              width="1650"
+            />
+          </label>
+        </div>
         <figure class="is-resized wp-block-image">
           <img
             alt="Animated text: The text appears as if typed on the Sunny Copy homepage"

@@ -4,11 +4,16 @@ import RunwayArt from "@components/art/runway.astro";
 import FlairArt from "@components/art/flair.astro";
 import SlateArt from "@components/art/slate.astro";
 import ExperimentGrid from "@components/ExperimentGrid.astro";
+import BlockEditorShowcase from "@components/BlockEditorShowcase.astro";
 import Hero from "@components/Hero.astro";
 import ExperienceMap from "@components/ExperienceMap.astro";
 import About from "@components/About.astro";
 import VideoShowcase from "@components/VideoShowcase.astro";
 import { festivalShowcase } from "../data/saltwater-freshwater";
+import { sunnyCopyShowcase } from "../data/sunny-copy";
+import { bellingenShowcase } from "../data/bellingen-destination";
+import { goslingShowcase } from "../data/gosling";
+import { allegraShowcase } from "../data/allegra";
 
 const archiveWork = [
   {
@@ -25,6 +30,7 @@ const archiveWork = [
   {
     title: "Sunny Copy",
     href: "/sunny-copy/",
+    showcase: sunnyCopyShowcase,
     image: "/uploads/2019/05/case-study-sunny-copy-cmps.jpg",
     alt: "Sunny Copy website design",
     width: 1650,
@@ -60,14 +66,15 @@ const archiveWork = [
 
 <SiteLayout
   title="Product Designer & Agentic Developer"
-  description="John Basham is a Product Designer and Agentic Developer. A journal of local-first products, design and development."
+  description="John Basham is a Product Designer and Agentic Developer. A feed of products, experiments, notes and selected work."
   home={true}
 >
   <Hero />
-  <section id="journal" aria-label="Work journal">
+  <section id="feed" aria-label="Feed">
+    <span id="journal" class="feed-legacy-anchor" aria-hidden="true"></span>
     <div class="feed-bar">
-      <span class="eyebrow">01 / The working journal</span>
-      <div class="filters" role="group" aria-label="Filter journal">
+      <h2 class="eyebrow feed-title">01 / Feed</h2>
+      <div class="filters" role="group" aria-label="Filter feed by category">
         <button data-filter="all" aria-pressed="true">
           All
         </button>
@@ -187,6 +194,38 @@ const archiveWork = [
         </div>
       </div>
     </article>
+    <article class="feed-entry" data-category="experiments">
+      <div class="entry-meta">
+        <span>Experiment / Desktop tools</span>
+        <span>2026 · Prototype</span>
+      </div>
+      <a
+        class="art-link"
+        href="/journal/block-editor/"
+        aria-label="Read about the Block Editor experiment"
+      >
+        <BlockEditorShowcase />
+      </a>
+      <div class="entry-copy">
+        <div>
+          <h2>
+            <a href="/journal/block-editor/">Block Editor <span>↗</span></a>
+          </h2>
+          <span class="tags">Gutenberg · Electron · React</span>
+        </div>
+        <div>
+          <h3>The block editor, outside WordPress.</h3>
+          <p>
+            A standalone desktop experiment with Gutenberg’s editing canvas,
+            a simple page list and local JSON files. A look at the prototype,
+            with source code to explore.
+          </p>
+          <a class="text-link" href="/journal/block-editor/">
+            Explore the experiment ↗
+          </a>
+        </div>
+      </div>
+    </article>
     <article class="feed-entry experiments-entry" data-category="experiments">
       <div class="entry-meta">
         <span>Research &amp; development</span>
@@ -204,7 +243,7 @@ const archiveWork = [
           Explore all experiments ↗
         </a>
       </div>
-      <ExperimentGrid />
+      <ExperimentGrid showBlockEditor={false} />
     </article>
     <article class="feed-entry text-entry" data-category="notes">
       <div class="entry-meta">
@@ -225,6 +264,83 @@ const archiveWork = [
         </p>
         <span class="text-link">Read the note ↗</span>
       </a>
+    </article>
+    <article class="feed-entry" data-category="selected">
+      <div class="entry-meta">
+        <span>Selected work / Shopify</span>
+        <span>Phatduds</span>
+      </div>
+      <a class="art-link" href="/phatduds/" aria-label="Explore the Phatduds Shopify project">
+        <img
+          class="archive-image"
+          src="/assets/phatduds/cover.jpg"
+          alt="Phatduds storefront design with basketball photography and bold red calls to action"
+          width="1600"
+          height="889"
+          loading="lazy"
+        />
+      </a>
+      <div class="entry-copy">
+        <div>
+          <h2><a href="/phatduds/">Phatduds ↗</a></h2>
+          <span class="tags">Shopify · E-commerce · Responsive design</span>
+        </div>
+        <div>
+          <h3>Street ready. Court approved.</h3>
+          <p>
+            A Shopify storefront for basketball shorts and accessories, bringing
+            a bold streetwear identity to desktop and mobile shopping.
+          </p>
+          <a class="text-link" href="/phatduds/">Explore the project ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="feed-entry" data-category="selected">
+      <div class="entry-meta">
+        <span>Selected work / Website</span>
+        <span>Allegra School</span>
+      </div>
+      <VideoShowcase {...allegraShowcase} />
+      <div class="entry-copy">
+        <div>
+          <h2><a href="/allegra/">Allegra School ↗</a></h2>
+          <span class="tags">Web design · Education</span>
+        </div>
+        <div>
+          <h3>A welcoming place for a different way to learn.</h3>
+          <p>
+            A bold, people-led website for Allegra School in Coffs Harbour,
+            bringing school life, useful information and enrolment into one
+            welcoming experience.
+          </p>
+          <a class="text-link" href="/allegra/">Explore the project ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="feed-entry" data-category="selected">
+      <div class="entry-meta">
+        <span>Selected work / Website</span>
+        <span>Bellingen Destination</span>
+      </div>
+      <VideoShowcase {...bellingenShowcase} />
+      <div class="entry-copy">
+        <div>
+          <h2>
+            <a href="/bellingen-destination/">Bellingen Destination ↗</a>
+          </h2>
+          <span class="tags">Web design · Destination</span>
+        </div>
+        <div>
+          <h3>A softer way to explore Bellingen.</h3>
+          <p>
+            A destination website concept bringing local places, events and
+            community together.
+          </p>
+          <a class="text-link" href="/bellingen-destination/">
+            Explore the project ↗
+          </a>
+        </div>
+      </div>
     </article>
     <article class="feed-entry" data-category="selected">
       <div class="entry-meta">
@@ -256,19 +372,7 @@ const archiveWork = [
         <span>Selected work / Website</span>
         <span>Gosling Group</span>
       </div>
-      <a
-        href="/gosling/"
-        aria-label="Explore the Gosling Group website project"
-      >
-        <img
-          class="archive-image"
-          src="/assets/gosling/gosling-cover.webp"
-          alt="Gosling Group website showcase"
-          loading="lazy"
-          width="1920"
-          height="1200"
-        />
-      </a>
+      <VideoShowcase {...goslingShowcase} />
       <div class="entry-copy">
         <div>
           <h2>
@@ -283,7 +387,7 @@ const archiveWork = [
             residential services into one clear experience.
           </p>
           <a class="text-link" href="/gosling/">
-            Explore the project and film ↗
+            Explore the project and recording ↗
           </a>
         </div>
       </div>
@@ -294,19 +398,23 @@ const archiveWork = [
           <span>Selected work / Archive</span>
           <span>Independent practice</span>
         </div>
-        <a
-          href={project.href}
-          aria-label={`Explore the ${project.title} project`}
-        >
-          <img
-            class="archive-image"
-            src={project.image}
-            alt={project.alt}
-            loading="lazy"
-            width={project.width}
-            height={project.height}
-          />
-        </a>
+        {project.showcase ? (
+          <VideoShowcase {...project.showcase} />
+        ) : (
+          <a
+            href={project.href}
+            aria-label={`Explore the ${project.title} project`}
+          >
+            <img
+              class="archive-image"
+              src={project.image}
+              alt={project.alt}
+              loading="lazy"
+              width={project.width}
+              height={project.height}
+            />
+          </a>
+        )}
         <div class="entry-copy">
           <div>
             <h2>

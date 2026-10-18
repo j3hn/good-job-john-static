@@ -209,7 +209,26 @@ footer {
   background: var(--yellow);
   margin-right: 7px;
 }
+#feed {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  isolation: isolate;
+}
+.feed-legacy-anchor {
+  position: absolute;
+  top: 0;
+}
+.feed-title {
+  margin: 0;
+  font-weight: 400;
+  white-space: nowrap;
+}
 .feed-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--canvas);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   padding: 17px 0;

@@ -1,18 +1,27 @@
-const filters = document.querySelectorAll("[data-filter]");
+const feed = document.getElementById("feed");
+const filters = feed?.querySelectorAll("[data-filter]") ?? [];
 filters.forEach((button) =>
   button.addEventListener("click", () => {
+    // A category change should show its first post, even deep into a long feed.
+    const pastStart = feed.getBoundingClientRect().top < 0;
     filters.forEach((filter) =>
       filter.setAttribute("aria-pressed", String(filter === button)),
     );
     let count = 0;
-    document.querySelectorAll("[data-category]").forEach((entry) => {
+    feed.querySelectorAll("[data-category]").forEach((entry) => {
       entry.hidden =
         button.dataset.filter !== "all" &&
         entry.dataset.category !== button.dataset.filter;
       if (!entry.hidden) count++;
     });
     document.getElementById("filter-status").textContent =
-      `${count} ${count === 1 ? "entry" : "entries"} shown`;
+      `${count} ${count === 1 ? "post" : "posts"} shown`;
+    if (pastStart) {
+      window.scrollTo({
+        top: feed.getBoundingClientRect().top + window.scrollY,
+        behavior: "instant",
+      });
+    }
   }),
 );
 const chapters = {

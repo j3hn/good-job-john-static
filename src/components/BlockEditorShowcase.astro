@@ -1,0 +1,47 @@
+---
+interface Props {
+  loading?: "eager" | "lazy";
+}
+const { loading = "lazy" } = Astro.props;
+---
+
+<figure class="block-editor-showcase">
+  <div class="screenshot-frame">
+    <img
+      src="/assets/block-editor/editor.jpg"
+      alt="Block Editor desktop prototype with a saved test paragraph and Gutenberg’s block inspector"
+      width="1600"
+      height="1000"
+      loading={loading}
+    />
+  </div>
+  <figcaption>
+    Desktop prototype · A saved paragraph in the Gutenberg canvas.
+  </figcaption>
+</figure>
+
+<style>
+  .block-editor-showcase {
+    margin: 0;
+  }
+  .screenshot-frame {
+    padding: clamp(16px, 4vw, 48px);
+    background: var(--paper);
+    border-radius: 4px;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 18px 40px color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+  figcaption {
+    margin-top: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.6;
+  }
+</style>

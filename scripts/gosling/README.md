@@ -1,5 +1,20 @@
 # Gosling showcase media
 
+## Current website recording
+
+The project page and homepage feed now use `public/assets/gosling/website-scroll.mp4`,
+from the supplied 16 October 2026 screen recording. It is a silent H.264 MP4,
+1468 × 902, converted to 60 fps with fast-start enabled. The matching
+`website-poster.jpg` is taken at 1.5 seconds, after the opening text appears.
+Shared settings live in `src/data/gosling.ts`; `VideoShowcase.astro` provides
+the frame, visibility-managed playback, play/pause and reduced-motion behaviour.
+The existing editorial stills remain in the case study.
+
+The earlier generated films below are retained as historical assets but are no
+longer used by the project page.
+
+## Historical generated media
+
 Captured from https://goslinggroup.com.au/ on 20 September 2026 at 1440 × 1000 (desktop) and 420 × 900 (mobile). Reference design: Figma file 1bmkd89lrgeqp4KFHRi3Cm, WEBSITE page 8601:2. Live captures were used for final media because design drafts contain placeholder text.
 
 `hero.png`, `projects.png` and `phone.png` are the captured source screens. `render.cjs` composes three editorial stills and a silent 24-second, 1280 × 720 H.264 film with slow camera moves, dissolves and an end title. It requires `sharp` and an FFmpeg binary with libx264. Set NODE_PATH and FFMPEG to your installed tools, and create /tmp/gosling-showcase before rendering. The film uses no music or voiceover.
@@ -8,7 +23,7 @@ Outputs are served from `/assets/gosling/`. The video is user-initiated, with a 
 
 ## Monitor film revision
 
-The current project page uses `gosling-monitor-film.mp4` and `gosling-monitor-poster.webp`. It is a 22-second, 1920 × 1080, 60 fps film: wide push-in, left-angle homepage close-up, right-angle project close-up, and wide pullback. Camera transforms are calculated continuously per frame in Three.js rather than using integer-aligned FFmpeg zoompan crops. The film has no audio and uses the original captured website pixels as screen textures.
+The earlier project page used `gosling-monitor-film.mp4` and `gosling-monitor-poster.webp`. It is a 22-second, 1920 × 1080, 60 fps film: wide push-in, left-angle homepage close-up, right-angle project close-up, and wide pullback. Camera transforms are calculated continuously per frame in Three.js rather than using integer-aligned FFmpeg zoompan crops. The film has no audio and uses the original captured website pixels as screen textures.
 
 `monitor-film.html` defines the physical monitor, lighting, and camera paths. `render-monitor.cjs` renders deterministic frames through Playwright and encodes H.264 with FFmpeg. Requires `sharp`, `playwright`, a Chrome binary (CHROME_BIN), and FFmpeg (FFMPEG); NODE_PATH can point to the installed packages. `three.module.js` is Three.js r170, MIT licensed. Run from the repository root. `--proof` generates six proof frames without encoding. Intermediate files go to GOSLING_RENDER_DIR (default /tmp/gosling-showcase/monitor).
 

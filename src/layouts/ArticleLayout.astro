@@ -6,6 +6,8 @@ interface Props {
   eyebrow?: string;
   subtitle: string;
   tags?: string;
+  backHref?: string;
+  backText?: string;
 }
 const {
   title,
@@ -13,14 +15,14 @@ const {
   eyebrow = "2026 · Building / Flowforest",
   subtitle,
   tags,
+  backHref = "/#feed",
+  backText = "← Back to the feed",
 } = Astro.props;
 ---
 
 <SiteLayout title={title} description={description}>
   <article class="article-page">
-    <a class="text-link" href="/#journal">
-      ← Back to the journal
-    </a>
+    <a class="text-link" href={backHref}>{backText}</a>
     <div class="article-heading">
       <span class="eyebrow">{eyebrow}</span>
       <h1>{title}</h1>

@@ -1,0 +1,161 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+
+const screens = [
+  {
+    title: "From the court to the storefront.",
+    copy: "The home page pairs black-and-white basketball photography with strong red calls to action. Shorts, accessories and new arrivals give shoppers clear starting points, with the brand story and social imagery continuing further down the page.",
+    desktop: {
+      src: "home-desktop-web.jpg",
+      original: "home-desktop.png",
+      width: 1600,
+      height: 4237,
+      alt: "Phatduds desktop homepage design with basketball photography, shorts and accessories categories, new arrivals, brand story and social imagery",
+    },
+    mobile: {
+      src: "home-mobile-web.jpg",
+      original: "home-mobile.jpg",
+      width: 633,
+      height: 7481,
+      alt: "Phatduds mobile homepage design with stacked collection links, product cards and brand content",
+    },
+  },
+  {
+    title: "The product takes the lead.",
+    copy: "Large product photography sits alongside the essentials: price, size, quantity and an add-to-cart action. On mobile, the same information follows the image in a single column, keeping the path from browsing to choosing a pair straightforward.",
+    desktop: {
+      src: "product-desktop-web.jpg",
+      original: "product-desktop.jpg",
+      width: 1600,
+      height: 3453,
+      alt: "Phatduds desktop product page design with basketball shorts photography, size options, quantity selector, add-to-cart action and related products",
+    },
+    mobile: {
+      src: "product-mobile-web.jpg",
+      original: "product-mobile.jpg",
+      width: 708,
+      height: 4640,
+      alt: "Phatduds mobile product page design with product photography above size selection, add-to-cart and related products",
+    },
+  },
+];
+---
+
+<ArticleLayout
+  title="Phatduds"
+  description="A Shopify storefront for basketball shorts and accessories, bringing a bold streetwear identity to desktop and mobile shopping."
+  eyebrow="Selected work / Shopify"
+  subtitle="Street ready. Court approved."
+  tags="Shopify · E-commerce · Responsive design"
+  backHref="/work/"
+  backText="← Back to selected work"
+>
+  <figure slot="art" class="phatduds-cover">
+    <img
+      src="/assets/phatduds/cover.jpg"
+      alt="Phatduds homepage design with a black-and-white basketball scene, script logo and the words Street ready. Court approved."
+      width="1600"
+      height="889"
+      fetchpriority="high"
+    />
+  </figure>
+
+  <section>
+    <h2>A storefront with its own game.</h2>
+    <p class="lead">
+      A Shopify site for Phatduds, an Australian basketball shorts and
+      accessories brand, connecting a bold visual identity with everyday online
+      shopping.
+    </p>
+    <p>
+      The supplied desktop and mobile screens show the home page and product
+      experience: expressive type, basketball imagery and a warm red-and-orange
+      palette, with clear routes into the range.
+    </p>
+    <a
+      class="text-link"
+      href="https://phatduds.com.au/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Visit Phatduds ↗
+    </a>
+  </section>
+
+  {screens.map((screen) => (
+    <section>
+      <h2>{screen.title}</h2>
+      <p>{screen.copy}</p>
+      <div class="screenshot-pair">
+        {[screen.desktop, screen.mobile].map((image, index) => (
+          <figure class:list={{ "mobile-screen": index === 1 }}>
+            <a
+              href={`/assets/phatduds/${image.original}`}
+              aria-label={`Open full-size ${index === 0 ? "desktop" : "mobile"} screenshot: ${screen.title}`}
+            >
+              <img
+                src={`/assets/phatduds/${image.src}`}
+                width={image.width}
+                height={image.height}
+                alt={image.alt}
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              {index === 0 ? "Desktop" : "Mobile"} · Open full size ↗
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <aside class="project-status">
+    Screens shown are supplied design layouts and include placeholder product
+    copy. The live store’s products and content may differ.
+  </aside>
+  <a class="text-link" href="/work/">
+    Explore more selected work ↗
+  </a>
+</ArticleLayout>
+
+<style>
+  .phatduds-cover {
+    margin: 0;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .screenshot-pair {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+    margin-top: 28px;
+  }
+  figure {
+    min-width: 0;
+    margin: 0;
+  }
+  .screenshot-pair img {
+    border: 1px solid var(--line);
+  }
+  figcaption {
+    margin-top: 12px;
+    font: 10px/1.6 var(--mono);
+    color: var(--muted);
+  }
+  @media (max-width: 600px) {
+    .screenshot-pair {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .mobile-screen {
+      width: min(100%, 260px);
+      justify-self: center;
+    }
+  }
+</style>

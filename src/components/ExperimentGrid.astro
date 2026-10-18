@@ -1,4 +1,35 @@
+---
+interface Props {
+  showBlockEditor?: boolean;
+}
+const { showBlockEditor = true } = Astro.props;
+---
+
 <div class="experiment-grid">
+  {showBlockEditor && (
+    <a class="experiment-card" href="/journal/block-editor/">
+      <div class="experiment-art experiment-block-editor">
+        <img
+          src="/assets/block-editor/editor.jpg"
+          alt="Block Editor desktop prototype with a saved paragraph and block inspector"
+          width="1600"
+          height="1000"
+          loading="lazy"
+        />
+      </div>
+      <div class="experiment-copy">
+        <span class="eyebrow">Desktop experiment</span>
+        <h3>
+          Block Editor <span>↗</span>
+        </h3>
+        <p>
+          Gutenberg outside WordPress. A standalone desktop editor with local
+          files, a simple page list and source code to explore.
+        </p>
+        <span class="text-link">Read the experiment ↗</span>
+      </div>
+    </a>
+  )}
   <a class="experiment-card" href="/r%26d/art/flow-forest.html">
     <div class="experiment-art experiment-forest" aria-hidden="true">
       <span>↟</span>
@@ -80,3 +111,17 @@
     </div>
   </a>
 </div>
+
+<style>
+  .experiment-block-editor {
+    background: var(--paper);
+    padding: 20px;
+  }
+  .experiment-block-editor img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 3px;
+  }
+</style>

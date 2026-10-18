@@ -1,0 +1,114 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import VideoShowcase from "@components/VideoShowcase.astro";
+import { bellingenShowcase } from "../../data/bellingen-destination";
+---
+
+<ArticleLayout
+  title="Bellingen Destination"
+  description="A destination website concept for Bellingen, bringing local places, events and community together."
+  eyebrow="Selected work / Website"
+  subtitle="A welcoming digital home for Bellingen."
+  tags="Web design · Destination"
+  backHref="/work/"
+  backText="← Back to selected work"
+>
+  <VideoShowcase slot="art" {...bellingenShowcase} />
+
+  <section>
+    <h2>A destination, at a glance.</h2>
+    <p class="lead">
+      A website concept for Bellingen that brings the region’s landscapes, local
+      places, events and community into one clear destination.
+    </p>
+    <p>
+      The home page opens on a waterfall and a welcome to Bellingen. From there,
+      visitors can explore featured listings and events, learn about the
+      community, and find ways to connect.
+    </p>
+    <figure>
+      <img
+        src="/assets/bellingen-destination/1.jpg"
+        width="2250"
+        height="1500"
+        loading="lazy"
+        alt="Bellingen website homepage showcase, with a waterfall behind the Welcome to Bellingen heading."
+      />
+      <figcaption class="caption">
+        A welcoming introduction to the destination.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>A guide to local food.</h2>
+    <p>
+      The “Where to eat” page gives local listings a clear, browsable home. A
+      featured introduction leads into a grid of places, with links to explore
+      more of the region.
+    </p>
+  </section>
+
+  <section>
+    <h2>Space for individual places.</h2>
+    <p>
+      The Cedar Bar page shows how a local business can have its own place in
+      the wider destination. Practical details sit alongside a photo gallery and
+      related listings.
+    </p>
+    <figure>
+      <img
+        src="/assets/bellingen-destination/2.jpg"
+        width="2250"
+        height="1500"
+        loading="lazy"
+        alt="Angled collage of Bellingen website designs showing the waterfall homepage, community section and Cedar Bar venue page."
+      />
+      <figcaption class="caption">
+        A connected visual system for the destination, community and local
+        places.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Community at the centre.</h2>
+    <p>
+      The landscape introduces the destination; the people give it character. A
+      dedicated community section brings the region’s creative life and local
+      stories into the experience.
+    </p>
+    <figure>
+      <img
+        src="/assets/bellingen-destination/3.jpg"
+        width="1620"
+        height="1620"
+        loading="lazy"
+        alt="Bellingen website detail pairing the waterfall homepage with a community introduction and local photography."
+      />
+      <figcaption class="caption">
+        Landscape and community, brought together in one welcoming experience.
+      </figcaption>
+    </figure>
+  </section>
+
+  <a class="text-link" href="/work/">
+    Explore more selected work ↗
+  </a>
+</ArticleLayout>
+
+<style>
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .article-prose figure {
+    margin: 2rem 0 0;
+  }
+  .caption {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    margin-top: 0.75rem;
+  }
+</style>

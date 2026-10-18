@@ -33,6 +33,10 @@ Python server is no longer needed: Astro resolves components and builds assets.
 | Product artwork shared across pages | `src/components/art/` |
 | Reusable framed website videos | `src/components/VideoShowcase.astro` |
 | Festival recording and backdrop colour | `src/data/saltwater-freshwater.ts` |
+| Sunny Copy recording and backdrop colour | `src/data/sunny-copy.ts` |
+| Bellingen recording and backdrop colour | `src/data/bellingen-destination.ts` |
+| Gosling recording and backdrop colour | `src/data/gosling.ts` |
+| Allegra recording and backdrop colour | `src/data/allegra.ts` |
 | Experiment cards | `src/components/ExperimentGrid.astro` |
 | Experience and About sections | `src/components/ExperienceMap.astro`, `About.astro` |
 | Pages and journal entries | `src/pages/` |
@@ -50,6 +54,18 @@ default, the visitor can pause/play, and offscreen/hidden pages stop animating.
 Browsers without WebGL display a CSS gradient. The rest of the site is rendered
 as HTML; the journal filters, experience selection, shader and managed video
 playback use JavaScript.
+
+## Feed and categories
+
+The homepage’s **Feed** contains every post. The category buttons filter that
+same collection: All, Products, Experiments, Notes and Selected work. Add entries
+in `src/pages/index.astro` with the appropriate `data-category`; do not create
+separate copies for each category.
+
+The Feed is at least a viewport tall and scrolls with the page. Its category bar
+stays sticky within the section, then leaves with it before Experience. Choosing
+a category while deep in the Feed returns to that category’s first post.
+Navigation uses `/#feed`; old `/#journal` links and article URLs still work.
 
 ## Website video showcases
 
