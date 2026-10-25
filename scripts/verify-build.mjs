@@ -24,6 +24,8 @@ const routes = [
   "/journal/slate/",
   "/journal/design-and-code/",
   "/journal/block-editor/",
+  "/journal/bus-351/",
+  "/journal/solar-state-of-charge/",
   "/r&d/",
   "/style-guide/",
   "/404.html",

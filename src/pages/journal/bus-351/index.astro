@@ -1,0 +1,133 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+---
+
+<ArticleLayout
+  title="Bus 351"
+  description="An n8n automation that checks Transport for NSW for the next route 351 departure and sends a plain-language delay message to WhatsApp."
+  subtitle="Is the bus late? A message answers before I get to the stop."
+  eyebrow="2026 · Automation / n8n"
+  tags="Automation · n8n · Transport for NSW · WhatsApp"
+>
+  <p class="lead">
+    A workflow checks the live departure board for route 351 a few times each
+    weekday, compares the estimated time with the timetable, and sends one
+    sentence to WhatsApp. On schedule, running late, running early, or not
+    tracked yet.
+  </p>
+
+  <figure class="workflow-shot">
+    <a href="/assets/bus-351/workflow.png">
+      <img
+        src="/assets/bus-351/workflow.png"
+        alt="The n8n canvas showing five connected nodes: Schedule, Select stop, Get departures, Format message and Send text"
+        width="1265"
+        height="523"
+        loading="lazy"
+      />
+    </a>
+    <figcaption>
+      The workflow: a weekday trigger, a stop chosen by local time, the
+      departure board, the message logic and a WhatsApp send. Open the full
+      screenshot.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>A message, not a departure board</h2>
+    <p>
+      The trip planning API returns a full board: every route at the stop, with
+      planned and estimated times. Reading it on a phone while walking is a poor
+      experience. The workflow reduces all of it to the one decision I actually
+      make — leave now, or wait.
+    </p>
+  </section>
+
+  <section>
+    <h2>The steps</h2>
+    <ol>
+      <li>
+        <strong>Schedule</strong> — three cron expressions on weekdays: every 10
+        minutes from 8:00, 14:50, then every 10 minutes from 15:00.
+      </li>
+      <li>
+        <strong>Select stop</strong> — a Code node reads the hour in
+        <code>Australia/Sydney</code> and picks a stop ID. Morning runs use one
+        stop, afternoon runs use another. This matters because the schedule
+        events fire in server time, not local time.
+      </li>
+      <li>
+        <strong>Get departures</strong> — calls the Transport for NSW
+        <code>departure_mon</code> endpoint with <code>rapidJSON</code> output
+        and an API key header.
+      </li>
+      <li>
+        <strong>Format message</strong> — filters <code>stopEvents</code> to
+        route <code>351</code>, drops anything that has already left, sorts by
+        estimated time and compares it with the planned time.
+      </li>
+      <li>
+        <strong>Send text</strong> — posts the sentence to a WhatsApp group
+        through the Evolution API node.
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The message the code produces</h2>
+    <p>
+      If there is live tracking, the difference between planned and estimated
+      becomes plain language. A difference of zero is{" "}
+      <em>“Bus 351 is on schedule.”</em> A positive difference reports how many
+      minutes late it is, a negative one how many minutes early. Without
+      tracking, the message falls back to the scheduled time so the silence is
+      not mistaken for a delay.
+    </p>
+    <p>
+      No departures in the window produces{" "}
+      <em>“Bus 351: no upcoming departures found.”</em> Matching on the route
+      number, rather than the first result in the board, is what keeps a
+      neighbouring route out of the message.
+    </p>
+  </section>
+
+  <section>
+    <h2>What is still fragile</h2>
+    <p>
+      Buses that left in the last two minutes are kept, so a slightly stale
+      departure does not vanish mid-check. Code and time zone logic live inside
+      the workflow rather than next to the rest of the codebase, so there are no
+      tests around the format step. The stop IDs are also hard-coded; replacing
+      them with a lookup by stop name would make the workflow portable.
+    </p>
+  </section>
+
+  <aside class="project-status">
+    Working automation · The Transport for NSW API key, the WhatsApp instance
+    and the group ID are configured in n8n credentials and are not published
+    here.
+  </aside>
+  <a class="text-link" href="/journal/solar-state-of-charge/">
+    Next automation: Solar State of Charge ↗
+  </a>
+</ArticleLayout>
+
+<style>
+  .workflow-shot {
+    margin: 40px 0 0;
+  }
+  .workflow-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  figcaption {
+    margin-top: 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>
