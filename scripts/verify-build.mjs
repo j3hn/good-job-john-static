@@ -26,6 +26,7 @@ const routes = [
   "/journal/block-editor/",
   "/journal/bus-351/",
   "/journal/solar-state-of-charge/",
+  "/journal/flowforest-website/",
   "/r&d/",
   "/style-guide/",
   "/404.html",
