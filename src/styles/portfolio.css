@@ -589,19 +589,19 @@ h3 {
   opacity: 0;
 }
 
-/* work rows — staggered transition between filters (nahiyan-style) */
-.work-row {
+/* work rows — staggered transition between filters (exit, then enter) */
+[data-post-id] {
   transition:
     opacity 0.42s var(--ease),
     transform 0.42s var(--ease);
   will-change: opacity, transform;
 }
-.work-row.is-out {
+[data-post-id].is-out {
   opacity: 0;
   transform: translateY(16px);
   pointer-events: none;
 }
-.work-row.is-pre {
+[data-post-id].is-pre {
   opacity: 0;
   transform: translateY(-16px);
   transition: none !important;
@@ -621,13 +621,13 @@ h3 {
 
 @media (prefers-reduced-motion: reduce) {
   .work-head > *,
-  .work-row {
+  [data-post-id] {
     transition: none !important;
   }
   .work-head.is-out > *,
   .work-head.is-in > *,
-  .work-row.is-out,
-  .work-row.is-pre {
+  [data-post-id].is-out,
+  [data-post-id].is-pre {
     transform: none;
     opacity: 1;
   }

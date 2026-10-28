@@ -82,37 +82,19 @@ if (feed) {
   const isFilter = (value: string | null): value is Filter =>
     value !== null && Object.hasOwn(copy, value);
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const apply = (filter: Filter, animate = false) => {
-    buttons.forEach((button) =>
-      button.setAttribute(
-        "aria-pressed",
-        String(button.dataset.filter === filter),
-      ),
-    );
-    let count = 0;
-    posts.forEach((post) => {
-      post.hidden =
-        filter === "selected"
-          ? post.dataset.selected !== "true"
-          : filter !== "all" && post.dataset.category !== filter;
-      post.getAnimations().forEach((animation) => animation.cancel());
-      if (!post.hidden) {
-        count++;
-        if (animate && !reducedMotion.matches)
-          post.animate(
-            [
-              { opacity: 0, transform: "translateY(12px)" },
-              { opacity: 1, transform: "translateY(0)" },
-            ],
-            { duration: 420, easing: "cubic-bezier(.22,1,.36,1)" },
-          );
-      }
-    });
-    groups.forEach((group) => {
-      group.hidden = ![
-        ...group.querySelectorAll<HTMLElement>("[data-category]"),
-      ].some((post) => !post.hidden);
-    });
+  const head = feed.querySelector<HTMLElement>("#workHead");
+  const list = feed.querySelector<HTMLElement>("#workList");
+  let currentFilter: Filter;
+  let headTimer: number | undefined;
+  let rowTimer: number | undefined;
+  let cleanupTimer: number | undefined;
+
+  const matches = (post: HTMLElement, filter: Filter) =>
+    filter === "selected"
+      ? post.dataset.selected === "true"
+      : filter === "all" || post.dataset.category === filter;
+
+  const updateHead = (filter: Filter) => {
     const [eyebrow, title, description] = copy[filter];
     const fields = {
       workEyebrow: eyebrow,
@@ -120,16 +102,92 @@ if (feed) {
       workDesc: description,
     };
     Object.entries(fields).forEach(([id, text]) => {
-      const field = document.getElementById(id);
+      const field = feed.querySelector<HTMLElement>(`#${id}`);
       if (field) field.textContent = text;
     });
+  };
+
+  const updatePosts = (filter: Filter) => {
+    posts.forEach((post) => {
+      post.hidden = !matches(post, filter);
+      post.classList.remove("is-out", "is-pre");
+      post.style.removeProperty("transition-delay");
+    });
+    groups.forEach((group) => {
+      group.hidden = ![
+        ...group.querySelectorAll<HTMLElement>("[data-category]"),
+      ].some((post) => !post.hidden);
+    });
+    const count = posts.filter((post) => !post.hidden).length;
     const countLabel = `${count} ${count === 1 ? "post" : "posts"}`;
     const counter = feed.querySelector("[data-feed-count]");
     if (counter) counter.textContent = countLabel;
-    const status = document.getElementById("filter-status");
+    const status = feed.querySelector("#filter-status");
     if (status) status.textContent = `${countLabel} shown`;
-    const empty = document.getElementById("workEmpty");
+    const empty = feed.querySelector<HTMLElement>("#workEmpty");
     if (empty) empty.hidden = count > 0;
+  };
+
+  const apply = (filter: Filter, animate = false) => {
+    if (animate && currentFilter === filter) return;
+    currentFilter = filter;
+    window.clearTimeout(headTimer);
+    window.clearTimeout(rowTimer);
+    window.clearTimeout(cleanupTimer);
+    buttons.forEach((button) =>
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.filter === filter),
+      ),
+    );
+    head?.classList.remove("is-in", "is-out");
+
+    if (!animate || reducedMotion.matches) {
+      updateHead(filter);
+      updatePosts(filter);
+      list?.setAttribute("aria-busy", "false");
+      return;
+    }
+
+    // Slide the old heading left before bringing the new copy in from the right.
+    // Flush the neutral state so a fast second click starts a fresh transition.
+    if (head) void head.offsetWidth;
+    head?.classList.add("is-out");
+    headTimer = window.setTimeout(() => {
+      updateHead(filter);
+      head?.classList.remove("is-out");
+      head?.classList.add("is-in");
+      if (head) void head.offsetWidth;
+      head?.classList.remove("is-in");
+    }, 340);
+
+    // Keep the outgoing layout until its stagger has finished. All post types
+    // participate, including apps, archive entries, tools and the field note.
+    list?.setAttribute("aria-busy", "true");
+    const visible = posts.filter((post) => !post.hidden);
+    visible.forEach((post, index) => {
+      post.classList.remove("is-pre");
+      post.style.transitionDelay = `${index * 30}ms`;
+      post.classList.add("is-out");
+    });
+    const exitDuration = 420 + Math.max(0, visible.length - 1) * 30;
+    rowTimer = window.setTimeout(() => {
+      updatePosts(filter);
+      const next = posts.filter((post) => !post.hidden);
+      next.forEach((post) => post.classList.add("is-pre"));
+      if (list) void list.offsetWidth;
+      next.forEach((post, index) => {
+        post.style.transitionDelay = `${index * 40}ms`;
+        post.classList.remove("is-pre");
+      });
+      cleanupTimer = window.setTimeout(
+        () => {
+          next.forEach((post) => post.style.removeProperty("transition-delay"));
+          list?.setAttribute("aria-busy", "false");
+        },
+        480 + Math.max(0, next.length - 1) * 40,
+      );
+    }, exitDuration);
   };
   const fromLocation = (): Filter => {
     const query = new URL(window.location.href).searchParams.get("category");
@@ -164,6 +222,7 @@ if (feed) {
   );
   apply(fromLocation());
   window.addEventListener("popstate", () => apply(fromLocation()));
+  reducedMotion.addEventListener("change", () => apply(currentFilter));
 }
 
 // The supplied pixel-and-grain overlay dissolves as each image enters view.
