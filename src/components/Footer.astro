@@ -1,19 +1,87 @@
----
-import Arrow from "./Arrow.astro";
----
-
-<footer>
-  <a class="footer-title" href="mailto:john@basham.au">
-    Have something in mind?
-    <br />
-    Let’s make it real. <Arrow class="footer-arrow" />
-  </a>
-  <div class="footer-bottom">
-    <a href="https://goodjobjohn.com">goodjobjohn.com</a>
-    <span>Nambucca Valley, Australia</span>
-    <a href="mailto:john@basham.au">
-      john@basham.au <Arrow />
-    </a>
-    <span>© {new Date().getFullYear()} John Basham</span>
+<footer class="pagefoot">
+  <div class="container foot-inner">
+    <span class="copy">© {new Date().getFullYear()} John Basham</span>
+    <nav class="grp foot-mid social-links" aria-label="Social profiles">
+      <a
+        href="https://github.com/j3hn"
+        aria-label="GitHub — j3hn"
+        title="GitHub — j3hn"
+        target="_blank"
+        rel="me noopener noreferrer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-7 0C5.27.65 4.09 1 4.09 1A5.07 5.07 0 0 0 4 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 8 18.13V22" />
+        </svg>
+      </a>
+      <a
+        href="https://x.com/goodjobj3hn"
+        aria-label="X — @goodjobj3hn"
+        title="X — @goodjobj3hn"
+        target="_blank"
+        rel="me noopener noreferrer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.49h2.039L6.487 3.24H4.3l13.31 17.403Z" />
+        </svg>
+      </a>
+      <a
+        href="https://au.linkedin.com/in/goodjobjohn"
+        aria-label="LinkedIn — John Basham"
+        title="LinkedIn — John Basham"
+        target="_blank"
+        rel="me noopener noreferrer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M8 11v6m4 0v-6m0 3a3 3 0 0 1 6 0v3" />
+          <circle cx="8" cy="7.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+    </nav>
+    <span class="grp">
+      <span class="foot-loc">
+        <span class="copy">Nambucca Valley, AU</span>
+      </span>
+      <a href="/contact/" style="border-style: none;">
+        Contact
+      </a>
+    </span>
   </div>
 </footer>
+
+<style>
+  .social-links a {
+    width: 44px;
+    padding-inline: 12px;
+    justify-content: center;
+    border: 0;
+  }
+  .social-links svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+</style>

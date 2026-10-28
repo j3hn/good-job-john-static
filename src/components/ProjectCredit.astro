@@ -1,0 +1,13 @@
+---
+import type { Employer } from "../data/posts";
+interface Props {
+  employer?: Employer;
+}
+const { employer } = Astro.props;
+---
+
+{employer && (
+  <span class="project-credit">
+    Created at <strong>{employer}</strong>
+  </span>
+)}

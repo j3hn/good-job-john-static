@@ -1,19 +1,60 @@
-/* Shared semantic names with goodjob.dev. Portfolio values remain independent. */
 :root {
-  --color-canvas: #fff;
-  --color-surface: #e1dccd;
-  --color-ink: #1c1b19;
-  --color-muted: #7d6b5c;
-  --color-line: #eee;
-  --color-accent: #fdb900;
-  --color-on-accent: #1c1b19;
-  --font-display: "Thelma", "Cooper Black", Georgia, serif;
-  --font-body: Inter, Arial, Helvetica, sans-serif;
-  --font-mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --fg: #000000;
+  --muted: #8c8c8c;
+  --border: #dbdbdb;
+  --accent: #1a1c1e;
+
+  /* derived tone — no new literals, contrast-safe secondary text */
+  --muted-2: color-mix(in oklch, var(--muted) 62%, var(--fg));
+
+  --font-display:
+    Inter, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
+  --font-body:
+    Inter, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --fs-display: clamp(42px, 7vw, 94px);
+  --fs-h2: clamp(27px, 3.4vw, 42px);
+  --fs-h3: clamp(19px, 1.8vw, 25px);
+  --fs-lead: clamp(16px, 1.3vw, 19px);
+  --fs-body: 16px;
+  --fs-meta: 12px;
+  --fs-chrome: 11px;
+
+  /* chrome */
+  --bar-h: 46px;
+  --container: 1280px;
+  --pad: clamp(16px, 2.6vw, 40px);
+
+  --radius: 8px;
+  --radius-lg: 8px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-canvas: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--fg);
+  --color-muted: var(--muted-2);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--bg);
   --text-small: 0.875rem;
-  --text-body: 1rem;
-  --text-lead: 21px;
-  --text-display: clamp(74px, 10.4vw, 114px);
+  --text-body: var(--fs-body);
+  --text-lead: var(--fs-lead);
+  --text-display: var(--fs-display);
+  --layout-width: var(--container);
+  --layout-gutter: var(--pad);
+  --radius-control: var(--radius);
+  --radius-panel: var(--radius-lg);
+  --border-width: 1px;
+  --focus-ring: 2px solid var(--fg);
+  --motion-fast: 0.2s;
+  --motion-slow: 0.6s;
+  --motion-ease: var(--ease);
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -23,26 +64,18 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --layout-width: 1280px;
-  --layout-gutter: 64px;
-  --radius-control: 4px;
-  --radius-panel: 5px;
-  --border-width: 1px;
-  --focus-ring: 2px solid var(--color-accent);
-  --motion-fast: 0.2s;
-  --motion-slow: 0.6s;
-  --motion-ease: cubic-bezier(.22, 1, .36, 1);
-  /* Compatibility aliases keep all existing pages and artwork intact. */
-  --canvas: var(--color-canvas);
-  --paper: var(--color-surface);
-  --ink: var(--color-ink);
-  --muted: var(--color-muted);
-  --line: var(--color-line);
-  --yellow: var(--color-accent);
+  --canvas: var(--bg);
+  --paper: var(--surface);
+  --ink: var(--fg);
+  --line: var(--border);
+  --yellow: var(--accent);
   --display: var(--font-display);
   --body: var(--font-body);
   --mono: var(--font-mono);
 }
 @media (prefers-reduced-motion: reduce) {
-  :root { --motion-fast: 0s; --motion-slow: 0s; }
+  :root {
+    --motion-fast: 0s;
+    --motion-slow: 0s;
+  }
 }

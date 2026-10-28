@@ -1,0 +1,289 @@
+---
+import { posts, postImage } from "../data/posts";
+import ProjectCredit from "./ProjectCredit.astro";
+interface Props {
+  standalone?: boolean;
+}
+const { standalone = false } = Astro.props;
+const Heading = standalone ? "h1" : "h2";
+const web = posts.filter((post) => post.category === "web" && !post.archive);
+const archive = posts.filter((post) => post.archive);
+const blockEditor = posts.find((post) => post.id === "block-editor")!;
+const flare = posts.find((post) => post.id === "flair")!;
+const apps = posts.filter((post) => ["runway", "slate"].includes(post.id));
+const tools = posts.filter(
+  (post) => post.category === "tool" && post.id !== "block-editor",
+);
+const note = posts.find((post) => post.category === "write")!;
+---
+
+<span id="feed" class="feed-anchor" aria-hidden="true"></span>
+<span id="journal" class="feed-anchor" aria-hidden="true"></span>
+<section class="section" id="work" aria-labelledby="workTitle" data-work-feed>
+  <div class="section-head work-head" id="workHead">
+    <div>
+      <p class="eyebrow" id="workEyebrow">
+        01 — Selected work
+      </p>
+      <Heading class="h2" id="workTitle">
+        Projects built with people, for people.
+      </Heading>
+    </div>
+    <p class="lead" id="workDesc">
+      Client and independent work across e-commerce, education, hospitality and
+      culture — carried from first sketch through to production.
+    </p>
+  </div>
+  <div class="filter" role="group" aria-label="Filter posts by category">
+    <button
+      class="chip chip-star"
+      type="button"
+      data-filter="selected"
+      aria-pressed="true"
+      aria-label="Selected work"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3.4l2.56 5.19 5.73.83-4.15 4.04.98 5.71L12 16.48l-5.12 2.69.98-5.71L3.71 9.42l5.73-.83z" />
+      </svg>
+    </button>
+    {(["web", "app", "tool", "write", "all"] as const).map((category) => (
+      <button
+        class="chip"
+        type="button"
+        data-filter={category}
+        aria-pressed="false"
+      >
+        {category[0].toUpperCase() + category.slice(1)}
+      </button>
+    ))}
+    <span class="meta feed-count" data-feed-count></span>
+  </div>
+  <span
+    id="filter-status"
+    class="sr-only"
+    role="status"
+    aria-live="polite"
+  ></span>
+  <div id="workList">
+    <div class="post-group" data-post-group>
+      {web.map((post, index) => (
+        <article
+          class="work-row"
+          data-category={post.category}
+          data-selected={post.selected ? "true" : "false"}
+          data-post-id={post.id}
+        >
+          <figure class="work-media" data-image-reveal>
+            <a href={post.href} aria-label={`Explore ${post.title}`}>
+              <img
+                src={postImage(post)}
+                width={post.width}
+                height={post.height}
+                alt={post.alt}
+                loading="lazy"
+              />
+            </a>
+          </figure>
+          <div class="work-info">
+            <div class="work-top">
+              <span class="work-index num">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span class="meta">{post.tags}</span>
+            </div>
+            <h3 class="h3">
+              <a href={post.href}>
+                {post.title}{" "}
+                <span class="arr" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </h3>
+            <p class="work-desc">{post.heading}</p>
+            <p class="meta">{post.description}</p>
+            <ProjectCredit employer={post.employer} />
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="archive post-group" data-post-group>
+      <p class="eyebrow">Archive</p>
+      <div class="archive-list">
+        {archive.map((post) => (
+          <article
+            data-category={post.category}
+            data-selected="true"
+            data-post-id={post.id}
+          >
+            <a href={post.href}>
+              <span class="t">{post.title}</span>
+              <span class="m">{post.tags}</span>
+              <ProjectCredit employer={post.employer} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+    <div class="post-group" data-post-group id="products">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">02 — Independent practice</p>
+          <h2 class="h2">Software I’m designing and building.</h2>
+        </div>
+        <p class="lead">
+          Local-first tools made through Flowforest — where product thinking,
+          interface design and agentic development come together.
+        </p>
+      </div>
+      <article
+        class="product-row"
+        data-category="tool"
+        data-selected="true"
+        data-post-id={blockEditor.id}
+      >
+        <figure class="product-visual" data-image-reveal>
+          <a href={blockEditor.href} aria-label="Explore Block Editor">
+            <img
+              src={postImage(blockEditor)}
+              width="1200"
+              height="750"
+              loading="lazy"
+              alt={blockEditor.alt}
+            />
+          </a>
+        </figure>
+        <div class="product-info">
+          <span class="pill">Experiment · Prototype</span>
+          <h3 class="h3">
+            <a href={blockEditor.href}>
+              Block Editor <span aria-hidden="true">↗</span>
+            </a>
+          </h3>
+          <p class="meta">{blockEditor.tags}</p>
+          <p class="work-desc">{blockEditor.heading}</p>
+          <p class="meta">{blockEditor.description}</p>
+        </div>
+      </article>
+      <article
+        class="product-row"
+        data-category="app"
+        data-selected="true"
+        data-post-id={flare.id}
+      >
+        <figure class="product-visual phone-strip" data-image-reveal>
+          <img
+            src="/assets/portfolio/flare-record.jpg"
+            width="669"
+            height="1200"
+            loading="lazy"
+            alt="Flare ready-to-record screen on Android"
+          />
+          <img
+            src="/assets/portfolio/flare-landing.jpg"
+            width="669"
+            height="1200"
+            loading="lazy"
+            alt="Flare launch screen on Android"
+          />
+          <img
+            src="/assets/portfolio/flare-recording.jpg"
+            width="669"
+            height="1200"
+            loading="lazy"
+            alt="Flare recording a voice note on Android"
+          />
+        </figure>
+        <div class="product-info">
+          <span class="pill">Product · In progress</span>
+          <h3 class="h3">
+            <a href={flare.href}>
+              Flare <span aria-hidden="true">↗</span>
+            </a>
+          </h3>
+          <p class="meta">{flare.tags}</p>
+          <p class="work-desc">{flare.heading}</p>
+          <p class="meta">{flare.description}</p>
+        </div>
+      </article>
+      <div class="mini-grid" data-post-group>
+        {apps.map((post) => (
+          <article
+            class="mini-card"
+            data-category="app"
+            data-selected="true"
+            data-post-id={post.id}
+          >
+            <span class="pill">Product · In progress</span>
+            <h3 class="h3">
+              <a href={post.href}>
+                {post.title} <span aria-hidden="true">↗</span>
+              </a>
+            </h3>
+            <p class="meta">{post.tags}</p>
+            <p class="work-desc">{post.heading}</p>
+            <p class="meta">{post.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+    <div class="post-group" data-post-group id="experiments">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">03 — R&amp;D</p>
+          <h2 class="h2">A little room to experiment.</h2>
+        </div>
+        <p class="lead">
+          Small tools, visual studies and ideas followed out of curiosity — a
+          look inside my R&amp;D folder.
+        </p>
+      </div>
+      {tools.map((post, index) => (
+        <article
+          data-category="tool"
+          data-selected={post.selected ? "true" : "false"}
+          data-post-id={post.id}
+        >
+          <a class="log-row" href={post.href}>
+            <span class="idx">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3 class="t">{post.title}</h3>
+              <p class="d">
+                {post.heading} {post.description}
+              </p>
+            </div>
+            <span class="go">
+              {post.tags} <span aria-hidden="true">↗</span>
+            </span>
+          </a>
+        </article>
+      ))}
+    </div>
+    <div class="field-note post-group" data-post-group>
+      <article
+        class="note-inner"
+        data-category="write"
+        data-selected="true"
+        data-post-id={note.id}
+      >
+        <div>
+          <p class="eyebrow">Field note</p>
+          <p class="meta" style="margin-top:12px">
+            September 2026
+          </p>
+        </div>
+        <div class="note-body">
+          <h3 class="h2">{note.title}</h3>
+          <p class="meta">{note.description}</p>
+          <p style="margin-top:24px">
+            <a class="btn btn-secondary btn-arrow" href={note.href}>
+              Read the note
+            </a>
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+  <p class="work-empty" id="workEmpty" hidden>
+    No posts in this category yet — try another filter.
+  </p>
+</section>

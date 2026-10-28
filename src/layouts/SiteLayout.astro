@@ -1,19 +1,24 @@
 ---
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import ProjectCredit from "@components/ProjectCredit.astro";
+import { postForPath, categoryLabels } from "../data/posts";
 import "../styles/tokens.css";
-import "../styles/journal.css";
-import "../styles/site.css";
+import "../styles/legacy.css";
+import "../styles/portfolio.css";
 interface Props {
   title: string;
   description?: string;
   home?: boolean;
+  wide?: boolean;
 }
 const {
   title,
   description = "John Basham — Product Designer and Agentic Developer. Products, experiments and notes from an independent practice.",
   home = false,
+  wide = false,
 } = Astro.props;
+const post = postForPath(Astro.url.pathname);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -43,11 +48,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </a>
     <Header />
     <main id="main">
-      <slot />
+      <div class:list={[{ "page-content": !home && !wide }]}>
+        {post && (
+          <div class="post-context post-meta">
+            <a class="meta" href={`/?category=${post.category}#work`}>
+              ← {categoryLabels[post.category]}
+            </a>
+            <ProjectCredit employer={post.employer} />
+          </div>
+        )}
+        <slot />
+      </div>
     </main>
     <Footer />
     <script>
-      import "../scripts/journal.js";
+      import "../scripts/portfolio.ts";
     </script>
   </body>
 </html>

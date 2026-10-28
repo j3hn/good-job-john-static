@@ -1,21 +1,29 @@
-# Good job, John — design system
+# John Basham — design system
 
-The live reference is `/style-guide/`. Semantic tokens are defined once in `src/styles/tokens.css`, imported by the shared site layout before other styles.
+The visual reference is the supplied `Design-gogo/john-basham-portfolio.html`.
+The live specimen is `/style-guide/`.
 
-## Safe editing
+`src/styles/tokens.css` holds the exported palette, Inter display/body typography,
+monospace utility stack, fluid scales, spacing, radii and motion tokens. The canvas
+is white, surfaces are #f5f5f5, foreground is black and borders are #dbdbdb.
+Secondary text mixes #8c8c8c with black for readable contrast. Existing semantic
+aliases remain for case studies and product interface illustrations.
 
-- Change `--color-*` tokens to adjust the palette; `--font-*` tokens to adjust font stacks; layout, hero-type, radius and motion tokens to adjust those shared decisions.
-- Existing aliases (`--paper`, `--ink`, `--yellow`, etc.) resolve to the semantic tokens. Keep these while archival pages and artwork still use them.
-- Reuse `Header`, `Footer`, `Arrow`, `Hero`, and the production link/filter styles. The guide renders actual styles and reads token values from the CSS source.
-- Preserve page-specific and archival spacing unless intentionally redesigning it. The spacing scale is the default for new work, not a reason to change every historical layout.
-- Run `pnpm check` and compare the homepage, an article and the guide at desktop and mobile sizes.
+`src/styles/portfolio.css` implements the 46px fixed header/footer, full-height
+photographic hero, bounded 1280px sections, two-column project rows, and image
+reveals. Rows stack below 980px; small controls adapt below 620px. The hero uses
+the supplied `public/assets/portfolio/hero-bg.jpg`. Project images are monochrome
+until hovered, with a pixel-and-grain overlay that dissolves on entering view.
+Reduced motion disables animation. Content and links remain usable without JS.
 
-## Fonts
+Older case studies keep their content layouts through `src/styles/legacy.css`,
+which imports the previous styles into a lower-priority cascade layer. Shared
+navigation, footer, fonts and palette follow the new design on every route.
 
-Inter is loaded from Google Fonts. The display stack is Thelma, Cooper Black, Georgia, serif. No Thelma webfont is currently shipped, so the browser uses the first locally available face. Ubuntu Mono also has no font download; the utility stack falls back to system monospace. The existing appearance and these fallback chains are preserved.
+`src/data/posts.ts` is the shared source for categories, project copy and employer
+credits. Categories are Web, App, Tool and Write. Selected work is curated; All
+includes every entry. Personal work has no employer credit. Homepage summaries,
+`/work/` and individual article metadata read from the same source.
 
-If a licensed webfont is added later, add its `@font-face` declaration to the token layer, update the guide’s loading note, and compare line breaks across all routes. Do not silently claim a font is loaded when it is only named in a stack.
-
-## Relationship to Goodjob
-
-Goodjob’s consulting site shares the wordmark and semantic token vocabulary, with a cobalt palette and hand icon. Each repository has its own values and builds independently. There is no monorepo package or runtime dependency between the sites. Update shared brand assets explicitly in both projects when necessary.
+Use `pnpm check` to verify diagnostics, the production build, preserved routes,
+local assets, unique posts, categories and confirmed employer credits.

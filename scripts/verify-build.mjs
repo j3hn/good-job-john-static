@@ -55,7 +55,7 @@ for (const route of routes) {
     1,
     `${route}: shared header`,
   );
-  assert.ok(html.includes("/assets/logo-text.png"), `${route}: site logo`);
+  assert.ok(html.includes('class="brand" href="/"'), `${route}: home identity`);
   assert.equal(
     (html.match(/<main\b/g) || []).length,
     1,
@@ -102,16 +102,6 @@ for (const route of routes) {
 }
 // Check each recording independently so a page can reuse multiple showcases.
 for (const [route, projects] of [
-  [
-    "/",
-    [
-      "saltwater-freshwater",
-      "sunny-copy",
-      "bellingen-destination",
-      "gosling",
-      "allegra",
-    ],
-  ],
   ["/saltwater-freshwater/", ["saltwater-freshwater"]],
   ["/sunny-copy/", ["sunny-copy"]],
   ["/bellingen-destination/", ["bellingen-destination"]],
@@ -199,29 +189,87 @@ for (const route of ["/", "/work/"]) {
   );
 }
 const homepage = fs.readFileSync(resolveFile("/"), "utf8");
-assert.ok(
-  homepage.includes('id="feed" aria-label="Feed"'),
-  "Homepage: named Feed",
-);
-assert.ok(
-  homepage.includes('id="journal"'),
-  "Homepage: legacy journal anchor preserved",
-);
-assert.ok(homepage.includes("01 / Feed"), "Homepage: Feed heading");
-assert.ok(
-  !homepage.includes("The working journal"),
-  "Homepage: old label removed",
-);
-for (const category of [
-  "all",
-  "products",
-  "experiments",
-  "notes",
-  "selected",
+for (const anchor of [
+  "work",
+  "feed",
+  "journal",
+  "experience",
+  "about",
+  "contact",
 ]) {
+  assert.ok(homepage.includes(`id="${anchor}"`), `Homepage: ${anchor} anchor`);
+}
+for (const category of ["selected", "all", "web", "app", "tool", "write"]) {
   assert.ok(
-    homepage.includes('data-filter="' + category + '"'),
-    "Feed category: " + category,
+    homepage.includes(`data-filter="${category}"`),
+    `Work category: ${category}`,
+  );
+}
+const homePosts = [
+  ...homepage.matchAll(
+    /<article\b[^>]*data-category="([^"]+)"[^>]*data-post-id="([^"]+)"/g,
+  ),
+];
+assert.equal(
+  homePosts.length,
+  22,
+  "Homepage: every existing post and experiment is discoverable",
+);
+assert.equal(
+  new Set(homePosts.map((match) => match[2])).size,
+  22,
+  "Homepage: posts are not duplicated",
+);
+for (const [category, expectedCount] of [
+  ["web", 10],
+  ["app", 3],
+  ["tool", 8],
+  ["write", 1],
+]) {
+  assert.equal(
+    homePosts.filter((match) => match[1] === category).length,
+    expectedCount,
+    `Homepage: ${category} post count`,
+  );
+}
+for (const [routes, employer] of [
+  [
+    [
+      "/phatduds/",
+      "/allegra/",
+      "/bellingen-destination/",
+      "/saltwater-freshwater/",
+      "/gosling/",
+    ],
+    "We Are Coast",
+  ],
+  [
+    ["/emma-power/", "/sunny-copy/", "/jenna-meade/", "/soul-charters/"],
+    "Goodjob",
+  ],
+]) {
+  for (const route of routes) {
+    const html = fs.readFileSync(resolveFile(route), "utf8");
+    assert.ok(
+      html.includes(`Created at <strong>${employer}</strong>`),
+      `${route}: confirmed employer credit`,
+    );
+  }
+}
+for (const route of [
+  "/journal/runway/",
+  "/journal/flair/",
+  "/journal/slate/",
+  "/journal/block-editor/",
+  "/journal/bus-351/",
+  "/journal/solar-state-of-charge/",
+  "/journal/flowforest-website/",
+  "/journal/design-and-code/",
+]) {
+  const html = fs.readFileSync(resolveFile(route), "utf8");
+  assert.ok(
+    !html.includes('class="project-credit"'),
+    `${route}: no employer credit on personal work`,
   );
 }
 const blockEditorPost = fs.readFileSync(
@@ -251,8 +299,8 @@ const blockEditorEntries = [
   .filter((entry) => entry.includes('href="/journal/block-editor/"'));
 assert.equal(blockEditorEntries.length, 1, "Homepage: one Block Editor post");
 assert.ok(
-  blockEditorEntries[0].includes('data-category="experiments"'),
-  "Homepage: Block Editor is an experiment",
+  blockEditorEntries[0].includes('data-category="tool"'),
+  "Homepage: Block Editor is a tool",
 );
 for (const screenshot of ["editor", "pages"]) {
   assert.ok(

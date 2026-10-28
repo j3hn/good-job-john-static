@@ -1,398 +1,75 @@
 ---
 import SiteLayout from "@layouts/SiteLayout.astro";
+import WorkFeed from "@components/WorkFeed.astro";
+import ImageEffect from "@components/ImageEffect.astro";
+import ContactCTA from "@components/ContactCTA.astro";
 ---
 
 <SiteLayout
-  title="Work – Good job."
-  description="Design and development work by John Basham."
-  home={false}
+  title="Work"
+  description="Websites, apps, tools and writing by John Basham. Selected work from We Are Coast, Goodjob and an independent product practice."
+  wide={true}
 >
-  <div class="archive-page">
-    <article
-      class="hentry page post-395 status-publish type-page"
-      id="post-395"
-      itemscope
-      itemtype="https://schema.org/BlogPosting"
-      role="article"
-    >
-      <header class="article-header">
-        <h1 class="page-title" itemprop="headline">
-          Work
-        </h1>
-      </header>
-      <section class="entry-content" itemprop="articleBody">
-        <h2 class="wp-block-heading">Case Studies</h2>
-        <div class="alignwide is-stacked-on-mobile wp-block-media-text" style="grid-template-columns: 31% auto">
-          <figure class="wp-block-media-text__media">
-            <a href="/phatduds/"><img src="/assets/phatduds/cover.jpg" alt="Phatduds Shopify storefront design with basketball photography and bold red calls to action" width="1600" height="889" loading="lazy" /></a>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading"><a href="/phatduds/">Phatduds</a></h2>
-            <p>A Shopify storefront for basketball shorts and accessories. Explore the desktop and mobile designs.</p>
-            <p class="has-text-align-right"><a href="/phatduds/">read more</a></p>
-          </div>
-        </div>
-        <div class="alignwide is-stacked-on-mobile wp-block-media-text" style="grid-template-columns: 31% auto">
-          <figure class="wp-block-media-text__media">
-            <a href="/allegra/"><img src="/assets/allegra/website-poster.jpg" alt="Allegra School homepage with bold typography, colourful shapes and outdoor learning photography" width="1468" height="1024" loading="lazy" /></a>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading"><a href="/allegra/">Allegra School</a></h2>
-            <p>A welcoming digital home for a different way to learn. Watch a scroll-through of the school website.</p>
-            <p class="has-text-align-right"><a href="/allegra/">read more</a></p>
-          </div>
-        </div>
-        <div class="alignwide is-stacked-on-mobile wp-block-media-text" style="grid-template-columns: 31% auto">
-          <figure class="wp-block-media-text__media">
-            <a href="/bellingen-destination/"><img src="/assets/bellingen-destination/1.jpg" alt="Bellingen website homepage showcase, led by a waterfall landscape" width="2250" height="1500" /></a>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading"><a href="/bellingen-destination/">Bellingen Destination</a></h2>
-            <p>A destination website concept bringing local places, events and community together.</p>
-            <p class="has-text-align-right"><a href="/bellingen-destination/">read more</a></p>
-          </div>
-        </div>
-        <div class="alignwide is-stacked-on-mobile wp-block-media-text" style="grid-template-columns: 31% auto">
-          <figure class="wp-block-media-text__media">
-            <a href="/saltwater-freshwater/"><img src="/assets/saltwater-freshwater/website-poster.webp" alt="Saltwater Freshwater Festival website" width="1580" height="980" /></a>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading"><a href="/saltwater-freshwater/">Saltwater Freshwater Festival</a></h2>
-            <p>A digital home for culture and connection. Watch a scroll-through of the festival website.</p>
-            <p class="has-text-align-right"><a href="/saltwater-freshwater/">read more</a></p>
-          </div>
-        </div>
-        <div class="alignwide is-stacked-on-mobile wp-block-media-text" style="grid-template-columns: 31% auto">
-          <figure class="wp-block-media-text__media">
-            <a href="/gosling/"><img src="/assets/gosling/gosling-cover.webp" alt="Gosling Group website showcase" width="1920" height="1200" /></a>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading"><a href="/gosling/">Gosling Group</a></h2>
-            <p>A digital home for electrical expertise. Explore the responsive website and watch a scroll-through of the design.</p>
-            <p class="has-text-align-right"><a href="/gosling/">read more</a></p>
-          </div>
-        </div>
-        <div
-          class="alignwide is-stacked-on-mobile wp-block-media-text"
-          style="grid-template-columns: 31% auto"
-        >
-          <figure class="wp-block-media-text__media">
-            <img
-              alt=""
-              class="size-full wp-image-176"
-              decoding="async"
-              fetchpriority="high"
-              height="633"
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              src="/uploads/2018/11/case-study-emma-power-1024x633.jpg"
-              srcset="
-                      /uploads/2018/11/case-study-emma-power-1024x633.jpg 1024w,
-                      /uploads/2018/11/case-study-emma-power-300x185.jpg   300w,
-                      /uploads/2018/11/case-study-emma-power-768x475.jpg   768w,
-                      /uploads/2018/11/case-study-emma-power.jpg          1650w
-                    "
-              width="1024"
-            />
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading">
-              <a href="/emma-power/">Emma Power</a>
-            </h2>
-            <p>
-              As a teacher, writer and speaker Emma had a simple request for her
-              website – “simple and easy to navigate”.
-            </p>
-            <p class="has-text-align-right">
-              <a href="/emma-power/">read more</a>
-            </p>
-          </div>
-        </div>
-        <div
-          class="alignwide is-stacked-on-mobile wp-block-media-text"
-          style="grid-template-columns: 31% auto"
-        >
-          <figure class="wp-block-media-text__media">
-            <img
-              alt=""
-              class="size-full wp-image-57"
-              decoding="async"
-              height="633"
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              src="/uploads/2019/05/case-study-sunny-copy-cmps-1024x633.jpg"
-              srcset="
-                      /uploads/2019/05/case-study-sunny-copy-cmps-1024x633.jpg 1024w,
-                      /uploads/2019/05/case-study-sunny-copy-cmps-300x185.jpg   300w,
-                      /uploads/2019/05/case-study-sunny-copy-cmps-768x475.jpg   768w,
-                      /uploads/2019/05/case-study-sunny-copy-cmps.jpg          1650w
-                    "
-              width="1024"
-            />
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading">
-              <a href="/sunny-copy/">Sunny Copy</a>
-            </h2>
-            <p>
-              Copywriting is all in the words. That’s why when you visit
-              sunnycopy.com you won’t find anything fancy, just a beautiful and
-              clean website. And beautiful words.
-            </p>
-            <p class="has-text-align-right">
-              <a href="/sunny-copy/">read more</a>
-            </p>
-          </div>
-        </div>
-        <div
-          class="alignwide is-stacked-on-mobile wp-block-media-text"
-          style="grid-template-columns: 31% auto"
-        >
-          <figure class="wp-block-media-text__media">
-            <img
-              alt="Screenshot of the homepage"
-              class="size-full wp-image-174"
-              decoding="async"
-              height="633"
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              src="/uploads/2018/12/case-study-jenna-meade-1650-1024x633.jpg"
-              srcset="
-                      /uploads/2018/12/case-study-jenna-meade-1650-1024x633.jpg 1024w,
-                      /uploads/2018/12/case-study-jenna-meade-1650-300x185.jpg   300w,
-                      /uploads/2018/12/case-study-jenna-meade-1650-768x475.jpg   768w,
-                      /uploads/2018/12/case-study-jenna-meade-1650.jpg          1650w
-                    "
-              width="1024"
-            />
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading">
-              <a href="/jenna-meade/">Jenna Meade</a>
-            </h2>
-            <p>
-              Jenna is an Australian wellness travel journalist that needed a
-              home for her writing. We designed and built her website to radiate
-              her personality and make reading her words an absolute pleasure.
-            </p>
-            <p class="has-text-align-right">
-              <a href="/jenna-meade/">read more</a>
-            </p>
-          </div>
-        </div>
-        <div
-          class="alignwide is-stacked-on-mobile wp-block-media-text"
-          style="grid-template-columns: 31% auto"
-        >
-          <figure class="wp-block-media-text__media">
-            <img
-              alt=""
-              class="size-full wp-image-314"
-              decoding="async"
-              height="319"
-              loading="lazy"
-              sizes="(max-width: 474px) 100vw, 474px"
-              src="/uploads/2019/06/logo-thumbnail.jpg"
-              srcset="
-                      /uploads/2019/06/logo-thumbnail.jpg         474w,
-                      /uploads/2019/06/logo-thumbnail-300x202.jpg 300w
-                    "
-              width="474"
-            />
-          </figure>
-          <div class="wp-block-media-text__content">
-            <h2 class="wp-block-heading">
-              <a href="/soul-charters/">Soul Charters</a>
-            </h2>
-            <p>
-              The duo behind Soul Charters are big dreamers. Capturing their
-              dreams and encapsulating them into a website was a challenge worth
-              waking up for.
-            </p>
-            <p class="has-text-align-right">
-              <a href="/soul-charters/">read more</a>
-            </p>
-          </div>
-        </div>
-        <div
-          aria-hidden="true"
-          class="wp-block-spacer"
-          style="height: 100px"
-        ></div>
-        <h2 class="wp-block-heading">Branding</h2>
-      </section>
-      <section class="branding" itemprop="articleBody">
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-sunny_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-retrea_desktop_x2.jpg"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-soulfuel_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-vifplastics_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-radical_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-autotelic_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-concreteworkshop_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-billy_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-
-        <figure>
-          <img
-            height="197"
-            src="/uploads/2021/10/logo-acceleron_desktop_x2.png"
-            width="330"
-            alt=""
-          />
-        </figure>
-        <img />
-      </section>
-      <section class="entry-content" itemprop="articleBody">
-        <h2 class="wp-block-heading" style="margin-bottom:50px;">
-          Brand Motion
-        </h2>
-        <div
-          class="alignwide is-stacked-on-mobile wp-block-media-text"
-          style="grid-template-columns: 31% auto"
-        >
-          <figure class="wp-block-media-text__media">
-            <div class="featured-video">
-              <video autoplay loop muted>
-                <source
-                  src="/uploads/2019/06/motion-promotion.mp4"
-                  type="video/mp4"
-                />
-                <p>Sorry, your browser doesn't support embedded videos.</p>
-              </video>
-            </div>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <p>
-              Give me 5 seconds – and I’ll bring your brand to life. Motion is
-              powerful, often overlooked, and adds new depth of emotion to you
-              and your brand.
-            </p>
-            <p>
-              Most animated logos are made using preset motion templates that
-              reveal the logo in a fancy way. While the effects can be
-              impressive, they are ultimately generic and don’t add to your
-              brand’s story. 
-            </p>
-          </div>
-        </div>
-        <div
-          class="alignwide is-stacked-on-mobile wp-block-media-text"
-          style="grid-template-columns: 31% auto"
-        >
-          <figure class="wp-block-media-text__media">
-            <figure class="wp-block-video">
-              <video
-                autoplay
-                loop
-                muted
-                poster="/uploads/2019/03/logo-heart.png"
-                src="/uploads/2019/06/Comp-1_1.mp4"
-              ></video>
-            </figure>
-          </figure>
-          <div class="wp-block-media-text__content">
-            <blockquote class="is-layout-flow is-style-default wp-block-quote wp-block-quote-is-layout-flow">
-              <p>
-                Animation provides a universal language to imbue emotion,
-                augment feeling, and explain hard concepts.
-              </p>
-              <cite>Ryan McLeod</cite>
-            </blockquote>
-            <p>
-              That’s where I step in. I add a layer of contextual and memorable
-              motion that connects to your brand and its ethos. While your
-              existing flat logo makes a first impression, your animated logo
-              works one step harder to unveil clues and context about your
-              offering.
-            </p>
-            <p>
-              It’s storytelling that’s obvious, felt, and nearly invisible all
-              at once. The finishing flowing touch to your narrative.
-            </p>
-
-            <hr style="margin:50px;opacity: .1; border: 0; height: 1px; background-color: var(--ink);" />
-            <b>Where to use...</b>
-            <p>
-              <strong>Social Media</strong> – Feeds are a perfect medium to
-              stand out. Animation is far more memorable leaving a lasting
-              impression.
-            </p>
-            <p>
-              <strong>Email Signature</strong> – There’s no more memorable way
-              to sign off your email than with an animated logo. It shows you’ve
-              cared enough to think about the small details.
-            </p>
-            <p>
-              <strong>Promotional Video</strong> – Spliced into the beginning or
-              end, it adds another level of customised professionalism to your
-              video content.
-            </p>
-            <p>
-              <strong>Website</strong> – Can easily be integrated into your
-              website with great effect.
-            </p>
-          </div>
-        </div>
-      </section>
-    </article>
-  </div>
+  <ImageEffect />
+  <WorkFeed standalone={true} />
+  <section class="section archive-directory">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">From the archive</p>
+        <h2 class="h2">Identity in motion.</h2>
+      </div>
+      <div>
+        <p class="lead">
+          Earlier brand identities and motion work from Goodjob.
+        </p>
+        <p>
+          <a class="btn btn-primary btn-arrow" href="/brand-motion/">
+            Explore brand motion
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="brand-archive">
+      {[
+        ["sunny", "Sunny Copy"],
+        ["retrea", "Retrea"],
+        ["soulfuel", "Soulfuel"],
+        ["vifplastics", "VIF Plastics"],
+        ["radical", "Radical"],
+        ["autotelic", "Autotelic"],
+        ["concreteworkshop", "Concrete Workshop"],
+        ["billy", "Billy"],
+        ["acceleron", "Acceleron"],
+      ].map(([slug, name]) => (
+        <img
+          src={`/uploads/2021/10/logo-${slug}_desktop_x2.${slug === "retrea" ? "jpg" : "png"}`}
+          alt={`${name} brand identity`}
+          width="330"
+          height="197"
+          loading="lazy"
+        />
+      ))}
+    </div>
+  </section>
+  <ContactCTA />
 </SiteLayout>
+<style>
+  .brand-archive {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--border);
+  }
+  .brand-archive img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px;
+  }
+  @media (max-width: 620px) {
+    .brand-archive {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

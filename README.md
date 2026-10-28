@@ -1,7 +1,7 @@
 # Good job, John.
 
 John Basham’s portfolio and product journal, built with **Astro**. It generates a
-static site with shared components and a lightweight WebGL homepage background.
+static site with shared components and the supplied photographic portfolio design.
 
 ## Development
 
@@ -28,8 +28,9 @@ Python server is no longer needed: Astro resolves components and builds assets.
 | Page metadata and shared styles | `src/layouts/SiteLayout.astro` |
 | Journal article structure | `src/layouts/ArticleLayout.astro` |
 | Hero wording and structure | `src/components/Hero.astro` |
-| Animated background | `src/scripts/hero-shader.ts` |
-| Homepage feed | `src/pages/index.astro` |
+| Hero photograph and project covers | `public/assets/portfolio/` |
+| Homepage feed and work directory | `src/components/WorkFeed.astro` |
+| Post categories, copy and employer credits | `src/data/posts.ts` |
 | Product artwork shared across pages | `src/components/art/` |
 | Reusable framed website videos | `src/components/VideoShowcase.astro` |
 | Festival recording and backdrop colour | `src/data/saltwater-freshwater.ts` |
@@ -38,7 +39,7 @@ Python server is no longer needed: Astro resolves components and builds assets.
 | Gosling recording and backdrop colour | `src/data/gosling.ts` |
 | Allegra recording and backdrop colour | `src/data/allegra.ts` |
 | Experiment cards | `src/components/ExperimentGrid.astro` |
-| Experience and About sections | `src/components/ExperienceMap.astro`, `About.astro` |
+| Experience and About sections | `src/components/ExperienceTimeline.astro`, `About.astro` |
 | Pages and journal entries | `src/pages/` |
 | Shared CSS and interactions | `src/styles/`, `src/scripts/` |
 | Logo, images and video | `public/assets/`, `public/uploads/` |
@@ -49,23 +50,27 @@ at `/assets/LOGO.jpg`. The Flare article retains `/journal/flair/` to preserve l
 All portfolio pages use the same header and footer. The standalone R&D tools keep
 their own interfaces. Legacy theme files remain in `public/` for compatibility.
 
-The shader requires no external library. Reduced-motion preferences pause it by
-default, the visitor can pause/play, and offscreen/hidden pages stop animating.
-Browsers without WebGL display a CSS gradient. The rest of the site is rendered
-as HTML; the journal filters, experience selection, shader and managed video
-playback use JavaScript.
+The hero uses the supplied photograph. Project images reveal from a pixel-and-grain
+overlay and remain monochrome until hovered. Reduced-motion preferences disable
+the reveal and filter animations. All content is rendered as HTML; filters and
+the mobile menu use a small shared script in `src/scripts/portfolio.ts`.
 
-## Feed and categories
+## Posts and categories
 
-The homepage’s **Feed** contains every post. The category buttons filter that
-same collection: All, Products, Experiments, Notes and Selected work. Add entries
-in `src/pages/index.astro` with the appropriate `data-category`; do not create
-separate copies for each category.
+`src/data/posts.ts` supplies both the homepage and `/work/`. Categories are **Web,
+App, Tool and Write**, alongside a curated star filter and **All**. Website case
+studies and the Flowforest website are Web; Runway, Flare and Slate are App;
+automations and experiments are Tool; the practice note is Write.
 
-The Feed is at least a viewport tall and scrolls with the page. Its category bar
-stays sticky within the section, then leaves with it before Experience. Choosing
-a category while deep in the Feed returns to that category’s first post.
-Navigation uses `/#feed`; old `/#journal` links and article URLs still work.
+The same data supplies employer credits on project summaries and individual posts:
+We Are Coast for Phatduds, Allegra, Bellingen, Saltwater Freshwater and Gosling;
+Goodjob for Emma Power, Sunny Copy, Jenna Meade and Soul Charters. Personal work
+has no employer label. These assignments were confirmed by John.
+
+The category bar stays sticky inside the work section. Categories persist between
+visits and can be linked directly with `/?category=tool#work`. The old `/#feed`
+and `/#journal` anchors and every existing article URL still resolve. All posts
+are available when JavaScript is disabled.
 
 ## Website video showcases
 
