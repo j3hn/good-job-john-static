@@ -216,6 +216,17 @@ export const posts: Post[] = [
       "A Pencil-first journal for iPad, exploring the feel of digital ink, a custom brush engine and the simple rhythm of one page per day.",
   },
   {
+    id: "pi-gatekeeper",
+    title: "pi-gatekeeper",
+    href: "/journal/pi-gatekeeper/",
+    category: "tool",
+    selected: true,
+    tags: "Pi · TypeScript · Open source",
+    heading: "Done means the checks pass.",
+    description:
+      "A Pi extension that runs a verification command when an agent tries to finish, feeding failures back so it can keep working.",
+  },
+  {
     id: "bus-351",
     title: "Bus 351",
     href: "/journal/bus-351/",

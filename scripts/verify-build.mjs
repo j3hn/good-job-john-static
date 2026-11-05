@@ -24,6 +24,7 @@ const routes = [
   "/journal/slate/",
   "/journal/design-and-code/",
   "/journal/block-editor/",
+  "/journal/pi-gatekeeper/",
   "/journal/bus-351/",
   "/journal/solar-state-of-charge/",
   "/journal/flowforest-website/",
@@ -212,24 +213,32 @@ const homePosts = [
 ];
 assert.equal(
   homePosts.length,
-  22,
+  23,
   "Homepage: every existing post and experiment is discoverable",
 );
 assert.equal(
   new Set(homePosts.map((match) => match[2])).size,
-  22,
+  23,
   "Homepage: posts are not duplicated",
 );
 for (const [category, expectedCount] of [
   ["web", 10],
   ["app", 3],
-  ["tool", 8],
+  ["tool", 9],
   ["write", 1],
 ]) {
   assert.equal(
     homePosts.filter((match) => match[1] === category).length,
     expectedCount,
     `Homepage: ${category} post count`,
+  );
+}
+for (const route of ["/", "/work/"]) {
+  const html = fs.readFileSync(resolveFile(route), "utf8");
+  assert.match(
+    html,
+    /<article\b[^>]*data-category="tool"[^>]*data-selected="true"[^>]*data-post-id="pi-gatekeeper"/,
+    `${route}: pi-gatekeeper is a selected tool`,
   );
 }
 for (const [routes, employer] of [
