@@ -227,6 +227,17 @@ export const posts: Post[] = [
       "A Pi extension that runs a verification command when an agent tries to finish, feeding failures back so it can keep working.",
   },
   {
+    id: "pilot",
+    title: "Pilot",
+    href: "/journal/pilot/",
+    category: "tool",
+    selected: true,
+    tags: "Svelte · Node · Pi Durable",
+    heading: "Documentation is the source of work.",
+    description:
+      "A self-hosted planning workspace where a durable agent implements the page you wrote — reachable from a phone, with the repository still owning the truth.",
+  },
+  {
     id: "bus-351",
     title: "Bus 351",
     href: "/journal/bus-351/",

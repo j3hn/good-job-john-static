@@ -25,6 +25,7 @@ const routes = [
   "/journal/design-and-code/",
   "/journal/block-editor/",
   "/journal/pi-gatekeeper/",
+  "/journal/pilot/",
   "/journal/bus-351/",
   "/journal/solar-state-of-charge/",
   "/journal/flowforest-website/",
@@ -213,18 +214,18 @@ const homePosts = [
 ];
 assert.equal(
   homePosts.length,
-  23,
+  24,
   "Homepage: every existing post and experiment is discoverable",
 );
 assert.equal(
   new Set(homePosts.map((match) => match[2])).size,
-  23,
+  24,
   "Homepage: posts are not duplicated",
 );
 for (const [category, expectedCount] of [
   ["web", 10],
   ["app", 3],
-  ["tool", 9],
+  ["tool", 10],
   ["write", 1],
 ]) {
   assert.equal(
@@ -239,6 +240,11 @@ for (const route of ["/", "/work/"]) {
     html,
     /<article\b[^>]*data-category="tool"[^>]*data-selected="true"[^>]*data-post-id="pi-gatekeeper"/,
     `${route}: pi-gatekeeper is a selected tool`,
+  );
+  assert.match(
+    html,
+    /<article\b[^>]*data-category="tool"[^>]*data-selected="true"[^>]*data-post-id="pilot"/,
+    `${route}: Pilot is a selected tool`,
   );
 }
 for (const [routes, employer] of [
@@ -270,6 +276,8 @@ for (const route of [
   "/journal/flair/",
   "/journal/slate/",
   "/journal/block-editor/",
+  "/journal/pi-gatekeeper/",
+  "/journal/pilot/",
   "/journal/bus-351/",
   "/journal/solar-state-of-charge/",
   "/journal/flowforest-website/",
@@ -324,6 +332,21 @@ assert.ok(
 assert.ok(
   !blockEditorPost.includes("<iframe"),
   "Block Editor: screenshot post, not a live demo",
+);
+const pilotPost = fs.readFileSync(resolveFile("/journal/pilot/"), "utf8");
+assert.ok(
+  pilotPost.includes('href="https://github.com/goodjobdev/pilot"'),
+  "Pilot: source repository",
+);
+for (const screenshot of ["wiki", "tasks"]) {
+  assert.ok(
+    pilotPost.includes("/assets/pilot/" + screenshot + ".jpg"),
+    "Pilot: " + screenshot + " screenshot",
+  );
+}
+assert.ok(
+  pilotPost.includes("Documentation is the source of work."),
+  "Pilot: product statement",
 );
 assert.equal(errors.length, 0, errors.join("\n"));
 console.log(
