@@ -1,0 +1,76 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import BlockEditorShowcase from "@components/BlockEditorShowcase.astro";
+import FlairArt from "@components/art/flair.astro";
+import RunwayArt from "@components/art/runway.astro";
+import SlateArt from "@components/art/slate.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("journal");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"journal">;
+}
+
+const art = {
+  flare: FlairArt,
+  runway: RunwayArt,
+  slate: SlateArt,
+  "block-editor": BlockEditorShowcase,
+};
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const Art = data.art ? art[data.art] : null;
+const cover = data.cover;
+const coverLoading = cover?.priority ? "eager" : "lazy";
+---
+
+<ArticleLayout
+  title={data.title}
+  description={data.description}
+  subtitle={data.subtitle}
+  eyebrow={data.eyebrow}
+  tags={data.pageTags}
+  backHref={data.backHref}
+  backText={data.backText}
+>
+  {Art && (
+    <Fragment slot="art">
+      <Art loading="eager" />
+    </Fragment>
+  )}
+  {cover && (
+    <figure slot="art" class="article-cover">
+      {cover.href ? (
+        <a href={cover.href} target="_blank" rel="noopener noreferrer">
+          <img
+            src={cover.src}
+            alt={cover.alt}
+            width={cover.width}
+            height={cover.height}
+            loading={coverLoading}
+            fetchpriority={cover.priority ? "high" : undefined}
+          />
+        </a>
+      ) : (
+        <img
+          src={cover.src}
+          alt={cover.alt}
+          width={cover.width}
+          height={cover.height}
+          loading={coverLoading}
+          fetchpriority={cover.priority ? "high" : undefined}
+        />
+      )}
+    </figure>
+  )}
+  <Content />
+</ArticleLayout>

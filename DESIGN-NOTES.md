@@ -7,9 +7,11 @@ project recordings and standalone experiments are preserved.
 
 The new design adds a photographic hero, fixed navigation and footer, fine borders,
 monochrome imagery, project rows, a timeline and responsive mobile navigation.
-All 22 existing posts and experiments appear once in the shared work collection.
-Categories and confirmed employer credits live in `src/data/posts.ts` and appear
-on summaries and individual posts. Personal work has no employer label.
+All existing posts and experiments appear once in the shared work collection.
+Journal articles are Markdown in `src/content/journal/`; case studies and
+experiments remain in `src/data/posts.ts`. `order` sets feed position and
+`starred` marks recommended work. Categories and confirmed employer credits
+appear on summaries and individual posts. Personal work has no employer label.
 
 The design export misclassified several websites as apps or writing. Categories
 instead follow the work itself. The timeline uses the existing CV for career

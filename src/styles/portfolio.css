@@ -749,10 +749,16 @@ h3 {
   opacity: 0;
 }
 @media (hover: hover) {
-  .work-row:hover .work-media > img,
-  .product-row:hover .product-visual > img,
-  .hero-portrait:hover > img {
+  /* images sit inside a link, so match a descendant, not a direct child */
+  .work-row:hover .work-media img,
+  .product-row:hover .product-visual img,
+  .hero-portrait:hover img {
     filter: grayscale(0) contrast(1);
+  }
+  .work-row:hover .shade-layer,
+  .product-row:hover .shade-layer,
+  .hero-portrait:hover .shade-layer {
+    opacity: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1282,10 +1288,12 @@ button:hover {
   width: 100%;
   height: 100%;
 }
-.work-media:focus-within img {
+.work-media:focus-within img,
+.product-visual:focus-within img {
   filter: grayscale(0);
 }
-.work-media:focus-within .shade-layer {
+.work-media:focus-within .shade-layer,
+.product-visual:focus-within .shade-layer {
   opacity: 0;
 }
 .archive-list a .m {
@@ -1297,6 +1305,60 @@ button:hover {
 .article-prose p,
 .archive-page p {
   color: var(--muted-2);
+}
+
+/* journal articles — figures, captions and code laid out from Markdown */
+.article-cover,
+.article-prose figure {
+  margin: 0;
+}
+.article-cover a,
+.article-prose figure a {
+  display: block;
+}
+.article-cover img,
+.article-prose figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.article-prose figure {
+  margin-top: 32px;
+}
+.article-prose figcaption {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--muted-2);
+}
+.article-prose > h2 {
+  margin-top: 45px;
+}
+.article-prose > h2:first-child {
+  margin-top: 0;
+}
+.article-prose .lead {
+  color: var(--fg);
+  font-size: 23px;
+  line-height: 1.5;
+}
+.article-prose pre {
+  margin: 24px 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.article-prose pre code {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: 12px;
+  line-height: 1.7;
 }
 .article-heading .post-meta {
   margin-top: 20px;

@@ -30,7 +30,9 @@ Python server is no longer needed: Astro resolves components and builds assets.
 | Hero wording and structure | `src/components/Hero.astro` |
 | Hero photograph and project covers | `public/assets/portfolio/` |
 | Homepage feed and work directory | `src/components/WorkFeed.astro` |
-| Post categories, copy and employer credits | `src/data/posts.ts` |
+| Case-study copy, categories and employer credits | `src/data/posts.ts` |
+| Journal articles | `src/content/journal/*.md` |
+| Journal metadata fields | `src/content.config.ts` |
 | Product artwork shared across pages | `src/components/art/` |
 | Reusable framed website videos | `src/components/VideoShowcase.astro` |
 | Festival recording and backdrop colour | `src/data/saltwater-freshwater.ts` |
@@ -40,7 +42,7 @@ Python server is no longer needed: Astro resolves components and builds assets.
 | Allegra recording and backdrop colour | `src/data/allegra.ts` |
 | Experiment cards | `src/components/ExperimentGrid.astro` |
 | Experience and About sections | `src/components/ExperienceTimeline.astro`, `About.astro` |
-| Pages and journal entries | `src/pages/` |
+| Pages and the journal route | `src/pages/` |
 | Shared CSS and interactions | `src/styles/`, `src/scripts/` |
 | Logo, images and video | `public/assets/`, `public/uploads/` |
 | Standalone interactive experiments | `public/r&d/` |
@@ -57,10 +59,24 @@ the mobile menu use a small shared script in `src/scripts/portfolio.ts`.
 
 ## Posts and categories
 
-`src/data/posts.ts` supplies both the homepage and `/work/`. Categories are **Web,
-App, Tool and Write**, alongside a curated star filter and **All**. Website case
-studies and the Flowforest website are Web; Runway, Flare and Slate are App;
-automations and experiments are Tool; the practice note is Write.
+The work feed has one source: case studies and experiments come from
+`src/data/posts.ts`, and journal entries come from the `journal` content
+collection in `src/content/journal/`. `src/data/work.ts` merges both lists for the
+homepage, `/work/` and the article back-links.
+
+Every entry has two editorial controls:
+
+- `order` — its position in the work feed. Lower numbers come first, so gaps such
+  as 10, 20, 30 leave room to insert an entry without renumbering the rest.
+- `starred` — recommended work. `true` puts the entry under the star filter;
+  `false` leaves it in All and its category only.
+
+In a journal file these live in the frontmatter. Add an article by creating
+`src/content/journal/<slug>.md`; the route `/journal/<slug>/` is generated.
+
+Categories are **Web, App, Tool and Write**, alongside the star filter and **All**.
+Website case studies and the Flowforest website are Web; Runway, Flare and Slate
+are App; automations and experiments are Tool; the practice note is Write.
 
 The same data supplies employer credits on project summaries and individual posts:
 We Are Coast for Phatduds, Allegra, Bellingen, Saltwater Freshwater and Gosling;

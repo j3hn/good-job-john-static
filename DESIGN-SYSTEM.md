@@ -20,10 +20,11 @@ Older case studies keep their content layouts through `src/styles/legacy.css`,
 which imports the previous styles into a lower-priority cascade layer. Shared
 navigation, footer, fonts and palette follow the new design on every route.
 
-`src/data/posts.ts` is the shared source for categories, project copy and employer
-credits. Categories are Web, App, Tool and Write. Selected work is curated; All
-includes every entry. Personal work has no employer credit. Homepage summaries,
-`/work/` and individual article metadata read from the same source.
+`src/data/posts.ts` holds the case studies, and the `journal` content collection
+(`src/content/journal/`) holds the articles as Markdown. `src/data/work.ts` merges
+them for the homepage, `/work/` and article metadata. `order` sets feed position
+and `starred` marks recommended work. Categories are Web, App, Tool and Write;
+All includes every entry. Personal work has no employer credit.
 
 Use `pnpm check` to verify diagnostics, the production build, preserved routes,
 local assets, unique posts, categories and confirmed employer credits.

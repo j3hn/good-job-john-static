@@ -48,32 +48,32 @@ if (feed) {
   const groups = [...feed.querySelectorAll<HTMLElement>("[data-post-group]")];
   const copy = {
     selected: [
-      "01 — Selected work",
+      "Selected work",
       "Projects built with people, for people.",
       "Client and independent work across e-commerce, education, hospitality and culture — carried from first sketch through to production.",
     ],
     all: [
-      "01 — All work",
+      "All work",
       "A practice in progress.",
       "Every project, product, experiment and field note — from client websites to independent software and small tools.",
     ],
     web: [
-      "01 — Web",
+      "Web",
       "Designed and built for the browser.",
       "Responsive websites and storefronts that carry a brand from the first screen through to checkout.",
     ],
     app: [
-      "01 — App",
+      "App",
       "Product interfaces that feel effortless.",
       "Independent applications where structure, interaction and detail come together into something people can use.",
     ],
     tool: [
-      "01 — Tool",
+      "Tool",
       "Small tools that do one thing well.",
       "Focused utilities, automations and experiments built to remove friction and follow a little curiosity.",
     ],
     write: [
-      "01 — Write",
+      "Write",
       "Notes from a broad practice.",
       "Thoughts on design, code and the experience of turning ideas into things people can use.",
     ],
