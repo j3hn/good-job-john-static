@@ -53,9 +53,12 @@ All portfolio pages use the same header and footer. The standalone R&D tools kee
 their own interfaces. Legacy theme files remain in `public/` for compatibility.
 
 The hero uses the supplied photograph. Project images reveal from a pixel-and-grain
-overlay and remain monochrome until hovered. Reduced-motion preferences disable
-the reveal and filter animations. All content is rendered as HTML; filters and
-the mobile menu use a small shared script in `src/scripts/portfolio.ts`.
+overlay and remain monochrome until hovered. Work media sits on the same kind of
+stage as `VideoShowcase`: a tinted backdrop, an inset screen with rounded corners
+and a soft shadow. A project's stage reuses its website recording backdrop when it
+has one. Reduced-motion preferences disable the reveal and filter animations. All
+content is rendered as HTML; filters and the mobile menu use a small shared script
+in `src/scripts/portfolio.ts`.
 
 ## Posts and categories
 

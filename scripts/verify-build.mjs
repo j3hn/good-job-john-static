@@ -19,6 +19,7 @@ const routes = [
   "/phatduds/",
   "/saltwater-freshwater/",
   "/bellingen-destination/",
+  "/suzuki/",
   "/journal/runway/",
   "/journal/flair/",
   "/journal/slate/",
@@ -214,16 +215,16 @@ const homePosts = [
 ];
 assert.equal(
   homePosts.length,
-  24,
+  25,
   "Homepage: every existing post and experiment is discoverable",
 );
 assert.equal(
   new Set(homePosts.map((match) => match[2])).size,
-  24,
+  25,
   "Homepage: posts are not duplicated",
 );
 for (const [category, expectedCount] of [
-  ["web", 10],
+  ["web", 11],
   ["app", 3],
   ["tool", 10],
   ["write", 1],
@@ -246,6 +247,23 @@ for (const route of ["/", "/work/"]) {
     /<article\b[^>]*data-category="tool"[^>]*data-selected="true"[^>]*data-post-id="pilot"/,
     `${route}: Pilot is a selected tool`,
   );
+  assert.match(
+    html,
+    /<article\b[^>]*data-category="web"[^>]*data-selected="true"[^>]*data-post-id="suzuki"/,
+    `${route}: Suzuki is a starred website project`,
+  );
+}
+const suzukiPage = fs.readFileSync(resolveFile("/suzuki/"), "utf8");
+for (const image of [
+  "cover.jpg",
+  "home-desktop-web.jpg",
+  "home-mobile-web.jpg",
+  "bike-hayabusa-web.jpg",
+  "build-your-bike-web.jpg",
+  "dealer-web.jpg",
+  "news-article-web.jpg",
+]) {
+  assert.ok(suzukiPage.includes("/assets/suzuki/" + image), "Suzuki: " + image);
 }
 for (const [routes, employer] of [
   [

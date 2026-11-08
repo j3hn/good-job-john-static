@@ -14,6 +14,9 @@ photographic hero, bounded 1280px sections, two-column project rows, and image
 reveals. Rows stack below 980px; small controls adapt below 620px. The hero uses
 the supplied `public/assets/portfolio/hero-bg.jpg`. Project images are monochrome
 until hovered, with a pixel-and-grain overlay that dissolves on entering view.
+Work media uses the `VideoShowcase` framing: a tinted stage, an inset screen with
+rounded corners and a soft shadow. A project with a website recording reuses that
+recording's backdrop colour; other projects use the neutral surface.
 Reduced motion disables animation. Content and links remain usable without JS.
 
 Older case studies keep their content layouts through `src/styles/legacy.css`,

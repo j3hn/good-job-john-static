@@ -1,3 +1,9 @@
+import { allegraShowcase } from "./allegra";
+import { bellingenShowcase } from "./bellingen-destination";
+import { goslingShowcase } from "./gosling";
+import { festivalShowcase } from "./saltwater-freshwater";
+import { sunnyCopyShowcase } from "./sunny-copy";
+
 export type Category = "web" | "app" | "tool" | "write";
 export type Employer = "We Are Coast" | "Goodjob";
 export interface Post {
@@ -18,6 +24,8 @@ export interface Post {
   /** Recommended work: appears under the star filter. */
   starred?: boolean;
   archive?: boolean;
+  /** Backdrop behind the media frame, matching the project's video showcase. */
+  background?: string;
 }
 
 export const posts: Post[] = [
@@ -46,6 +54,7 @@ export const posts: Post[] = [
     category: "web",
     employer: "We Are Coast",
     starred: true,
+    background: allegraShowcase.background,
     tags: "Web design · Education",
     heading: "A welcoming place for a different way to learn.",
     description:
@@ -63,6 +72,7 @@ export const posts: Post[] = [
     category: "web",
     employer: "We Are Coast",
     starred: true,
+    background: festivalShowcase.background,
     tags: "Web design · Development",
     heading: "A digital home for culture and connection.",
     description:
@@ -80,6 +90,7 @@ export const posts: Post[] = [
     category: "web",
     employer: "We Are Coast",
     starred: true,
+    background: bellingenShowcase.background,
     tags: "Web design · Destination",
     heading: "A softer way to explore Bellingen.",
     description:
@@ -97,6 +108,7 @@ export const posts: Post[] = [
     category: "web",
     employer: "We Are Coast",
     starred: true,
+    background: goslingShowcase.background,
     tags: "Web design · Responsive",
     heading: "Built on trust. Designed for connection.",
     description:
@@ -145,6 +157,7 @@ export const posts: Post[] = [
     category: "web",
     employer: "Goodjob",
     starred: true,
+    background: sunnyCopyShowcase.background,
     archive: true,
     tags: "Brand · Web · Development",
     heading: "A simple website where the words do the work.",
@@ -223,6 +236,22 @@ export const posts: Post[] = [
     heading: "Save a remote file into Dropbox.",
     description:
       "An interface for saving a file and checking its progress. Requires your own Dropbox access token.",
+  },
+  {
+    id: "suzuki",
+    title: "Suzuki Dealerships",
+    href: "/suzuki/",
+    order: 65,
+    category: "web",
+    starred: true,
+    tags: "Web design · Development · Multi-site",
+    heading: "One brand voice, every dealership.",
+    description:
+      "A co-branded website network for Suzuki motorcycle dealers, sharing campaigns and range content while each shop promotes its own offers, stock and opening hours.",
+    image: "/assets/suzuki/cover.jpg",
+    alt: "The Suzuki dealer home page with the all-new Hayabusa campaign and a single feature motorcycle",
+    width: 1440,
+    height: 900,
   },
 ];
 

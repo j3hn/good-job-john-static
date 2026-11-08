@@ -9,7 +9,7 @@ pageTags: Gutenberg · Electron · React · TypeScript
 category: tool
 heading: The block editor, outside WordPress.
 order: 110
-starred: true
+starred: false
 image: block-editor.jpg
 alt: Block Editor desktop prototype with a saved paragraph and the Gutenberg block inspector
 width: 1200

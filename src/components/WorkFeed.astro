@@ -76,8 +76,18 @@ const note = posts.find((post) => post.category === "write")!;
           data-selected={post.starred ? "true" : "false"}
           data-post-id={post.id}
         >
-          <figure class="work-media" data-image-reveal>
-            <a href={post.href} aria-label={`Explore ${post.title}`}>
+          <figure
+            class="work-media"
+            data-image-reveal
+            style={
+              post.background ? `--media-bg: ${post.background}` : undefined
+            }
+          >
+            <a
+              class="media-screen"
+              href={post.href}
+              aria-label={`Explore ${post.title}`}
+            >
               <img
                 src={postImage(post)}
                 width={post.width}
@@ -145,7 +155,11 @@ const note = posts.find((post) => post.category === "write")!;
         data-post-id={blockEditor.id}
       >
         <figure class="product-visual" data-image-reveal>
-          <a href={blockEditor.href} aria-label="Explore Block Editor">
+          <a
+            class="media-screen"
+            href={blockEditor.href}
+            aria-label="Explore Block Editor"
+          >
             <img
               src={postImage(blockEditor)}
               width="1200"
@@ -173,28 +187,30 @@ const note = posts.find((post) => post.category === "write")!;
         data-selected={flare.starred ? "true" : "false"}
         data-post-id={flare.id}
       >
-        <figure class="product-visual phone-strip" data-image-reveal>
-          <img
-            src="/assets/portfolio/flare-record.jpg"
-            width="669"
-            height="1200"
-            loading="lazy"
-            alt="Flare ready-to-record screen on Android"
-          />
-          <img
-            src="/assets/portfolio/flare-landing.jpg"
-            width="669"
-            height="1200"
-            loading="lazy"
-            alt="Flare launch screen on Android"
-          />
-          <img
-            src="/assets/portfolio/flare-recording.jpg"
-            width="669"
-            height="1200"
-            loading="lazy"
-            alt="Flare recording a voice note on Android"
-          />
+        <figure class="product-visual" data-image-reveal>
+          <div class="media-screen phone-strip">
+            <img
+              src="/assets/portfolio/flare-record.jpg"
+              width="669"
+              height="1200"
+              loading="lazy"
+              alt="Flare ready-to-record screen on Android"
+            />
+            <img
+              src="/assets/portfolio/flare-landing.jpg"
+              width="669"
+              height="1200"
+              loading="lazy"
+              alt="Flare launch screen on Android"
+            />
+            <img
+              src="/assets/portfolio/flare-recording.jpg"
+              width="669"
+              height="1200"
+              loading="lazy"
+              alt="Flare recording a voice note on Android"
+            />
+          </div>
         </figure>
         <div class="product-info">
           <span class="pill">Product · In progress</span>

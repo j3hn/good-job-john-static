@@ -249,14 +249,19 @@ if (
   );
   media.forEach((element) => {
     const shade = document.createElement("div");
-    shade.className = `shade-layer${element.classList.contains("phone-strip") ? " phone-strip" : ""}`;
+    const strip =
+      element.classList.contains("phone-strip") ||
+      Boolean(element.querySelector(".phone-strip"));
+    shade.className = `shade-layer${strip ? " phone-strip" : ""}`;
     shade.setAttribute("aria-hidden", "true");
     element.querySelectorAll("img").forEach((original) => {
       const clone = original.cloneNode(true) as HTMLImageElement;
       clone.alt = "";
       shade.appendChild(clone);
     });
-    element.appendChild(shade);
+    // Cover the framed screen itself, not the stage around it.
+    const screen = element.querySelector<HTMLElement>(".media-screen");
+    (screen ?? element).appendChild(shade);
     observer.observe(element);
   });
 }
